@@ -11,5 +11,5 @@ docker build -t milo-docker ~/project_milo/docker_images/dev
 To run the docker image, run the run.sh shell script from inside the same directory:\
 ./run.sh
 
-Deploy:/
+Deploy:\
 WIP
