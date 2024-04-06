@@ -30,6 +30,9 @@ WIP
 
 Chassis design (all units in mm):
 
+Dimensions:\
+L X W H: 220 X 210 X 105
+
 STL assembly:
 
 ![image](https://github.com/JamesY1000/project_milo/assets/107318147/3857e11d-85dc-4792-b498-64467e5a706f)
