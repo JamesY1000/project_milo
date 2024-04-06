@@ -28,9 +28,9 @@ Useful aliases inside milo_ws docker:\
 Deployment:\
 WIP
 
-Chassis design (all units in mm):
+Chassis design:
 
-Dimensions:\
+Dimensions (mm):\
 L X W H: 220 X 210 X 105
 
 STL assembly:
