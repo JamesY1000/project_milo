@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Grant X server access to docker
+xhost +local:docker
+
 # Start the Docker container with privileged permissions and mount milo_ws directory
 docker run --privileged -it -v ~/project_milo/milo_ws:/root/milo_ws milo-docker
 
