@@ -23,8 +23,7 @@ Useful aliases inside milo_ws docker:\
 'alias sw="source ~/milo_ws/install/setup.bash"' >> /root/.bashrc\
 'alias cb="colcon build"' >> /root/.bashrc\
 'alias cbp="colcon build --packages-select"' >> /root/.bashrc\
-'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc\
-    
+'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc
 
 Deploy:\
 WIP
