@@ -1,4 +1,4 @@
-FROM ros:humble-ros-core-jammy
+FROM arm64v8/ros:humble-ros-base
 
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
