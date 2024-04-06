@@ -4,12 +4,12 @@ Munich Independent Land Observer
 Building the Dockerfiles:
 
 Dev:\
-Make sure you are inside the directory\
+Make sure you are inside the devel directory\
 To build the docker image:\
-docker build -t milo-docker ~/project_milo/docker_images/dev
+./run.sh -w milo_ws -i milo-devel -b
 
 To run the docker image, run the run.sh shell script from inside the same directory:\
-./run.sh
+./run.sh -w milo_ws -i milo-devel -r
 
 Deploy:\
 WIP
