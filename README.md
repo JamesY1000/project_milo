@@ -19,5 +19,12 @@ Useful aliases inside local setup.bash:\
 alias mdb="/home/james/project_milo/docker_images/devel/run.sh -w milo_ws -i milo-devel -b"\
 alias mdr="/home/james/project_milo/docker_images/devel/run.sh -w milo_ws -i milo-devel -r"
 
+Useful aliases inside milo_ws docker:\
+'alias sw="source ~/milo_ws/install/setup.bash"' >> /root/.bashrc\
+'alias cb="colcon build"' >> /root/.bashrc\
+'alias cbp="colcon build --packages-select"' >> /root/.bashrc\
+'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc\
+    
+
 Deploy:\
 WIP
