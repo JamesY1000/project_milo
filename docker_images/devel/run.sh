@@ -46,9 +46,13 @@ if [[ "$should_build" == false && "$should_run" == false ]] || [[ "$should_build
     help
 elif [[ "$should_run" == true ]]; then
     xhost +local:docker
+    # docker_run_command="docker run -it --rm --net=host --ipc=host --pid=host --privileged"
+
     docker run -it \
                --rm \
                --net=host \
+               --ipc=host \
+               --pid=host \
                --privileged \
                -e DISPLAY=$DISPLAY \
                -e PYTHONBUFFERED=1 \
