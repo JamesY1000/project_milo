@@ -28,6 +28,10 @@ Useful aliases inside milo_ws docker:\
 Deployment:\
 WIP
 
+File structure:\
+![image](https://github.com/JamesY1000/project_milo/assets/107318147/15fbcf8f-2493-4eb9-b744-10a8880946a0)
+
+
 Chassis design:
 
 Dimensions (mm):\
