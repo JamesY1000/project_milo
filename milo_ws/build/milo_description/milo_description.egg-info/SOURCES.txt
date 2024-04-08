@@ -8,6 +8,7 @@ setup.py
 ../../build/milo_description/milo_description.egg-info/requires.txt
 ../../build/milo_description/milo_description.egg-info/top_level.txt
 ../../build/milo_description/milo_description.egg-info/zip-safe
+launch/launch_sim.launch.py
 launch/rsp.launch.py
 milo_description/__init__.py
 resource/milo_description
