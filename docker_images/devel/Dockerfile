@@ -44,7 +44,10 @@ RUN apt-get update && apt-get install -y \
     xorg-dev \
     zsh
 
+# Install python packages
 RUN pip3 install setuptools==58.2.0
+# RUN pip install python-xacro
+
 
 RUN wget https://github.com/openrr/urdf-viz/releases/download/v0.38.2/urdf-viz-x86_64-unknown-linux-gnu.tar.gz && \
     tar -xvzf urdf-viz-x86_64-unknown-linux-gnu.tar.gz -C /usr/local/bin/ && \
