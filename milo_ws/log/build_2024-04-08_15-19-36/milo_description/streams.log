@@ -1,0 +1,16 @@
+[0.415s] Invoking command in '/root/milo_ws/build/milo_description': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /root/milo_ws/build/milo_description/build --no-deps install_data
+[0.567s] running develop
+[0.642s] running egg_info
+[0.642s] writing milo_description.egg-info/PKG-INFO
+[0.642s] writing dependency_links to milo_description.egg-info/dependency_links.txt
+[0.642s] writing entry points to milo_description.egg-info/entry_points.txt
+[0.642s] writing requirements to milo_description.egg-info/requires.txt
+[0.643s] writing top-level names to milo_description.egg-info/top_level.txt
+[0.644s] reading manifest file 'milo_description.egg-info/SOURCES.txt'
+[0.644s] writing manifest file 'milo_description.egg-info/SOURCES.txt'
+[0.645s] running build_ext
+[0.645s] Creating /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo-description.egg-link (link to .)
+[0.645s] 
+[0.645s] Installed /root/milo_ws/build/milo_description
+[0.645s] running install_data
+[0.667s] Invoked command in '/root/milo_ws/build/milo_description' returned '0': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /root/milo_ws/build/milo_description/build --no-deps install_data
