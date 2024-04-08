@@ -127,6 +127,8 @@
 
     <gazebo reference="left_front_wheel_link">
         <material>Gazebo/Orange</material>
+        <mu1 value="0.5"/>
+        <mu2 value="0.5"/>
     </gazebo>
 
     <!-- RIGHT REAR WHEEL LINK -->
@@ -191,6 +193,8 @@
 
     <gazebo reference="right_front_wheel_link">
         <material>Gazebo/Orange</material>
+        <mu1 value="0.5"/>
+        <mu2 value="0.5"/>        
     </gazebo>
 
     <!-- CAMERA STAND LINK -->
