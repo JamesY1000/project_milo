@@ -35,7 +35,9 @@ File structure:\
 Chassis design:
 
 Dimensions (mm):\
-L X W H: 220 X 210 X 105
+L X W X H: 220 X 210 X 105\
+Wheels (mm):\
+Radius = 35 Length = 25
 
 STL assembly:
 
