@@ -3,6 +3,10 @@
 
     <xacro:include filename="robot_core.xacro" />
 
-    <xacro:include filename="gazebo_control.xacro"/>
+    <!-- DIFF DRIVE CONTROL -->
+    <xacro:include filename="diff_drive_control.xacro"/>
+
+    <!-- SKID STEER CONTROL -->
+    <!-- <xacro:include filename="skid_steer_control.xacro"/> -->
     
 </robot>
