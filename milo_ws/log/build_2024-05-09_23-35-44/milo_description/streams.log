@@ -1,0 +1,17 @@
+[0.404s] Invoking command in '/root/milo_ws/src/milo_description': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/milo_description build --build-base /root/milo_ws/build/milo_description/build install --record /root/milo_ws/build/milo_description/install.log --single-version-externally-managed
+[0.546s] running egg_info
+[0.546s] writing ../../build/milo_description/milo_description.egg-info/PKG-INFO
+[0.546s] writing dependency_links to ../../build/milo_description/milo_description.egg-info/dependency_links.txt
+[0.546s] writing entry points to ../../build/milo_description/milo_description.egg-info/entry_points.txt
+[0.546s] writing requirements to ../../build/milo_description/milo_description.egg-info/requires.txt
+[0.547s] writing top-level names to ../../build/milo_description/milo_description.egg-info/top_level.txt
+[0.549s] reading manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+[0.550s] writing manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+[0.550s] running build
+[0.550s] running build_py
+[0.551s] running install
+[0.551s] running install_lib
+[0.552s] running install_data
+[0.553s] copying setup.py -> /root/milo_ws/install/milo_description/share/milo_description
+[0.553s] error: can't copy 'test': doesn't exist or not a regular file
+[0.571s] Invoked command in '/root/milo_ws/src/milo_description' returned '1': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/milo_description build --build-base /root/milo_ws/build/milo_description/build install --record /root/milo_ws/build/milo_description/install.log --single-version-externally-managed

@@ -13,6 +13,7 @@ def generate_launch_description():
 
     # Include rsp launch file, set sim time=true
     package_name = 'milo_description'
+    gazebo_world = os.path.join(get_package_share_directory(package_name), 'worlds', 'obstacles.world')
 
     rsp = IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
@@ -23,6 +24,7 @@ def generate_launch_description():
     # Include gazebo launch file, provided by gazebo_ros package
     gazebo = IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(
         get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
+        launch_arguments={'world': gazebo_world}.items()
             )
     
 
@@ -32,11 +34,21 @@ def generate_launch_description():
                                    '-entity', 'my_bot'],
                                    output='screen')
     
+    # Open rviz
+    rviz2 = Node(
+        package='rviz2',
+        namespace='',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', os.path.join(get_package_share_directory('milo_description'), 'config', 'view_milo.rviz')],
+    )
+    
     # Launch them all!
     return LaunchDescription([
         rsp,
         gazebo,
         spawn_entity,
+        rviz2,
     ])
 
 
