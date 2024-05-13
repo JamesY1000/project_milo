@@ -1,0 +1,21 @@
+[0.489s] Invoking command in '/root/milo_ws/src/milo_description': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/milo_description build --build-base /root/milo_ws/build/milo_description/build install --record /root/milo_ws/build/milo_description/install.log --single-version-externally-managed
+[0.647s] running egg_info
+[0.647s] writing ../../build/milo_description/milo_description.egg-info/PKG-INFO
+[0.647s] writing dependency_links to ../../build/milo_description/milo_description.egg-info/dependency_links.txt
+[0.648s] writing entry points to ../../build/milo_description/milo_description.egg-info/entry_points.txt
+[0.648s] writing requirements to ../../build/milo_description/milo_description.egg-info/requires.txt
+[0.648s] writing top-level names to ../../build/milo_description/milo_description.egg-info/top_level.txt
+[0.649s] reading manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+[0.649s] writing manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+[0.649s] running build
+[0.650s] running build_py
+[0.650s] running install
+[0.650s] running install_lib
+[0.650s] running install_data
+[0.651s] copying models/milo_bot/camera.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+[0.651s] running install_egg_info
+[0.652s] removing '/root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info' (and everything under it)
+[0.652s] Copying ../../build/milo_description/milo_description.egg-info to /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info
+[0.653s] running install_scripts
+[0.666s] writing list of installed files to '/root/milo_ws/build/milo_description/install.log'
+[0.682s] Invoked command in '/root/milo_ws/src/milo_description' returned '0': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/milo_description build --build-base /root/milo_ws/build/milo_description/build install --record /root/milo_ws/build/milo_description/install.log --single-version-externally-managed

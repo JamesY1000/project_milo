@@ -3,12 +3,12 @@
 /root/milo_ws/install/milo_description/share/ament_index/resource_index/packages/milo_description
 /root/milo_ws/install/milo_description/share/milo_description/package.xml
 /root/milo_ws/install/milo_description/share/milo_description/launch/rsp.launch.py
-/root/milo_ws/install/milo_description/share/milo_description/launch/gazebo_model.launch.py
 /root/milo_ws/install/milo_description/share/milo_description/launch/launch_sim.launch.py
+/root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/lidar.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/skid_steer_control.xacro
+/root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/camera.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/robot.urdf.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/robot_core.xacro
-/root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/diff_drive_control.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/inertial_macros.xacro
 /root/milo_ws/install/milo_description/share/milo_description/config/view_milo.rviz
 /root/milo_ws/install/milo_description/share/milo_description/worlds/obstacles.world

@@ -19,6 +19,10 @@
         <color rgba="0 0 0 1"/>
     </material>
 
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
     <link name="base_link">
     </link>
 
@@ -36,7 +40,7 @@
             <geometry>
                 <box size="0.220 0.210 0.105"/>
             </geometry>
-            <material name="white"/>
+            <material name="blue"/>
         </visual>
         <collision>
             <origin xyz="0.0 0 0.0" rpy="0 0 0"/>
@@ -50,7 +54,7 @@
     </link>
 
     <gazebo reference="chassis">
-        <material>Gazebo/White</material>
+        <material>Gazebo/Blue</material>
     </gazebo>
 
     <!-- LEFT REAR WHEEL -->
@@ -67,13 +71,13 @@
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </visual>
         <collision>
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </collision>
         <xacro:inertial_cylinder mass="0.1" length="0.025" radius="0.035">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -99,13 +103,13 @@
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </visual>
         <collision>
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </collision>
         <xacro:inertial_cylinder mass="0.1" length="0.025" radius="0.035">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -133,13 +137,13 @@
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </visual>
         <collision>
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </collision>
         <xacro:inertial_cylinder mass="0.1" length="0.025" radius="0.035">
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -165,13 +169,13 @@
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </visual>
         <collision>
             <geometry>
                 <cylinder length="0.025" radius="0.035" />
             </geometry>
-            <material name="blue"/>
+            <material name="red"/>
         </collision>
         <xacro:inertial_cylinder mass="0.1" length="0.025" radius="0.035">
             <origin xyz="0 0 0" rpy="0 0 0"/>

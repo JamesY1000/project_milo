@@ -31,7 +31,7 @@ def generate_launch_description():
     # Run spawner node from gazebo_ros package. Entity name doesn't matter
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py', 
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'my_bot'],
+                                   '-entity', 'milo'],
                                    output='screen')
     
     # Open rviz

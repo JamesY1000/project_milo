@@ -8,5 +8,12 @@
 
     <!-- SKID STEER CONTROL -->
     <xacro:include filename="skid_steer_control.xacro"/>
+
+    <!-- LiDAR -->
+    <xacro:include filename="lidar.xacro"/>
+
+    <!-- Camera -->
+    <xacro:include filename="camera.xacro"/>
+
     
 </robot>
