@@ -59,10 +59,10 @@ Top layer layer:
 ![image](https://github.com/JamesY1000/project_milo/assets/107318147/d3f9af0f-56dd-4642-9a6f-5cfe99ee0d41)
 
 
-If using ros2 control:
+If using ros2 control:\
 Run ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel_unstamped
 
-If using skid_steer_control gazebo plugin:
+If using skid_steer_control gazebo plugin:\
 Run ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 
