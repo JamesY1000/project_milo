@@ -1,0 +1,49 @@
+running egg_info
+creating ../../build/milo_description/milo_description.egg-info
+writing ../../build/milo_description/milo_description.egg-info/PKG-INFO
+writing dependency_links to ../../build/milo_description/milo_description.egg-info/dependency_links.txt
+writing entry points to ../../build/milo_description/milo_description.egg-info/entry_points.txt
+writing requirements to ../../build/milo_description/milo_description.egg-info/requires.txt
+writing top-level names to ../../build/milo_description/milo_description.egg-info/top_level.txt
+writing manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+reading manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+writing manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /root/milo_ws/build/milo_description/build
+creating /root/milo_ws/build/milo_description/build/lib
+creating /root/milo_ws/build/milo_description/build/lib/milo_description
+copying milo_description/__init__.py -> /root/milo_ws/build/milo_description/build/lib/milo_description
+running install
+running install_lib
+creating /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description
+copying /root/milo_ws/build/milo_description/build/lib/milo_description/__init__.py -> /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description
+byte-compiling /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /root/milo_ws/install/milo_description/share/ament_index
+creating /root/milo_ws/install/milo_description/share/ament_index/resource_index
+creating /root/milo_ws/install/milo_description/share/ament_index/resource_index/packages
+copying resource/milo_description -> /root/milo_ws/install/milo_description/share/ament_index/resource_index/packages
+copying package.xml -> /root/milo_ws/install/milo_description/share/milo_description
+creating /root/milo_ws/install/milo_description/share/milo_description/launch
+copying launch/rsp.launch.py -> /root/milo_ws/install/milo_description/share/milo_description/launch
+copying launch/launch_sim.launch.py -> /root/milo_ws/install/milo_description/share/milo_description/launch
+creating /root/milo_ws/install/milo_description/share/milo_description/models
+creating /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/lidar.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/skid_steer_control.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/camera.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/robot.urdf.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/robot_core.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/ros2_control.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+copying models/milo_bot/inertial_macros.xacro -> /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+creating /root/milo_ws/install/milo_description/share/milo_description/config
+copying config/view_milo.rviz -> /root/milo_ws/install/milo_description/share/milo_description/config
+copying config/my_controllers.yaml -> /root/milo_ws/install/milo_description/share/milo_description/config
+copying config/gazebo_params.yaml -> /root/milo_ws/install/milo_description/share/milo_description/config
+creating /root/milo_ws/install/milo_description/share/milo_description/worlds
+copying worlds/obstacles.world -> /root/milo_ws/install/milo_description/share/milo_description/worlds
+running install_egg_info
+Copying ../../build/milo_description/milo_description.egg-info to /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/root/milo_ws/build/milo_description/install.log'
