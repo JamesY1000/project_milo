@@ -3,7 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
@@ -14,18 +14,35 @@ def generate_launch_description():
     # Include rsp launch file, set sim time=true
     package_name = 'milo_description'
     gazebo_world = os.path.join(get_package_share_directory(package_name), 'worlds', 'obstacles.world')
+    gazebo_params_path = os.path.join(get_package_share_directory(package_name), 'config', 'gazebo_params.yaml')
 
     rsp = IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(
-                get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
-                                )]), launch_arguments={'use_sim_time': 'true'}.items()
+        get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
+        )]), 
+        launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
+        )
+
+    delayed_rsp = TimerAction(
+        period=10.0,
+        actions=[
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(package_name), 'launch', 'rsp.launch.py' 
+                )]),
+                launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
             )
+        ]
+    )
 
     
     # Include gazebo launch file, provided by gazebo_ros package
     gazebo = IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(
         get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
-        launch_arguments={'world': gazebo_world}.items()
-            )
+        launch_arguments={
+            'world': gazebo_world,
+            'extra_gazebo_args': '--ros-args --params-file ' + gazebo_params_path
+        }.items(),
+    )
     
 
     # Run spawner node from gazebo_ros package. Entity name doesn't matter
@@ -43,12 +60,29 @@ def generate_launch_description():
         arguments=['-d', os.path.join(get_package_share_directory('milo_description'), 'config', 'view_milo.rviz')],
     )
     
+
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_drive_controller"],
+    )
+
+    joint_broad_spawner=Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
+    )
+
+
     # Launch them all!
     return LaunchDescription([
         rsp,
+        # delayed_rsp,
         gazebo,
         spawn_entity,
         rviz2,
+        diff_drive_spawner,
+        joint_broad_spawner,
     ])
 
 

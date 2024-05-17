@@ -8,6 +8,8 @@ setup.py
 ../../build/milo_description/milo_description.egg-info/requires.txt
 ../../build/milo_description/milo_description.egg-info/top_level.txt
 ../../build/milo_description/milo_description.egg-info/zip-safe
+config/gazebo_params.yaml
+config/my_controllers.yaml
 config/view_milo.rviz
 launch/launch_sim.launch.py
 launch/rsp.launch.py
@@ -18,6 +20,7 @@ models/milo_bot/inertial_macros.xacro
 models/milo_bot/lidar.xacro
 models/milo_bot/robot.urdf.xacro
 models/milo_bot/robot_core.xacro
+models/milo_bot/ros2_control.xacro
 models/milo_bot/skid_steer_control.xacro
 resource/milo_description
 test/test_copyright.py

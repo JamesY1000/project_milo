@@ -9,8 +9,11 @@
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/camera.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/robot.urdf.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/robot_core.xacro
+/root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/ros2_control.xacro
 /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/inertial_macros.xacro
 /root/milo_ws/install/milo_description/share/milo_description/config/view_milo.rviz
+/root/milo_ws/install/milo_description/share/milo_description/config/my_controllers.yaml
+/root/milo_ws/install/milo_description/share/milo_description/config/gazebo_params.yaml
 /root/milo_ws/install/milo_description/share/milo_description/worlds/obstacles.world
 /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info/zip-safe
 /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info/SOURCES.txt

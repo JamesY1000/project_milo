@@ -1,0 +1,20 @@
+[0.394s] Invoking command in '/root/milo_ws/src/milo_description': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/milo_description build --build-base /root/milo_ws/build/milo_description/build install --record /root/milo_ws/build/milo_description/install.log --single-version-externally-managed install_data
+[0.545s] running egg_info
+[0.545s] writing ../../build/milo_description/milo_description.egg-info/PKG-INFO
+[0.545s] writing dependency_links to ../../build/milo_description/milo_description.egg-info/dependency_links.txt
+[0.545s] writing entry points to ../../build/milo_description/milo_description.egg-info/entry_points.txt
+[0.545s] writing requirements to ../../build/milo_description/milo_description.egg-info/requires.txt
+[0.545s] writing top-level names to ../../build/milo_description/milo_description.egg-info/top_level.txt
+[0.547s] reading manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+[0.548s] writing manifest file '../../build/milo_description/milo_description.egg-info/SOURCES.txt'
+[0.548s] running build
+[0.548s] running build_py
+[0.548s] running install
+[0.548s] running install_lib
+[0.549s] running install_data
+[0.549s] running install_egg_info
+[0.550s] removing '/root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info' (and everything under it)
+[0.550s] Copying ../../build/milo_description/milo_description.egg-info to /root/milo_ws/install/milo_description/lib/python3.10/site-packages/milo_description-0.0.0-py3.10.egg-info
+[0.551s] running install_scripts
+[0.564s] writing list of installed files to '/root/milo_ws/build/milo_description/install.log'
+[0.582s] Invoked command in '/root/milo_ws/src/milo_description' returned '0': PYTHONPATH=/root/milo_ws/build/milo_description/prefix_override:/root/milo_ws/install/milo_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/milo_description build --build-base /root/milo_ws/build/milo_description/build install --record /root/milo_ws/build/milo_description/install.log --single-version-externally-managed install_data
