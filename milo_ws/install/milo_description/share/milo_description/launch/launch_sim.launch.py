@@ -16,23 +16,14 @@ def generate_launch_description():
     gazebo_world = os.path.join(get_package_share_directory(package_name), 'worlds', 'obstacles.world')
     gazebo_params_path = os.path.join(get_package_share_directory(package_name), 'config', 'gazebo_params.yaml')
 
+
+    # Change use_ros2_control to true when you're using ros2 with wheel encoders
     rsp = IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(
         get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
         )]), 
         launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
+        # launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'false'}.items()
         )
-
-    delayed_rsp = TimerAction(
-        period=10.0,
-        actions=[
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory(package_name), 'launch', 'rsp.launch.py' 
-                )]),
-                launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
-            )
-        ]
-    )
 
     
     # Include gazebo launch file, provided by gazebo_ros package
@@ -50,6 +41,8 @@ def generate_launch_description():
                         arguments=['-topic', 'robot_description',
                                    '-entity', 'milo'],
                                    output='screen')
+    
+
     
     # Open rviz
     rviz2 = Node(
@@ -75,9 +68,9 @@ def generate_launch_description():
 
 
     # Launch them all!
+    # Uncomment diff_drive and joint_broad when you're using ros2_control with wheel encoders
     return LaunchDescription([
         rsp,
-        # delayed_rsp,
         gazebo,
         spawn_entity,
         rviz2,
