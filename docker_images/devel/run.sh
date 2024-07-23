@@ -3,7 +3,7 @@
 help()
 {
     echo ""
-    echo "Usage: $0 -w dev_ws -t sskorol/ros2-humble-dev -b"
+    echo "Usage: $0 -w milo_ws -i milo-devel -b"
     echo -e "\t-w Workspace folder name (relative to $HOME on host and /root in docker)"
     echo -e "\t-i Image to build/run"
     echo -e "\t-b Build mode"
