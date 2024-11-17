@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
     ros-humble-robot-localization \
     ros-humble-plotjuggler-ros \
     ros-humble-robot-state-publisher \
+    ros-humble-ros2-control \
+    ros-humble-ros2-controllers \
     ros-humble-ros2bag \
     ros-humble-rosbag2-storage-default-plugins \
     ros-humble-rqt-tf-tree \
