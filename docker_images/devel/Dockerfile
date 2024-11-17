@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-robot-state-publisher \
     ros-humble-ros2bag \
     ros-humble-rosbag2-storage-default-plugins \
+    ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control \
     ros-humble-rqt-tf-tree \
     ros-humble-rmw-fastrtps-cpp \
     ros-humble-rmw-cyclonedds-cpp \
