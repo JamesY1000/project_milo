@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>milo_description</name>
+  <name>example_pkg</name>
   <version>0.0.0</version>
-  <description>Description of milo models and controllers</description>
+  <description>Examples of ros2 cpp and py package</description>
   <maintainer email="jamesyuan1000@gmail.com">root</maintainer>
   <license>TODO: License declaration</license>
 
@@ -12,6 +12,7 @@
 
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
+  <depend>std_msgs</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
