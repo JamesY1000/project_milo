@@ -1,15 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="robot">
 
-    <xacro:arg name="use_ros2_control" default="true" />
-
-    <xacro:if value="$(arg use_ros2_control)">
-        <xacro:include filename="ros2_control.xacro"/>
-    </xacro:if>
-    <xacro:unless value="$(arg use_ros2_control)">
-        <xacro:include filename="skid_steer_control.xacro"/>
-    </xacro:unless>
-
     <xacro:include filename="robot_core.xacro" />
 
     <!-- DIFF DRIVE CONTROL -->
@@ -19,7 +10,7 @@
     <!-- <xacro:include filename="skid_steer_control.xacro"/> -->
 
     <!-- CUSTOM ROS2 CONTROL -->
-    <!-- <xacro:include filename="ros2_control.xacro" /> -->
+    <xacro:include filename="ros2_control.xacro" />
 
     <!-- LiDAR -->
     <xacro:include filename="lidar.xacro"/>

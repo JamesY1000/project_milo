@@ -10,12 +10,10 @@ def generate_launch_description():
 
     package_name = 'milo_description'
 
-    # Change use_ros2_control to true when you're using ros2 with wheel encoders
     rsp = IncludeLaunchDescription(PythonLaunchDescriptionSource([os.path.join(
         get_package_share_directory(package_name), 'launch', 'rsp.launch.py'
         )]), 
         launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
-        # launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'false'}.items()
         )
 
     diff_drive_spawner = Node(
