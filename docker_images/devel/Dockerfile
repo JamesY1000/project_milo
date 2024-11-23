@@ -76,6 +76,5 @@ RUN echo 'eval "$(register-python-argcomplete3 colcon)"' >> /root/.bashrc
 RUN echo 'alias sw="source ~/milo_ws/install/setup.bash"' >> /root/.bashrc
 RUN echo 'alias cb="colcon build"' >> /root/.bashrc
 RUN echo 'alias cbp="colcon build --packages-select"' >> /root/.bashrc
+RUN echo 'alis cbps="colcon build --packages-select"' >> /root/.bashrc
 RUN echo 'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc
-
-
