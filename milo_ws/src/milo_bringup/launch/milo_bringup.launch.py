@@ -3,9 +3,6 @@ from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 
 
-
-
-
 # TODO: Add different milo bringup components
 def generate_launch_description():
 
