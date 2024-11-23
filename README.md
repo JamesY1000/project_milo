@@ -15,21 +15,8 @@ To run the docker image, run the run.sh shell script from inside the same direct
 or\
 mdr
 
-Useful aliases inside local setup.bash:\
-alias mdb="/home/james/project_milo/docker_images/devel/run.sh -w milo_ws -i milo-devel -b"\
-alias mdr="/home/james/project_milo/docker_images/devel/run.sh -w milo_ws -i milo-devel -r"
-
-Useful aliases inside milo_ws docker:\
-'alias sw="source ~/milo_ws/install/setup.bash"' >> /root/.bashrc\
-'alias cb="colcon build"' >> /root/.bashrc\
-'alias cbp="colcon build --packages-select"' >> /root/.bashrc\
-'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc
-
 Deployment:\
 WIP
-
-File structure:\
-![image](https://github.com/JamesY1000/project_milo/assets/107318147/15fbcf8f-2493-4eb9-b744-10a8880946a0)
 
 
 Chassis design:
@@ -60,10 +47,10 @@ Top layer layer:
 
 
 If using ros2 control:\
-Run ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel_unstamped
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_drive_controller/cmd_vel_unstamped
 
 If using skid_steer_control gazebo plugin:\
-Run ros2 run teleop_twist_keyboard teleop_twist_keyboard
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 
 
