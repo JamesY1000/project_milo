@@ -4,19 +4,18 @@
     <xacro:include filename="robot_core.xacro" />
 
     <!-- DIFF DRIVE CONTROL -->
-    <!-- <xacro:include filename="diff_drive_control.xacro"/> -->
+    <xacro:include filename="controllers/diff_drive_control.xacro"/>
 
-    <!-- SKID STEER CONTROL -->
-    <!-- <xacro:include filename="skid_steer_control.xacro"/> -->
-
-    <!-- CUSTOM ROS2 CONTROL -->
-    <xacro:include filename="ros2_control.xacro" />
+    <!-- CUSTOM ROS2 CONTROL - currently laser scanner moves in rviz bug-->
+    <!-- <xacro:include filename="ros2_control.xacro" /> -->
 
     <!-- LiDAR -->
-    <xacro:include filename="lidar.xacro"/>
+    <xacro:include filename="lidars/lidar.xacro"/>
 
     <!-- Camera -->
-    <xacro:include filename="camera.xacro"/>
+    <xacro:include filename="cameras/camera.xacro"/>
 
+    <!-- IMU -->
+    <xacro:include filename="imu/imu.xacro"/>
     
-</robot>
+</robot> 

@@ -27,7 +27,9 @@ RUN apt-get update && apt-get install -y \
     ros-humble-robot-state-publisher \
     ros-humble-ros2bag \
     ros-humble-rosbag2-storage-default-plugins \
-    ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control \
+    ros-humble-ros2-control \
+    ros-humble-ros2-controllers \
+    ros-humble-gazebo-ros2-control \
     ros-humble-rqt-tf-tree \
     ros-humble-rmw-fastrtps-cpp \
     ros-humble-rmw-cyclonedds-cpp \
@@ -75,6 +77,6 @@ RUN echo 'eval "$(register-python-argcomplete3 colcon)"' >> /root/.bashrc
 # add here useful aliases
 RUN echo 'alias sw="source ~/milo_ws/install/setup.bash"' >> /root/.bashrc
 RUN echo 'alias cb="colcon build"' >> /root/.bashrc
-RUN echo 'alias cbp="colcon build --packages-select"' >> /root/.bashrc
-RUN echo 'alis cbps="colcon build --packages-select"' >> /root/.bashrc
+RUN echo 'alias cbps="colcon build --packages-select"' >> /root/.bashrc
 RUN echo 'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc
+RUN echo 'alias sim="ros2 launch milo_simulation milo_simulation.launch.py"' >> /root/.bashrc

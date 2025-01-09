@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="robot">
 
-
-
     <!-- HARDWARE INTERFACE -->
     <ros2_control name="GazeboSystem" type="system">
 

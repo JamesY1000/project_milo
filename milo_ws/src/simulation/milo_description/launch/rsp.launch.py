@@ -11,7 +11,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
 
     pkg_path = os.path.join(get_package_share_directory('milo_description'))
-    relative_path = 'models/milo_bot/robot.urdf.xacro'
+    relative_path = 'models/milo_bot/robot.urdf.xacro' #TO: Add as a rosparam from description launch
     xacro_file = os.path.join(pkg_path, relative_path)
 
     robot_description_config = Command(

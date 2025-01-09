@@ -8,10 +8,10 @@
 <!-- Controller for 4-wheeled robot (skid_steer_drive) -->
 <gazebo>
 
-<plugin name='skid_steer_drive' filename='libgazebo_ros_diff_drive.so'>
+<plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
 
     <ros>
-        <namespace> </namespace>
+        <namespace>diff_drive</namespace>
     </ros>
 
     <num_wheel_pairs>2</num_wheel_pairs>
@@ -23,8 +23,8 @@
     <right_joint>right_front_wheel_joint</right_joint>
 
     <!-- Kinematics -->
-    <wheel_separation>0.180</wheel_separation>
-    <wheel_separation>0.180</wheel_separation>
+    <wheel_separation>0.235</wheel_separation>
+    <wheel_separation>0.235</wheel_separation>
 
     <wheel_diameter>0.070</wheel_diameter>
     <wheel_diameter>0.070</wheel_diameter>
@@ -35,7 +35,7 @@
 
     <!-- Output -->
     <publish_odom>true</publish_odom>
-    <publish_odom_tf>true</publish_odom_tf>
+    <publish_odom_tf>false</publish_odom_tf>
     <publish_wheel_tf>true</publish_wheel_tf>
 
     <odometry_frame>odom</odometry_frame>

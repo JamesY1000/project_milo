@@ -9,6 +9,7 @@ import os
 def generate_launch_description():
 
     milo_description_pkg = "milo_description"
+    milo_slam_pkg = "milo_slam"
 
     gazebo_world = os.path.join(
         get_package_share_directory(milo_description_pkg), 
@@ -34,6 +35,14 @@ def generate_launch_description():
             "milo_description.launch.py"
             ])
         )
+    
+    milo_slam = IncludeLaunchDescription(
+        PathJoinSubstitution([
+            get_package_share_directory(milo_slam_pkg),
+            "launch",
+            "milo_slam.launch.py"
+        ])
+    )
 
     gazebo_server = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -59,7 +68,6 @@ def generate_launch_description():
         )
     )
 
-    # Run spawner node from gazebo_ros package. Entity name doesn't matter
     spawn_entity = Node(
         package='gazebo_ros', 
         executable='spawn_entity.py', 
@@ -82,6 +90,6 @@ def generate_launch_description():
         rviz2,
         gazebo_server,
         gazebo_client,
-        spawn_entity
-        
+        spawn_entity,
+        milo_slam
     ])
