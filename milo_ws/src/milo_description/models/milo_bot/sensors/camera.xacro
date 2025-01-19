@@ -31,11 +31,11 @@
             <visualize>false</visualize>
             <update_rate>10</update_rate>
             <camera>
-                <horizontal_fov>2.094</horizontal_fov>
+                <horizontal_fov>1.309</horizontal_fov>
                 <image>
                     <format>R8G8B8</format>
-                    <width>4608</width>
-                    <height>2592</height>
+                    <width>4056</width>
+                    <height>3040</height>
                 </image>
                 <clip>
                     <near>0.05</near>
@@ -44,10 +44,20 @@
             </camera>
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
                 <frame_name>camera_link_optical</frame_name>
+                <!-- <alwaysOn>true</alwaysOn>
+                <updateRate>0.0</updateRate>
+                <cameraName>rrbot/camera1</cameraName>
+                <imageTopicName>image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                <frameName>camera_link</frameName>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2> -->
             </plugin>
         </sensor>
     </gazebo>
-
-
 
 </robot>

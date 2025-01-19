@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://www.ros.org/wiki/xacro" name="milo">
+
+    <xacro:include filename="robot_core.xacro" />
+
+    <!-- DIFF DRIVE CONTROL -->
+    <xacro:include filename="controllers/diff_drive_control.xacro"/>
+
+    <!-- CUSTOM ROS2 CONTROL -->
+    <!-- <xacro:include filename="controllers/ros2_control.xacro" /> -->
+
+    <!-- LiDAR -->
+    <xacro:include filename="sensors/lidar.xacro"/>
+
+    <!-- Monocular RGB Camera -->
+    <xacro:include filename="sensors/camera.xacro"/>
+
+    <!-- TODO (james) Add mockup realsense depth camera -->
+    <!-- <xacro:include filename="sensors/rgbd_camera.xacro"/> -->
+
+    <!-- IMU -->
+    <xacro:include filename="sensors/imu.xacro"/>
+
+
+    
+</robot>

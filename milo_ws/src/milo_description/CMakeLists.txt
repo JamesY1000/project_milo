@@ -21,7 +21,6 @@ ament_python_install_package(${PROJECT_NAME})
 install(DIRECTORY
   config
   models
-  worlds
   launch
   DESTINATION share/${PROJECT_NAME})
 

@@ -1,18 +1,18 @@
+from pathlib import Path
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration, Command
 from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
-import os
-
 
 def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time')
 
-    pkg_path = os.path.join(get_package_share_directory('milo_description'))
-    relative_path = 'models/milo_bot/robot.urdf.xacro'
-    xacro_file = os.path.join(pkg_path, relative_path)
+    pkg_path = Path(get_package_share_directory('milo_description')).as_posix()
+    relative_path = Path('models', 'milo_bot', 'robot.urdf.xacro').as_posix()
+    xacro_file = Path(pkg_path, relative_path).as_posix()
 
     robot_description_config = Command(
         ['xacro ', xacro_file]

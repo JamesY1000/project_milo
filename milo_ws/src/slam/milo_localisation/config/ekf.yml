@@ -1,7 +1,7 @@
 ekf_filter_node:
     ros__parameters:
-        frequency: 30.0 # frequency it will output position estimate
-        two_d_mode: false
+        frequency: 50.0 # frequency it will output position estimate
+        two_d_mode: true
         publish_acceleration: true
         publish_tf: true
 
@@ -23,23 +23,25 @@ ekf_filter_node:
 
         # Diff drive plugin
         odom0: diff_drive/odom 
-        odom0_config: [true,  true,  true, # Position xyz
-                       false, false, false, # Orientation rpy
-                       true, false, false, # Linear vel xyz
+        odom0_config: [true,  true,  false, # Position xyz
+                       false, false, true, # Orientation rpy
+                       false, false, false, # Linear vel xyz
                        false, false, false, # Angular vel xyz
                        false, false, false] # Linear accel xyz
 
         # Imu plugin
         imu0: milo/imu
-        imu0_config: [false, false, false,
-                      true,  true,  true,
-                      false, false, false,
-                      false, false, false,
-                      false, false, false]
+        imu0_config: [false, false, false, # Position xyz
+                      true, true, true, # Orientation rpy
+                      false, false, false, # Linear vel xyz
+                      true, true, false, # Angular vel xyz
+                      true, true, false] # Linear accel xyz
 
+
+        # - visual inertial odometry (vio) - maybe rtabmap?
 
         # - amcl localisation (2d laserscan)
-        # - visual inertial odometry (vio) - maybe rtabmap?
+
         
         # Any additional inputs can be of type: odom, imu, pose, twist
 

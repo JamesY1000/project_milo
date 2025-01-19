@@ -21,6 +21,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(DIRECTORY
   config
   launch
+  worlds
   DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)

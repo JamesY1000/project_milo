@@ -1,0 +1,46 @@
+  rtabmap_viz:
+    ros__parameters:
+
+      # TODO: (james) Get Chatgpt to help you organise these params
+
+
+      # approx_sync
+      # camera_node_name
+      # diagnostic_updater.period
+      # diagnostic_updater.use_fqn
+      # frame_id
+      # init_cache_path
+      # is_rtabmap_paused
+      # max_odom_update_rate
+      # odom_frame_id
+      # odom_sensor_sync
+      # qos
+      # qos_camera_info
+      # qos_image
+      # qos_odom
+      # qos_overrides./parameter_events.publisher.depth
+      # qos_overrides./parameter_events.publisher.durability
+      # qos_overrides./parameter_events.publisher.history
+      # qos_overrides./parameter_events.publisher.reliability
+      # qos_scan
+      # qos_sensor_data
+      # qos_user_data
+      # queue_size
+      # rgbd_cameras
+      # rtabmap
+      # subscribe_depth
+      # subscribe_info_only
+      # subscribe_odom
+      # subscribe_odom_info
+      # subscribe_rgb
+      # subscribe_rgbd
+      # subscribe_scan
+      # subscribe_scan_cloud
+      # subscribe_scan_descriptor
+      # subscribe_sensor_data
+      # subscribe_stereo
+      # subscribe_user_data
+      # sync_queue_size
+      # topic_queue_size
+      # use_sim_time
+      # wait_for_transform

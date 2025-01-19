@@ -1,31 +1,31 @@
+from pathlib import Path
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import PathJoinSubstitution
-import os
 
 def generate_launch_description():
 
     milo_description_pkg = "milo_description"
+    milo_slam_pkg = "milo_slam"
 
-    gazebo_world = os.path.join(
-        get_package_share_directory(milo_description_pkg), 
-        "worlds", 
-        "obstacles.world")
+    gazebo_world = (Path(__file__).resolve().parent.parent
+                    / "worlds"
+                    / "obstacles.world"
+                    ).as_posix()
+
+    gazebo_params_path = (Path(__file__).resolve().parent.parent 
+                          / "config" 
+                          / "gazebo_params.yml"
+                    ).as_posix()
     
-    gazebo_params_path = os.path.join(
-        os.path.dirname(__file__),
-        "..",
-        "config", 
-        "gazebo_params.yaml")
-    
-    rviz_config_path = os.path.join(
-        os.path.dirname(__file__),
-        "..",
-        "config", 
-        "view_milo.rviz")
+    rviz_config_path = (Path(__file__).resolve().parent.parent 
+                        / "config" 
+                        / "view_milo.rviz"
+                        ).as_posix()
 
     milo_description_launch = IncludeLaunchDescription(
             PathJoinSubstitution([
@@ -34,14 +34,22 @@ def generate_launch_description():
             "milo_description.launch.py"
             ])
         )
+    
+    # milo_slam = IncludeLaunchDescription(
+    #     PathJoinSubstitution([
+    #         get_package_share_directory(milo_slam_pkg),
+    #         "launch",
+    #         "milo_slam.launch.py"
+    #     ])
+    # )
 
     gazebo_server = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(
+            Path(
                 get_package_share_directory("gazebo_ros"),
                 "launch",
                 "gzserver.launch.py"
-            )
+            ).as_posix()
         ),
         launch_arguments={
             "world": gazebo_world,
@@ -51,11 +59,11 @@ def generate_launch_description():
 
     gazebo_client = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(
+            Path(
                 get_package_share_directory("gazebo_ros"),
                 "launch",
                 "gzclient.launch.py"
-            )
+            ).as_posix()
         )
     )
 
@@ -79,9 +87,9 @@ def generate_launch_description():
     
     return LaunchDescription([
         milo_description_launch,
+        # milo_slam, # Include in bringup, not simulation
         rviz2,
         gazebo_server,
         gazebo_client,
         spawn_entity
-        
     ])

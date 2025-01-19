@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y \
     ros-humble-rqt-tf-tree \
     ros-humble-rmw-fastrtps-cpp \
     ros-humble-rmw-cyclonedds-cpp \
+    ros-humble-rtabmap \
+    ros-humble-rtabmap-ros \
     ros-humble-slam-toolbox \
     ros-humble-turtlebot3 \
     ros-humble-turtlebot3-msgs \
@@ -75,6 +77,7 @@ RUN echo 'eval "$(register-python-argcomplete3 colcon)"' >> /root/.bashrc
 # add here useful aliases
 RUN echo 'alias sw="source ~/milo_ws/install/setup.bash"' >> /root/.bashrc
 RUN echo 'alias cb="colcon build"' >> /root/.bashrc
-RUN echo 'alias cbp="colcon build --packages-select"' >> /root/.bashrc
 RUN echo 'alis cbps="colcon build --packages-select"' >> /root/.bashrc
 RUN echo 'alias plot="ros2 run plotjuggler plotjuggler"' >> /root/.bashrc
+RUN echo 'alias sim="ros2 launch milo_simulation milo_simulation.launch.py"' >> /root/.bashrc
+RUN echo 'alias slam="ros2 launch milo_slam milo_slam.launch.py"' >> /root/.bashrc

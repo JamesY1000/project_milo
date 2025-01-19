@@ -1,0 +1,32 @@
+rtabmap:
+  ros__parameters:
+    approx_sync: true 
+    subscribe_rgb: false
+    subscribe_depth: false
+    subscribe_rgbd: false
+    subscribe_scan: true
+    subscribe_scan_cloud: false
+    subscribe_odom: true
+    # stereo_to_depth: false
+    subscribe_stereo: false
+
+    # RGBD/Enabled: "false"
+
+
+    frame_id: "base_link"
+    publish_tf: true
+    use_sim_time: true
+
+
+    # Mem/StereoFromMotion: "true"
+
+    Grid/FromDepth: "false"         # No depth data used for grid map generation
+    Grid/3D: "false"                # Force RTAB-Map to generate a 2D occupancy map
+    # Grid/Sensor: "1"
+    # Grid/MaxAltitude: "0.5"         # Exclude features beyond a specific altitude (e.g., > 0.5 meters above the ground)
+    # Grid/RangeMax: "10.0"           # Max range (in meters) for map cells
+    # Grid/CellSize: "0.05"           # Size of each grid cell (e.g., 5 cm)
+
+
+    # Rtabmap/DetectionRate: "10.0"
+

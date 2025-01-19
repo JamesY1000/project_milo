@@ -48,7 +48,7 @@
 
     <gazebo>
         <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-            <parameters>$(find milo_description)/config/my_controllers.yaml</parameters>
+            <parameters>$(find milo_description)/config/my_controllers.yml</parameters>
         </plugin>
     </gazebo>
 

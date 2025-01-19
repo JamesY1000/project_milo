@@ -1,19 +1,13 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
-from launch.substitutions import LaunchConfiguration
-from ament_index_python.packages import get_package_share_directory
-
-import os
+from pathlib import Path
 
 def generate_launch_description():
 
-    ekf_config = os.path.join(
-            os.path.dirname(__file__),
-            "..",
-            "config",
-            "ekf.yaml"
-        )
+    ekf_config = (Path(__file__).resolve().parent.parent
+                  / "config"
+                  / "ekf.yml"
+                  )
 
     robot_localisation_node = Node(
         package="robot_localization",
@@ -23,6 +17,13 @@ def generate_launch_description():
         parameters=[ekf_config, {'use_sim_time': True}] # TODO: Change this to be more elegant - pass use_sim_time : true or something as an argument/param from milo_bringup
         )
     
+    # odom_to_tf = Node(
+    #     package="milo_localisation",
+    #     executable="odom_to_tf.py",
+    #     name="odom_to_tf_node",
+    #     output="screen",
+    #     )    
     return LaunchDescription([
-        robot_localisation_node
+        robot_localisation_node,
+        # odom_to_tf
     ])
