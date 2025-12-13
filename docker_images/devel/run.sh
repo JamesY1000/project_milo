@@ -58,7 +58,7 @@ elif [[ "$should_run" == true ]]; then
                -e PYTHONBUFFERED=1 \
                -v /etc/timezone:/etc/timezone:ro \
                -v /etc/localtime:/etc/localtime:ro \
-               -v /home/james/project_milo/milo_ws:/root/milo_ws:rw \
+               -v /home/james/git/project_milo/milo_ws:/root/milo_ws:rw \
                -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
                -v $HOME/.Xauthority:/root/.Xauthority:ro \
                -v $PWD/.session.yml:/root/.session.yml \
