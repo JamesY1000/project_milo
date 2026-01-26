@@ -1,0 +1,97 @@
+[0.008s] Invoking command in '/root/milo_ws/build/milo_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /root/milo_ws/src/simulation/milo_description -DCMAKE_INSTALL_PREFIX=/root/milo_ws/install/milo_description
+[0.046s] -- The C compiler identification is GNU 13.3.0
+[0.083s] -- The CXX compiler identification is GNU 13.3.0
+[0.095s] -- Detecting C compiler ABI info
+[0.157s] -- Detecting C compiler ABI info - done
+[0.162s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.162s] -- Detecting C compile features
+[0.162s] -- Detecting C compile features - done
+[0.168s] -- Detecting CXX compiler ABI info
+[0.233s] -- Detecting CXX compiler ABI info - done
+[0.238s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.239s] -- Detecting CXX compile features
+[0.239s] -- Detecting CXX compile features - done
+[0.242s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.341s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.420s] -- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.455s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.467s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.479s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.492s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.548s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.551s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.612s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.628s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.645s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.695s] -- Found rclpy: 7.1.5 (/opt/ros/jazzy/share/rclpy/cmake)
+[0.758s] -- Found ament_lint_auto: 0.17.3 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[0.828s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.828s] -- Configured 'flake8' exclude dirs and/or files: 
+[0.829s] -- Added test 'lint_cmake' to check CMake code style
+[0.829s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.830s] -- Added test 'xmllint' to check XML markup files
+[0.831s] -- Configuring done (0.8s)
+[0.833s] -- Generating done (0.0s)
+[0.835s] -- Build files have been written to: /root/milo_ws/build/milo_description
+[0.842s] Invoked command in '/root/milo_ws/build/milo_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /root/milo_ws/src/simulation/milo_description -DCMAKE_INSTALL_PREFIX=/root/milo_ws/install/milo_description
+[0.842s] Invoking command in '/root/milo_ws/build/milo_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /root/milo_ws/build/milo_description -- -j32 -l32
+[0.888s] Built target ament_cmake_python_copy_milo_description
+[0.997s] running egg_info
+[0.997s] creating milo_description.egg-info
+[1.006s] writing milo_description.egg-info/PKG-INFO
+[1.006s] writing dependency_links to milo_description.egg-info/dependency_links.txt
+[1.006s] writing top-level names to milo_description.egg-info/top_level.txt
+[1.006s] writing manifest file 'milo_description.egg-info/SOURCES.txt'
+[1.030s] reading manifest file 'milo_description.egg-info/SOURCES.txt'
+[1.031s] writing manifest file 'milo_description.egg-info/SOURCES.txt'
+[1.048s] Built target ament_cmake_python_build_milo_description_egg
+[1.064s] Invoked command in '/root/milo_ws/build/milo_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /root/milo_ws/build/milo_description -- -j32 -l32
+[1.065s] Invoking command in '/root/milo_ws/build/milo_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /root/milo_ws/build/milo_description
+[1.070s] -- Install configuration: ""
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/environment/pythonpath.sh
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/environment/pythonpath.dsv
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description-0.0.0-py3.12.egg-info
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description-0.0.0-py3.12.egg-info/top_level.txt
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description-0.0.0-py3.12.egg-info/dependency_links.txt
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description-0.0.0-py3.12.egg-info/SOURCES.txt
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description-0.0.0-py3.12.egg-info/PKG-INFO
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description
+[1.070s] -- Installing: /root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description/__init__.py
+[1.091s] Listing '/root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description'...
+[1.091s] Compiling '/root/milo_ws/install/milo_description/lib/python3.12/site-packages/milo_description/__init__.py'...
+[1.094s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/config
+[1.095s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/config/my_controllers.yaml
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/old_xacros
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/old_xacros/robot.gazebo
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/old_xacros/diff_drive_control.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/old_xacros/new_robot_core.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/robot_core.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/inertial_macros.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/robot.urdf.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/camera.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/skid_steer_control.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/lidar.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/models/milo_bot/ros2_control.xacro
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/worlds
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/worlds/obstacles.world
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/launch
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/launch/rsp.launch.py
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/launch/milo_description.launch.py
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/ament_index/resource_index/package_run_dependencies/milo_description
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/ament_index/resource_index/parent_prefix_path/milo_description
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/environment/ament_prefix_path.sh
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/environment/ament_prefix_path.dsv
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/environment/path.sh
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/environment/path.dsv
+[1.096s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/local_setup.bash
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/local_setup.sh
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/local_setup.zsh
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/local_setup.dsv
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/package.dsv
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/ament_index/resource_index/packages/milo_description
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/cmake/milo_descriptionConfig.cmake
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/cmake/milo_descriptionConfig-version.cmake
+[1.097s] -- Installing: /root/milo_ws/install/milo_description/share/milo_description/package.xml
+[1.123s] Invoked command in '/root/milo_ws/build/milo_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /root/milo_ws/build/milo_description

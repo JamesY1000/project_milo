@@ -1,0 +1,4 @@
+source;share/milo_simulation/local_setup.bash
+source;share/milo_simulation/local_setup.dsv
+source;share/milo_simulation/local_setup.sh
+source;share/milo_simulation/local_setup.zsh

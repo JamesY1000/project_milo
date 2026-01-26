@@ -1,0 +1,6 @@
+Invoking command in '/root/milo_ws/build/milo_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /root/milo_ws/src/milo_bringup -DCMAKE_INSTALL_PREFIX=/root/milo_ws/install/milo_bringup
+Invoked command in '/root/milo_ws/build/milo_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /root/milo_ws/src/milo_bringup -DCMAKE_INSTALL_PREFIX=/root/milo_ws/install/milo_bringup
+Invoking command in '/root/milo_ws/build/milo_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /root/milo_ws/build/milo_bringup -- -j32 -l32
+Invoked command in '/root/milo_ws/build/milo_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /root/milo_ws/build/milo_bringup -- -j32 -l32
+Invoking command in '/root/milo_ws/build/milo_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /root/milo_ws/build/milo_bringup
+Invoked command in '/root/milo_ws/build/milo_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /root/milo_ws/build/milo_bringup
