@@ -1,0 +1,65 @@
+controller_teleop_node:
+  ros__parameters:
+    controller_mapping:
+      # Controller input mapping from /milo/joy topic
+      # Axes: -1 to 1
+      l_joystick_l_r_axes_idx: 0
+      l_joystick_u_d_axes_idx: 1
+      r_joystick_l_r_axes_idx: 2
+      r_joystick_u_d_axes_idx: 3
+      l2_throttle_axes_idx: 4 # Goes from 1.0 (no press) to -1.0 (fully pressed)
+      r2_throttle_axes_idx: 5
+      # Buttons: 0 to 1
+      x_button_idx: 0
+      o_button_idx: 1
+      square_button_idx: 2
+      triangle_button_idx: 3
+      share_button_idx: 4
+      playstation_button_idx: 5
+      start_button_idx: 6
+      l3_button_idx: 7
+      r3_button_idx: 8
+      l1_button_idx: 9
+      r1_button_idx: 10
+      arrow_up_button_idx: 11 # Toggle headlight
+      arrow_down_button_idx: 12
+      arrow_left_button_idx: 13
+      arrow_right_button_idx: 14 # Toggle LED lights
+      touchpad_button_idx: 15
+
+    # For different drive modes: Normal, precision
+    scaling:
+      linear_normal: 1.0
+      angular_normal: 1.0
+      linear_precision: 0.3 # How fast throttle is applied during precision mode  
+      angular_precision: 0.3 # How fast steering/turning is applied during precision mode
+
+    input_threshold:
+      deadzone_threshold: 0.1 # Ignore inputs within 0.1 range of 0
+      trigger_threshold: -0.8 # R2 and L2 must be pressed to at least -0.8 to count as being triggered
+
+# Joy message
+# axes:
+# - 0.0 # left/right - left joystick
+# - 0.0 # up/down - left joystick
+# - 0.0 # left/right - right joystick
+# - 0.0 # up/down - right joystick
+# - 1.0 # throttle - l2
+# - 0.0 # throttle - r2
+# buttons:
+# - 0 - x
+# - 0 - o
+# - 0 - square
+# - 0 - triangle
+# - 0 - share
+# - 0 - playstation/home button
+# - 0 - start
+# - 0 - l3
+# - 0 - r3
+# - 0 - l1
+# - 0 - r1
+# - 0 - arrow up
+# - 0 - arrow down
+# - 0 - arrow left
+# - 0 - arrow right
+# - 0 - press down touchpad
