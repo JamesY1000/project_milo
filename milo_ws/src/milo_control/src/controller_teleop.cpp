@@ -20,14 +20,12 @@ void MiloControl::ControllerTeleop::get_params()
     this->declare_parameter("controller_mapping.r_joystick_u_d_axes_idx", 3);
     this->declare_parameter("controller_mapping.l2_throttle_axes_idx", 4);
     this->declare_parameter("controller_mapping.r2_throttle_axes_idx", 5);
-
-    // TODO (james): Finish these param declarations off
-    l_joystick_l_r_axes_idx_ = this->get_parameter("controller_mapping.l_joystick_l_r_axes_idx").as_int();
-    l_joystick_u_d_axes_idx_ = this->get_parameter("controller_mapping.l_joystick_u_d_axes_idx").as_int();
-    r_joystick_l_r_axes_idx_;
-    r_joystick_u_d_axes_idx_;
-    l2_throttle_axes_idx_;
-    r2_throttle_axes_idx_;
+    l_joystick_l_r_axes_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.l_joystick_l_r_axes_idx").as_int());
+    l_joystick_u_d_axes_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.l_joystick_u_d_axes_idx").as_int());
+    r_joystick_l_r_axes_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.r_joystick_l_r_axes_idx").as_int());
+    r_joystick_u_d_axes_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.r_joystick_u_d_axes_idx").as_int());
+    l2_throttle_axes_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.l2_throttle_axes_idx").as_int());
+    r2_throttle_axes_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.r2_throttle_axes_idx").as_int());
 
     // Buttons
     this->declare_parameter("controller_mapping.x_button_idx", 0);
@@ -46,16 +44,38 @@ void MiloControl::ControllerTeleop::get_params()
     this->declare_parameter("controller_mapping.arrow_left_button_idx", 13);
     this->declare_parameter("controller_mapping.arrow_right_button_idx", 14);
     this->declare_parameter("controller_mapping.touchpad_button_idx", 15);
+    x_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.x_button_idx").as_int());
+    o_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.o_button_idx").as_int());
+    square_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.square_button_idx").as_int());
+    triangle_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.triangle_button_idx").as_int());
+    share_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.share_button_idx").as_int());
+    playstation_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.playstation_button_idx").as_int());
+    start_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.start_button_idx").as_int());
+    l3_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.l3_button_idx").as_int());
+    r3_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.r3_button_idx").as_int());
+    l1_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.l1_button_idx").as_int());
+    r1_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.r1_button_idx").as_int());
+    arrow_up_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.arrow_up_button_idx").as_int());
+    arrow_down_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.arrow_down_button_idx").as_int());
+    arrow_left_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.arrow_left_button_idx").as_int());
+    arrow_right_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.arrow_right_button_idx").as_int());
+    touchpad_button_idx_ = static_cast<uint8_t>(this->get_parameter("controller_mapping.touchpad_button_idx").as_int());
 
     // Scaling
     this->declare_parameter("scaling.linear_normal", 1.0);
     this->declare_parameter("scaling.angular_normal", 1.0);
     this->declare_parameter("scaling.linear_precision", 0.3);
     this->declare_parameter("scaling.angular_precision", 0.3);
+    linear_normal_ = this->get_parameter("scaling.linear_normal").as_double();
+    angular_normal_ = this->get_parameter("scaling.angular_normal").as_double();
+    linear_precision_ = this->get_parameter("scaling.linear_precision").as_double();
+    angular_precision_ = this->get_parameter("scaling.angular_precision").as_double();
 
     // Input threshold
     this->declare_parameter("input_threshold.deadzone_threshold", 0.1);
     this->declare_parameter("input_threshold.trigger_threshold", -0.8);
+    deadzone_threshold_ = this->get_parameter("input_threshold.deadzone_threshold").as_double();
+    trigger_threshold_ = this->get_parameter("input_threshold.trigger_threshold").as_double();
 }
 
 void MiloControl::ControllerTeleop::setup_pub_subs()
@@ -106,7 +126,7 @@ void MiloControl::ControllerTeleop::cb_joy(const sensor_msgs::msg::Joy::SharedPt
     );
 
     // Determine motion mode
-    MotionMode mode = determine_motion_mode(msg);
+    current_mode_ = determine_motion_mode(msg);
 
     // Create/send cmd_velocities based on motion mode
     // Also send motion mode at same rate
@@ -119,7 +139,7 @@ void MiloControl::ControllerTeleop::cb_joy(const sensor_msgs::msg::Joy::SharedPt
 
 double MiloControl::ControllerTeleop::apply_deadzone(double value)
 {
-    if (std::abs(value) < deadzone_threshold_) {
+    if (abs(value) < deadzone_threshold_) {
         return 0.0;
     }
     return value;
@@ -131,7 +151,13 @@ MiloControl::MotionMode MiloControl::ControllerTeleop::determine_motion_mode(
 {
     // R2 - Normal mode
     // L2 - Precision mode
-    
+
+    // Return the motion mode
+
+
+    // Dummy to build the package for now
+    MiloControl::MotionMode motion_mode = MiloControl::MotionMode::NORMAL;
+    return motion_mode;
 }
 
 int main(int argc, char **argv)
