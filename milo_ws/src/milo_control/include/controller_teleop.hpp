@@ -5,6 +5,7 @@
 #include <sensor_msgs/msg/joy.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/u_int8.hpp>
+#include "milo_interfaces/msg/auxiliary.hpp"
 
 namespace MiloControl
 {
@@ -29,11 +30,16 @@ namespace MiloControl
         void cb_joy(const sensor_msgs::msg::Joy::SharedPtr msg);
         double apply_deadzone(double value);
         MotionMode determine_motion_mode(const sensor_msgs::msg::Joy::SharedPtr msg);
+        void create_twist_msg(const sensor_msgs::msg::Joy::SharedPtr msg, const MiloControl::MotionMode current_mode, geometry_msgs::msg::Twist& cmd_msg);
+        void handle_auxiliary_functions(const sensor_msgs::msg::Joy::SharedPtr msg);
+        void toggle_headlights();
+        void toggle_led_strip();
 
         // Publisher/subscribers
         rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joy_sub_;
-        rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub_;
+        rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_msg_pub_;
         rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr motion_mode_pub_;
+        rclcpp::Publisher<milo_interfaces::msg::Auxiliary>::SharedPtr auxiliary_pub_;
 
         // Controller input mapping indices (PS4 controller) from joy package
         // Axes: -1 to 1
@@ -61,6 +67,7 @@ namespace MiloControl
         uint8_t arrow_left_button_idx_;
         uint8_t arrow_right_button_idx_;
         uint8_t touchpad_button_idx_;
+        std::vector<int> prev_button_states_;
 
         // Scaling
         double linear_normal_;
@@ -72,9 +79,9 @@ namespace MiloControl
         double deadzone_threshold_;
         double trigger_threshold_;
 
-
-        // Motion mode
-        MotionMode current_mode_;
+        // Auxiliary functions
+        bool headlights_on_;
+        bool led_strip_on_;
     };
 
 } // namespace MiloControl

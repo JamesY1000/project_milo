@@ -13,6 +13,7 @@ find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(milo_interfaces REQUIRED)
 
 # Include the 'include' directory
 include_directories(include)
@@ -30,6 +31,7 @@ ament_target_dependencies(controller_teleop_node
   std_msgs
   sensor_msgs
   geometry_msgs
+  milo_interfaces
   )
 
 # Install cpp executables
