@@ -3,10 +3,10 @@
 MiloControl::ControllerTeleop::ControllerTeleop() : Node("controller_teleop_node")
 {
     // Declare and get parameters
-    get_params();
+    getParams();
     
     // Setup publishers/subscribers
-    setup_pub_subs();
+    setupPubSubs();
 
     // Initialise auxiliary functions
     headlights_on_ = false;
@@ -16,7 +16,7 @@ MiloControl::ControllerTeleop::ControllerTeleop() : Node("controller_teleop_node
     RCLCPP_INFO(this->get_logger(), "Controller teleop node initialised");
 }
 
-void MiloControl::ControllerTeleop::get_params()
+void MiloControl::ControllerTeleop::getParams()
 {
     // Axes
     this->declare_parameter("controller_mapping.l_joystick_l_r_axes_idx", 0);
@@ -83,20 +83,28 @@ void MiloControl::ControllerTeleop::get_params()
     trigger_threshold_ = this->get_parameter("input_threshold.trigger_threshold").as_double();
 }
 
-void MiloControl::ControllerTeleop::setup_pub_subs()
+void MiloControl::ControllerTeleop::setupPubSubs()
 {
+
+    // TODO (james): Setup custom milo_qos for different sensors, topics, etc.
+    rclcpp::QoS cmd_qos(10);
+    cmd_qos.best_effort();
+
+    rclcpp::QoS state_qos(2);
+    state_qos.reliable();
+
     // TODO (james): Store in milo_common package for topics, frameIDs, names, namespaces?, etc.
     joy_sub_ = this->create_subscription<sensor_msgs::msg::Joy>(
-        "/milo/joy", 10, std::bind(&ControllerTeleop::cb_joy, this, std::placeholders::_1));
+        "/milo/joy", 10, std::bind(&ControllerTeleop::cbJoy, this, std::placeholders::_1));
 
-    cmd_msg_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/milo/cmd_vel", 1);
+    motion_mode_pub_ = this->create_publisher<std_msgs::msg::UInt8>("/milo/motion_mode", state_qos);
 
-    motion_mode_pub_ = this->create_publisher<std_msgs::msg::UInt8>("/milo/motion_mode", 1);
+    cmd_msg_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/milo/cmd_vel", cmd_qos);
 
-    auxiliary_pub_ = this->create_publisher<milo_interfaces::msg::Auxiliary>("/milo/auxiliary", 1);
+    auxiliary_pub_ = this->create_publisher<milo_interfaces::msg::Auxiliary>("/milo/auxiliary", state_qos);
 }
 
-void MiloControl::ControllerTeleop::cb_joy(const sensor_msgs::msg::Joy::SharedPtr msg)
+void MiloControl::ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
     if (!msg) return;
 
@@ -174,28 +182,28 @@ void MiloControl::ControllerTeleop::cb_joy(const sensor_msgs::msg::Joy::SharedPt
     );
 
     // Determine motion mode
-    current_mode = determine_motion_mode(msg);
-
-    // Create twist msg
-    geometry_msgs::msg::Twist cmd_msg;
-    create_twist_msg(msg, current_mode, cmd_msg);
-
-    // Publish cmd_msg
-    cmd_msg_pub_->publish(cmd_msg);
+    current_mode = determineMotionMode(msg);
 
     // Publish motion mode
     std_msgs::msg::UInt8 motion_mode_msg;
     motion_mode_msg.data = static_cast<uint8_t>(current_mode);
     motion_mode_pub_->publish(motion_mode_msg);
 
+    // Create cmd msg
+    geometry_msgs::msg::Twist cmd_msg;
+    createTwistMsg(msg, current_mode, cmd_msg);
+
+    // Publish cmd_msg
+    cmd_msg_pub_->publish(cmd_msg);
+
     RCLCPP_DEBUG(this->get_logger(), "motion mode: %d", motion_mode_msg.data);
 
     // Handle auxiliary commands - headlights, led strip
-    handle_auxiliary_functions(msg);
+    handleAuxiliaryFunctions(msg);
 
     RCLCPP_DEBUG(this->get_logger(), "Headlights on: %d, LED strip on: %d", headlights_on_, led_strip_on_);
 
-    // Publish auxiliary functions as custom msg
+    // Publish auxiliary ms
     milo_interfaces::msg::Auxiliary auxiliary_msg;
     auxiliary_msg.headlights_on = headlights_on_;
     auxiliary_msg.led_strip_on = led_strip_on_;
@@ -203,7 +211,7 @@ void MiloControl::ControllerTeleop::cb_joy(const sensor_msgs::msg::Joy::SharedPt
 
 }
 
-double MiloControl::ControllerTeleop::apply_deadzone(double value)
+double MiloControl::ControllerTeleop::applyDeadzone(double value)
 {
     if (std::abs(value) < deadzone_threshold_) {
         return 0.0;
@@ -212,7 +220,7 @@ double MiloControl::ControllerTeleop::apply_deadzone(double value)
 }
 
 
-MiloControl::MotionMode MiloControl::ControllerTeleop::determine_motion_mode(
+MiloControl::MotionMode MiloControl::ControllerTeleop::determineMotionMode(
     const sensor_msgs::msg::Joy::SharedPtr msg)
 {
     // R2 - Normal mode
@@ -239,7 +247,7 @@ MiloControl::MotionMode MiloControl::ControllerTeleop::determine_motion_mode(
     return MiloControl::MotionMode::STOP;
 }
 
-void MiloControl::ControllerTeleop::create_twist_msg(const sensor_msgs::msg::Joy::SharedPtr msg, const MiloControl::MotionMode current_mode, geometry_msgs::msg::Twist &cmd_msg)
+void MiloControl::ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::SharedPtr msg, const MiloControl::MotionMode current_mode, geometry_msgs::msg::Twist &cmd_msg)
 {    
     if (current_mode == MiloControl::MotionMode::STOP)
     {
@@ -254,26 +262,26 @@ void MiloControl::ControllerTeleop::create_twist_msg(const sensor_msgs::msg::Joy
 
     else if (current_mode == MiloControl::MotionMode::NORMAL)
     {
-        cmd_msg.linear.x = linear_normal_ * apply_deadzone(msg->axes[l_joystick_u_d_axes_idx_]); // Left joystick 1.0/-1.0 u/d
+        cmd_msg.linear.x = linear_normal_ * applyDeadzone(msg->axes[l_joystick_u_d_axes_idx_]); // Left joystick 1.0/-1.0 u/d
         cmd_msg.linear.y = 0.0;
         cmd_msg.linear.z = 0.0;
         cmd_msg.angular.x = 0.0;
         cmd_msg.angular.y = 0.0;
-        cmd_msg.angular.z = angular_normal_ * apply_deadzone(msg->axes[r_joystick_l_r_axes_idx_]); // Right joystick 1.0/-1.0 l/r
+        cmd_msg.angular.z = angular_normal_ * applyDeadzone(msg->axes[r_joystick_l_r_axes_idx_]); // Right joystick 1.0/-1.0 l/r
     }
 
     else if (current_mode == MiloControl::MotionMode::PRECISION)
     {
-        cmd_msg.linear.x = linear_precision_ * apply_deadzone(msg->axes[l_joystick_u_d_axes_idx_]); // Left joystick 1.0/-1.0 u/d
+        cmd_msg.linear.x = linear_precision_ * applyDeadzone(msg->axes[l_joystick_u_d_axes_idx_]); // Left joystick 1.0/-1.0 u/d
         cmd_msg.linear.y = 0.0;
         cmd_msg.linear.z = 0.0;
         cmd_msg.angular.x = 0.0;
         cmd_msg.angular.y = 0.0;
-        cmd_msg.angular.z = angular_precision_ * apply_deadzone(msg->axes[r_joystick_l_r_axes_idx_]); // Right joystick 1.0/-1.0 l/r
+        cmd_msg.angular.z = angular_precision_ * applyDeadzone(msg->axes[r_joystick_l_r_axes_idx_]); // Right joystick 1.0/-1.0 l/r
     }
 }
 
-void MiloControl::ControllerTeleop::handle_auxiliary_functions(const sensor_msgs::msg::Joy::SharedPtr msg)
+void MiloControl::ControllerTeleop::handleAuxiliaryFunctions(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
 
     // Make size of prev_button_states the same as current button size
@@ -285,12 +293,12 @@ void MiloControl::ControllerTeleop::handle_auxiliary_functions(const sensor_msgs
     // Only toggle if button is currently pressed once (skips the toggle if button is held)
     if (msg->buttons[arrow_up_button_idx_] && !prev_button_states_[arrow_up_button_idx_])
     {
-        toggle_headlights();
+        toggleHeadlights();
     }
 
     if (msg->buttons[arrow_right_button_idx_] && !prev_button_states_[arrow_right_button_idx_])
     {
-        toggle_led_strip();
+        toggleLedStrip();
     }
 
     // Update prev button states
@@ -299,12 +307,12 @@ void MiloControl::ControllerTeleop::handle_auxiliary_functions(const sensor_msgs
     return;
 }
 
-void MiloControl::ControllerTeleop::toggle_headlights()
+void MiloControl::ControllerTeleop::toggleHeadlights()
 {
     headlights_on_ = !headlights_on_;
 }
 
-void MiloControl::ControllerTeleop::toggle_led_strip()
+void MiloControl::ControllerTeleop::toggleLedStrip()
 {
     led_strip_on_ = !led_strip_on_;
 }
