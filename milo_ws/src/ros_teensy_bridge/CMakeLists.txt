@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ros_teensy_bridge)
+project(ros_serial_bridge)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,45 +7,44 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(milo_interfaces REQUIRED)
-
-# Include the 'include' directory
-include_directories(include)
+find_package(milo_proto REQUIRED)
+find_package(Protobuf REQUIRED)
 
 # Install share directories
 install(DIRECTORY
-  config
   launch
   DESTINATION share/${PROJECT_NAME})
 
 # Create executables
-add_executable(ros_teensy_bridge_node src/ros_teensy_bridge.cpp)
-ament_target_dependencies(ros_teensy_bridge_node 
+add_executable(ros_serial_bridge_node
+  src/ros_serial_bridge.cpp
+  ../milo_proto/generated_code/RoverCommand.pb.cc
+  ../milo_proto/generated_code/google/protobuf/timestamp.pb.cc
+  )
+
+ament_target_dependencies(ros_serial_bridge_node 
   rclcpp 
   std_msgs
-  sensor_msgs
   geometry_msgs
   milo_interfaces
+  milo_proto
+  Protobuf
   )
+
+target_include_directories(ros_serial_bridge_node PRIVATE
+  ${Protobuf_INCLUDE_DIRS}
+  ../milo_proto/generated_code
+  ../milo_proto/generated_code/google/protobuf
+  include
+)
 
 # Install cpp executables
 install(TARGETS 
-  ros_teensy_bridge_node 
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-# Install python modules
-ament_python_install_package(${PROJECT_NAME})
-
-# Install python executables
-install(PROGRAMS
-  scripts/ps4_teleop_node.py
+  ros_serial_bridge_node 
   DESTINATION lib/${PROJECT_NAME}
 )
 
