@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message RoverCommand
+{
+    // Timestamp
+    google.protobuf.Timestamp stamp = 1;
+
+    // Motion mode
+    uint32 motion_mode = 2; // (1) STOP, (2) NORMAL, (3) PRECISION
+
+    // Twist
+    float linear_x = 3;
+    float linear_y = 4;
+    float linear_z = 5;
+    float angular_x = 6;
+    float angular_y = 7;
+    float angular_z = 8;
+
+    // Auxiliary
+    bool headlights_on = 9;
+    bool led_strip_on = 10;
+}
