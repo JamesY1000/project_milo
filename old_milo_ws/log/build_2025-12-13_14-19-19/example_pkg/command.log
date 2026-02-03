@@ -1,6 +1,0 @@
-Invoking command in '/root/milo_ws/build/example_pkg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /root/milo_ws/src/example_pkg -DCMAKE_INSTALL_PREFIX=/root/milo_ws/install/example_pkg
-Invoked command in '/root/milo_ws/build/example_pkg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /root/milo_ws/src/example_pkg -DCMAKE_INSTALL_PREFIX=/root/milo_ws/install/example_pkg
-Invoking command in '/root/milo_ws/build/example_pkg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /root/milo_ws/build/example_pkg -- -j32 -l32
-Invoked command in '/root/milo_ws/build/example_pkg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /root/milo_ws/build/example_pkg -- -j32 -l32
-Invoking command in '/root/milo_ws/build/example_pkg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /root/milo_ws/build/example_pkg
-Invoked command in '/root/milo_ws/build/example_pkg' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /root/milo_ws/build/example_pkg
