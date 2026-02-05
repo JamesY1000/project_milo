@@ -1,0 +1,5 @@
+milo:
+  ros_serial_bridge_node:
+    ros__parameters:
+      control_timer_hz: 100
+      stale_msg_s: 5
