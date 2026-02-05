@@ -25,9 +25,9 @@ namespace RosSerialBridge
         void cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedPtr msg);
         void timerCb();
         bool safetyCheckTimestamp(const int stale_msg_s, 
-                                    rclcpp::Time latest_motion_mode_time, 
-                                    rclcpp::Time latest_cmd_time, 
-                                    rclcpp::Time latest_auxiliary_time);        
+                                    const rclcpp::Time& latest_motion_mode_time, 
+                                    const rclcpp::Time& latest_cmd_time, 
+                                    const rclcpp::Time& latest_auxiliary_time);        
 
         // // Publisher/subscribers
         rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr motion_mode_sub_;
@@ -55,4 +55,4 @@ namespace RosSerialBridge
 
 } // namespace RosSerialBridge
 
-#endif // ROS_TEENSY_BRIDGE__ROS_SERIAL_BRIDGE_HPP_
+#endif // ROS_SERIAL_BRIDGE__ROS_SERIAL_BRIDGE_HPP_

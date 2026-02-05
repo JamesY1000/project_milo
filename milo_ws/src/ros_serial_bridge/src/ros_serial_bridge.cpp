@@ -15,7 +15,7 @@ RosSerialBridge::RosSerialBridge::RosSerialBridge() : Node("ros_serial_bridge_no
     latest_auxiliary_time_ = this->now();
 
     // Create wall timer
-    int control_timer_period_ms = (1.0 / control_timer_hz_) * 1000;
+    int control_timer_period_ms = static_cast<int>(1000.0 / control_timer_hz_);
     control_timer_ = this->create_wall_timer(std::chrono::milliseconds(control_timer_period_ms), std::bind(&RosSerialBridge::timerCb, this));
 
     RCLCPP_INFO(this->get_logger(), "Ros serial bridge node initialised");
@@ -105,11 +105,12 @@ void RosSerialBridge::RosSerialBridge::timerCb()
     // Create RoverCommand proto msg
     RoverCommand rover_command;
 
-    auto now = this->now();
-    auto* stamp = new google::protobuf::Timestamp();
+    auto now = this->now(); 
+
+    google::protobuf::Timestamp* stamp = rover_command.mutable_stamp();
     stamp->set_seconds(now.seconds());
-    stamp->set_nanos(now.nanoseconds() % 1000000000);
-    rover_command.set_allocated_stamp(stamp);
+    constexpr int64_t nanosecs_per_sec = 1000000000;
+    stamp->set_nanos(now.nanoseconds() % nanosecs_per_sec);
 
     rover_command.set_motion_mode(latest_motion_mode.data); 
 
@@ -140,9 +141,9 @@ void RosSerialBridge::RosSerialBridge::timerCb()
 }
 
 bool RosSerialBridge::RosSerialBridge::safetyCheckTimestamp(const int stale_msg_s, 
-                                                            rclcpp::Time latest_motion_mode_time, 
-                                                            rclcpp::Time latest_cmd_time, 
-                                                            rclcpp::Time latest_auxiliary_time)
+                                                            const rclcpp::Time& latest_motion_mode_time, 
+                                                            const rclcpp::Time& latest_cmd_time, 
+                                                            const rclcpp::Time& latest_auxiliary_time)
 {
     rclcpp::Time now = this->now();
     bool all_messages_fresh = true;
@@ -152,7 +153,8 @@ bool RosSerialBridge::RosSerialBridge::safetyCheckTimestamp(const int stale_msg_
     if ((now - latest_motion_mode_time).seconds() > stale_msg_s)
     {
         RCLCPP_WARN_THROTTLE(this->get_logger(),
-                            *this->get_clock(), throttle_rate_ms,
+                            *this->get_clock(),
+                            throttle_rate_ms,
                             "Skipping: Stale motion mode data detected: %.3fs", (now - latest_motion_mode_time).seconds()
         );
         all_messages_fresh = false;
@@ -161,18 +163,18 @@ bool RosSerialBridge::RosSerialBridge::safetyCheckTimestamp(const int stale_msg_
     if ((now - latest_cmd_time).seconds() > stale_msg_s)
     {
         RCLCPP_WARN_THROTTLE(this->get_logger(),
-                            *this->get_clock(), throttle_rate_ms,
-        "Skipping: Stale command data detected: %.3fs",
-         (now - latest_cmd_time).seconds());
+                            *this->get_clock(),
+                            throttle_rate_ms,
+                            "Skipping: Stale command data detected: %.3fs", (now - latest_cmd_time).seconds());
         all_messages_fresh = false;
     }
 
     if ((now - latest_auxiliary_time).seconds() > stale_msg_s)
     {
         RCLCPP_WARN_THROTTLE(this->get_logger(),
-                            *this->get_clock(), throttle_rate_ms,
-        "Skipping: Stale auxiliary data detected: %.3fs",
-         (now - latest_auxiliary_time).seconds());
+                            *this->get_clock(),
+                            throttle_rate_ms,
+                            "Skipping: Stale auxiliary data detected: %.3fs", (now - latest_auxiliary_time).seconds());
         all_messages_fresh = false;
     }
 
