@@ -16,11 +16,15 @@ def generate_launch_description():
 
     # Launch args
     launch_args = [
-        DeclareLaunchArgument("use_sim_time", default_value="false", description="Use simulation time"),
+        DeclareLaunchArgument(
+            "use_sim_time", 
+            default_value="false", 
+            description="Use simulation time"),
+
         DeclareLaunchArgument(
             "log_level",
             default_value="INFO",
-            description="Log leve: DEBUG, INFO, WARN, ERROR, FATAL"
+            description="Log level: DEBUG, INFO, WARN, ERROR, FATAL"
         )
     ]
 
@@ -47,9 +51,7 @@ def generate_launch_description():
         ],
         arguments=[
             "--ros-args",
-            "--log-level",
-            # ["controller_teleop_node:=", LaunchConfiguration("log_level")]
-            [LaunchConfiguration("log_level")]
+            "--log-level", LaunchConfiguration("log_level")
         ]
     )
 
@@ -73,11 +75,6 @@ def generate_launch_description():
     #         # 'scale_angular.yaw': 1.0,
     #     }],
     # )
-
-    # cmd_vel -> serial bridge? 
-
-
-
 
     return LaunchDescription(launch_args + [
         joystick_node,

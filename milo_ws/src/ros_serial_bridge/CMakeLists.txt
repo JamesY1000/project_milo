@@ -16,6 +16,7 @@ find_package(Protobuf REQUIRED)
 
 # Install share directories
 install(DIRECTORY
+  config
   launch
   DESTINATION share/${PROJECT_NAME})
 
