@@ -3,3 +3,12 @@ milo:
     ros__parameters:
       control_timer_hz: 100
       stale_msg_s: 5
+
+# Not under milo namespace
+serial_bridge_node:
+  ros__parameters:
+    device_name: /dev/ttyACM0
+    baud_rate: 115200
+    flow_control: none # none/hardware/software
+    parity: none # none/odd/even
+    stop_bits: "1" # 1/1.5/2

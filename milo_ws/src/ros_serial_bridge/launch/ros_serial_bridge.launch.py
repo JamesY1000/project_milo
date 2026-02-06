@@ -1,7 +1,8 @@
 from pathlib import Path
 from ament_index_python import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -9,6 +10,8 @@ from launch_ros.actions import Node
 MILO_NAMESPACE = "milo"
 PKG_NAME = "ros_serial_bridge"
 PKG_PATH = get_package_share_directory(PKG_NAME)
+SERIAL_DRIVE_PKG = "serial_driver"
+SERIAL_DRIVE_PKG_PATH = Path(get_package_share_directory(SERIAL_DRIVE_PKG))
 
 def generate_launch_description():
 
@@ -44,6 +47,16 @@ def generate_launch_description():
         ]
     )
 
+    serial_driver_launch_ = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            str(SERIAL_DRIVE_PKG_PATH / "launch" / "serial_driver_bridge_node.launch.py")
+        ]),
+        launch_arguments={
+            "params_file": str(ros_serial_config)
+        }.items()
+    )
+
     return LaunchDescription(launch_args + [
         ros_serial_bridge_node,
+        serial_driver_launch_,
     ])
