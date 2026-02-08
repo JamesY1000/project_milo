@@ -10,6 +10,10 @@
 
 namespace RosSerialBridge
 {
+    constexpr uint16_t CRC16_CCITT_INIT = 0xFFFF;
+    constexpr uint16_t CRC16_CCITT_MSB = 0x8000;
+    constexpr uint16_t CRC16_CCITT_POLYNOMIAL = 0x1021;
+
     class RosSerialBridge : public rclcpp::Node
     {
     public:    
@@ -24,6 +28,7 @@ namespace RosSerialBridge
         void cbCmd(const geometry_msgs::msg::Twist::SharedPtr msg);
         void cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedPtr msg);
         void timerCb();
+        uint16_t crc16_ccitt(const uint8_t* data, size_t length);
         bool safetyCheckTimestamp(const int stale_msg_s, 
                                     const rclcpp::Time& latest_motion_mode_time, 
                                     const rclcpp::Time& latest_cmd_time, 
@@ -38,6 +43,7 @@ namespace RosSerialBridge
         rclcpp::TimerBase::SharedPtr control_timer_;
         int control_timer_hz_;
         int stale_msg_s_;
+        uint16_t sync_bits_;
 
         std_msgs::msg::UInt8 latest_motion_mode_;
         geometry_msgs::msg::Twist latest_cmd_;

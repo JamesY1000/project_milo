@@ -28,6 +28,9 @@ void RosSerialBridge::RosSerialBridge::getParams()
 
     this->declare_parameter("stale_msg_s", 5);
     stale_msg_s_ = this->get_parameter("stale_msg_s").as_int();
+
+    this->declare_parameter("sync_bits", 0xAA55);
+    sync_bits_ = static_cast<uint16_t>(this->get_parameter("sync_bits").as_int());
 }
 
 void RosSerialBridge::RosSerialBridge::setupPubSubs()
@@ -125,19 +128,66 @@ void RosSerialBridge::RosSerialBridge::timerCb()
     rover_command.set_headlights_on(latest_auxiliary.headlights_on);
     rover_command.set_led_strip_on(latest_auxiliary.led_strip_on);
 
-    // Serialise msg
-    std::string serial_string;
-    if (!rover_command.SerializeToString(&serial_string))
+    // Serialise msg: [sync][length][payload][crc16] - bit [2][2][n][2] (big endian)
+
+    // Payload bits
+    std::string payload_bits;
+    if (!rover_command.SerializeToString(&payload_bits)) // Serialise protobuf payload
     {
         RCLCPP_ERROR(this->get_logger(), "Failed to serialise RoverCommand message!");
         return;
     }
-    
-    // Publish to serial topic
+
+    std::vector<uint8_t> serial_buffer; 
+
+    // Sync bits
+    serial_buffer.push_back(sync_bits_ >> 8); // High byte sync - 0xAA
+    serial_buffer.push_back(sync_bits_ & 0xFF); // Low byte sync - 0x55
+
+    // Length bits
+    size_t payload_length = payload_bits.size();
+    serial_buffer.push_back(payload_length >> 8); // High byte length
+    serial_buffer.push_back(payload_length & 0xFF); // Low byte length
+
+    // Payload
+    serial_buffer.insert(serial_buffer.end(), payload_bits.begin(), payload_bits.end());
+
+    // CRC16 bits
+    uint16_t crc = crc16_ccitt(serial_buffer.data(), serial_buffer.size()); // calculate over sync, length, payload
+    serial_buffer.push_back(crc >> 8); // High byte crc
+    serial_buffer.push_back(crc & 0xFF); // Low byte crc
+
+    // Publish serial msg to serial topic
     std_msgs::msg::UInt8MultiArray serial_msg;
-    serial_msg.data.resize(serial_string.size());
-    std::memcpy(serial_msg.data.data(), serial_string.data(), serial_string.size());
+    serial_msg.data = serial_buffer;
     serial_pub_->publish(serial_msg);
+}
+
+// CRC16-CCITT implementation (polynomial 0x1021, initial 0xFFFF)
+uint16_t RosSerialBridge::RosSerialBridge::crc16_ccitt(const uint8_t* data, size_t length)
+{
+    // Initial value and polynomial
+    uint16_t crc = CRC16_CCITT_INIT; // Initiliased to 0xFFFF
+
+    for (size_t i = 0; i < length; i++) // Loop through each byte in data
+    {
+        // Convert data byte into 16-bit (2-byte) value and XOR into CRC
+        crc ^= (uint16_t)data[i] << 8; // XOR (shift left by 8 bytes) byte into CRC
+
+        for (size_t j = 0; j < 8; j++) // Loop through each bit in the byte
+        {
+            if (crc & CRC16_CCITT_MSB) // If highest bit (bit 15) is set
+            {
+                crc = (crc << 1) ^ CRC16_CCITT_POLYNOMIAL; // Then shift left, XOR with polynomial 0x1021
+            }
+            else
+            {
+                crc <<= 1; // Otherwise, just shift the bit left
+            }
+        }
+    }
+
+    return crc;
 }
 
 bool RosSerialBridge::RosSerialBridge::safetyCheckTimestamp(const int stale_msg_s, 

@@ -14,6 +14,9 @@ find_package(milo_interfaces REQUIRED)
 find_package(milo_proto REQUIRED)
 find_package(Protobuf REQUIRED)
 
+# Include the 'include' directory
+include_directories(include)
+
 # Install share directories
 install(DIRECTORY
   config
