@@ -10,6 +10,7 @@
 
 namespace RosSerialBridge
 {
+    constexpr int64_t NANOSECS_PER_SEC = 1000000000;
     constexpr uint16_t CRC16_CCITT_INIT = 0xFFFF;
     constexpr uint16_t CRC16_CCITT_MSB = 0x8000;
     constexpr uint16_t CRC16_CCITT_POLYNOMIAL = 0x1021;

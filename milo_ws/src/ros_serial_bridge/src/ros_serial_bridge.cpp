@@ -112,8 +112,7 @@ void RosSerialBridge::RosSerialBridge::timerCb()
 
     google::protobuf::Timestamp* stamp = rover_command.mutable_stamp();
     stamp->set_seconds(now.seconds());
-    constexpr int64_t nanosecs_per_sec = 1000000000;
-    stamp->set_nanos(now.nanoseconds() % nanosecs_per_sec);
+    stamp->set_nanos(now.nanoseconds() % NANOSECS_PER_SEC);
 
     rover_command.set_motion_mode(latest_motion_mode.data); 
 
