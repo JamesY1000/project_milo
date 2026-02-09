@@ -1,0 +1,3 @@
+[submodule "milo_teensy/lib/dual-g2-high-power-motor-shield"]
+	path = milo_teensy/lib/dual-g2-high-power-motor-shield
+	url = https://github.com/pololu/dual-g2-high-power-motor-shield.git
