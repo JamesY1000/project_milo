@@ -1,6 +1,4 @@
 #include "ros_serial_bridge.hpp"
-#include "../../milo_proto/generated_code/RoverCommand.pb.h"
-#include "../../milo_proto/generated_code/google/protobuf/timestamp.pb.h"
 
 // TODO (james): Clean up above ^^
 
@@ -55,7 +53,9 @@ void RosSerialBridge::RosSerialBridge::setupPubSubs()
     auxiliary_msg_sub_ = this->create_subscription<milo_interfaces::msg::Auxiliary>(
         "/milo/auxiliary", state_qos, std::bind(&RosSerialBridge::cbAuxiliary, this, std::placeholders::_1));
 
-    serial_pub_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/milo/serial_bridge", serial_qos);
+    serial_write_pub_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/serial_write", serial_qos);
+
+    // FUTURE(james): Add in serial read publisher for teensy feedback
 }
 
 void RosSerialBridge::RosSerialBridge::cbMotionMode(const std_msgs::msg::UInt8::SharedPtr msg)
@@ -109,7 +109,6 @@ void RosSerialBridge::RosSerialBridge::timerCb()
     RoverCommand rover_command;
 
     auto now = this->now(); 
-
     google::protobuf::Timestamp* stamp = rover_command.mutable_stamp();
     stamp->set_seconds(now.seconds());
     stamp->set_nanos(now.nanoseconds() % NANOSECS_PER_SEC);
@@ -127,14 +126,30 @@ void RosSerialBridge::RosSerialBridge::timerCb()
     rover_command.set_headlights_on(latest_auxiliary.headlights_on);
     rover_command.set_led_strip_on(latest_auxiliary.led_strip_on);
 
+    // Serialise message
+    std::vector<uint8_t> serial_buffer = serialiseMsg(rover_command);
+    if (serial_buffer.empty())
+    {
+        RCLCPP_ERROR(this->get_logger(), "Failed to serialise message: Serial buffer is empty!");
+        return;
+    }
+
+    // Publish serial msg to serial topic
+    std_msgs::msg::UInt8MultiArray serial_msg;
+    serial_msg.data = serial_buffer;
+    serial_write_pub_->publish(serial_msg);
+}
+
+std::vector<uint8_t> RosSerialBridge::RosSerialBridge::serialiseMsg(RoverCommand rover_command)
+{
     // Serialise msg: [sync][length][payload][crc16] - bit [2][2][n][2] (big endian)
 
     // Payload bits
     std::string payload_bits;
     if (!rover_command.SerializeToString(&payload_bits)) // Serialise protobuf payload
     {
-        RCLCPP_ERROR(this->get_logger(), "Failed to serialise RoverCommand message!");
-        return;
+        RCLCPP_ERROR(this->get_logger(), "Failed to serialise RoverCommand data payload!");
+        return {}; // Return empty buffer
     }
 
     std::vector<uint8_t> serial_buffer; 
@@ -156,10 +171,7 @@ void RosSerialBridge::RosSerialBridge::timerCb()
     serial_buffer.push_back(crc >> 8); // High byte crc
     serial_buffer.push_back(crc & 0xFF); // Low byte crc
 
-    // Publish serial msg to serial topic
-    std_msgs::msg::UInt8MultiArray serial_msg;
-    serial_msg.data = serial_buffer;
-    serial_pub_->publish(serial_msg);
+    return serial_buffer;    
 }
 
 // CRC16-CCITT implementation (polynomial 0x1021, initial 0xFFFF)

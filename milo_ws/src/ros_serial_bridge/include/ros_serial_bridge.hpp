@@ -8,6 +8,9 @@
 #include <geometry_msgs/msg/twist.hpp>
 #include "milo_interfaces/msg/auxiliary.hpp"
 
+#include "../../milo_proto/generated_code/RoverCommand.pb.h"
+#include "../../milo_proto/generated_code/google/protobuf/timestamp.pb.h"
+
 namespace RosSerialBridge
 {
     constexpr int64_t NANOSECS_PER_SEC = 1000000000;
@@ -29,6 +32,7 @@ namespace RosSerialBridge
         void cbCmd(const geometry_msgs::msg::Twist::SharedPtr msg);
         void cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedPtr msg);
         void timerCb();
+        std::vector<uint8_t> serialiseMsg(RoverCommand rover_command);
         uint16_t crc16_ccitt(const uint8_t* data, size_t length);
         bool safetyCheckTimestamp(const int stale_msg_s, 
                                     const rclcpp::Time& latest_motion_mode_time, 
@@ -39,7 +43,7 @@ namespace RosSerialBridge
         rclcpp::Subscription<std_msgs::msg::UInt8>::SharedPtr motion_mode_sub_;
         rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_msg_sub_;
         rclcpp::Subscription<milo_interfaces::msg::Auxiliary>::SharedPtr auxiliary_msg_sub_;
-        rclcpp::Publisher<std_msgs::msg::UInt8MultiArray>::SharedPtr serial_pub_;
+        rclcpp::Publisher<std_msgs::msg::UInt8MultiArray>::SharedPtr serial_write_pub_;
 
         rclcpp::TimerBase::SharedPtr control_timer_;
         int control_timer_hz_;
