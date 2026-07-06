@@ -9,7 +9,6 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -26,26 +25,26 @@ install(DIRECTORY
 
 # Create executables
 add_executable(controller_teleop_node src/controller_teleop.cpp)
-ament_target_dependencies(controller_teleop_node 
+ament_target_dependencies(controller_teleop_node
   rclcpp 
   std_msgs
   sensor_msgs
   geometry_msgs
   milo_interfaces
-  )
+)
+
+add_executable(rover_controller_node src/rover_controller.cpp)
+ament_target_dependencies(rover_controller_node 
+  rclcpp 
+  std_msgs
+  geometry_msgs
+  milo_interfaces
+)
 
 # Install cpp executables
 install(TARGETS 
-  controller_teleop_node 
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-# Install python modules
-ament_python_install_package(${PROJECT_NAME})
-
-# Install python executables
-install(PROGRAMS
-  scripts/ps4_teleop_node.py
+  controller_teleop_node
+  rover_controller_node 
   DESTINATION lib/${PROJECT_NAME}
 )
 

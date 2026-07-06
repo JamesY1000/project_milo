@@ -1,15 +1,16 @@
 milo:
-  ros_serial_bridge_node:
+  hardware_interface_node:
     ros__parameters:
-      control_timer_hz: 100
-      stale_msg_s: 5
       sync_bits: 0xAA55 # 0xAA, 0x55
+      crc16_ccitt_init: 0xFFFF
+      crc16_ccitt_msb: 0x8000
+      crc16_ccitt_polynomial: 0x1021
 
 # Not under milo namespace
 serial_bridge_node:
   ros__parameters:
     device_name: /dev/ttyACM0
-    baud_rate: 115200
+    baud_rate: 1000000
     flow_control: none # none/hardware/software
     parity: none # none/odd/even
     stop_bits: "1" # 1/1.5/2

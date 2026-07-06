@@ -8,8 +8,8 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 MILO_CONTROL_PKG = "milo_control"
 MILO_CONTROL_PKG_PATH = Path(get_package_share_directory(MILO_CONTROL_PKG))
 
-ROS_SERIAL_BRIDGE_PKG = "ros_serial_bridge"
-ROS_SERIAL_BRIDGE_PKG_PATH = Path(get_package_share_directory(ROS_SERIAL_BRIDGE_PKG))
+HARDWARE_INTERFACE_PKG = "hardware_interface"
+HARDWARE_INTERFACE_PKG_PATH = Path(get_package_share_directory(HARDWARE_INTERFACE_PKG))
 
 def generate_launch_description():
     milo_control_launch = IncludeLaunchDescription(
@@ -20,7 +20,7 @@ def generate_launch_description():
 
     ros_serial_bridge_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            str(ROS_SERIAL_BRIDGE_PKG_PATH / "launch" / "ros_serial_bridge.launch.py")
+            str(HARDWARE_INTERFACE_PKG_PATH / "launch" / "hardware_interface.launch.py")
         ])
     )
 

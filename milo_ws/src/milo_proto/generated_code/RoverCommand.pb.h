@@ -176,15 +176,21 @@ class RoverCommand final :
 
   enum : int {
     kStampFieldNumber = 1,
-    kMotionModeFieldNumber = 2,
-    kLinearXFieldNumber = 3,
-    kLinearYFieldNumber = 4,
-    kLinearZFieldNumber = 5,
-    kAngularXFieldNumber = 6,
-    kAngularYFieldNumber = 7,
-    kAngularZFieldNumber = 8,
-    kHeadlightsOnFieldNumber = 9,
-    kLedStripOnFieldNumber = 10,
+    kSequenceFieldNumber = 2,
+    kWheelFlFieldNumber = 3,
+    kWheelMlFieldNumber = 4,
+    kWheelRlFieldNumber = 5,
+    kWheelFrFieldNumber = 6,
+    kWheelMrFieldNumber = 7,
+    kWheelRrFieldNumber = 8,
+    kSteerFlFieldNumber = 9,
+    kSteerRlFieldNumber = 10,
+    kSteerFrFieldNumber = 11,
+    kSteerRrFieldNumber = 12,
+    kHeadlightsOnFieldNumber = 13,
+    kLedStripOnFieldNumber = 14,
+    kEnableMotorsFieldNumber = 15,
+    kEstopFieldNumber = 16,
   };
   // .google.protobuf.Timestamp stamp = 1;
   bool has_stamp() const;
@@ -204,70 +210,106 @@ class RoverCommand final :
       ::PROTOBUF_NAMESPACE_ID::Timestamp* stamp);
   ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_stamp();
 
-  // uint32 motion_mode = 2;
-  void clear_motion_mode();
-  uint32_t motion_mode() const;
-  void set_motion_mode(uint32_t value);
+  // uint32 sequence = 2;
+  void clear_sequence();
+  uint32_t sequence() const;
+  void set_sequence(uint32_t value);
   private:
-  uint32_t _internal_motion_mode() const;
-  void _internal_set_motion_mode(uint32_t value);
+  uint32_t _internal_sequence() const;
+  void _internal_set_sequence(uint32_t value);
   public:
 
-  // float linear_x = 3;
-  void clear_linear_x();
-  float linear_x() const;
-  void set_linear_x(float value);
+  // float wheel_fl = 3;
+  void clear_wheel_fl();
+  float wheel_fl() const;
+  void set_wheel_fl(float value);
   private:
-  float _internal_linear_x() const;
-  void _internal_set_linear_x(float value);
+  float _internal_wheel_fl() const;
+  void _internal_set_wheel_fl(float value);
   public:
 
-  // float linear_y = 4;
-  void clear_linear_y();
-  float linear_y() const;
-  void set_linear_y(float value);
+  // float wheel_ml = 4;
+  void clear_wheel_ml();
+  float wheel_ml() const;
+  void set_wheel_ml(float value);
   private:
-  float _internal_linear_y() const;
-  void _internal_set_linear_y(float value);
+  float _internal_wheel_ml() const;
+  void _internal_set_wheel_ml(float value);
   public:
 
-  // float linear_z = 5;
-  void clear_linear_z();
-  float linear_z() const;
-  void set_linear_z(float value);
+  // float wheel_rl = 5;
+  void clear_wheel_rl();
+  float wheel_rl() const;
+  void set_wheel_rl(float value);
   private:
-  float _internal_linear_z() const;
-  void _internal_set_linear_z(float value);
+  float _internal_wheel_rl() const;
+  void _internal_set_wheel_rl(float value);
   public:
 
-  // float angular_x = 6;
-  void clear_angular_x();
-  float angular_x() const;
-  void set_angular_x(float value);
+  // float wheel_fr = 6;
+  void clear_wheel_fr();
+  float wheel_fr() const;
+  void set_wheel_fr(float value);
   private:
-  float _internal_angular_x() const;
-  void _internal_set_angular_x(float value);
+  float _internal_wheel_fr() const;
+  void _internal_set_wheel_fr(float value);
   public:
 
-  // float angular_y = 7;
-  void clear_angular_y();
-  float angular_y() const;
-  void set_angular_y(float value);
+  // float wheel_mr = 7;
+  void clear_wheel_mr();
+  float wheel_mr() const;
+  void set_wheel_mr(float value);
   private:
-  float _internal_angular_y() const;
-  void _internal_set_angular_y(float value);
+  float _internal_wheel_mr() const;
+  void _internal_set_wheel_mr(float value);
   public:
 
-  // float angular_z = 8;
-  void clear_angular_z();
-  float angular_z() const;
-  void set_angular_z(float value);
+  // float wheel_rr = 8;
+  void clear_wheel_rr();
+  float wheel_rr() const;
+  void set_wheel_rr(float value);
   private:
-  float _internal_angular_z() const;
-  void _internal_set_angular_z(float value);
+  float _internal_wheel_rr() const;
+  void _internal_set_wheel_rr(float value);
   public:
 
-  // bool headlights_on = 9;
+  // float steer_fl = 9;
+  void clear_steer_fl();
+  float steer_fl() const;
+  void set_steer_fl(float value);
+  private:
+  float _internal_steer_fl() const;
+  void _internal_set_steer_fl(float value);
+  public:
+
+  // float steer_rl = 10;
+  void clear_steer_rl();
+  float steer_rl() const;
+  void set_steer_rl(float value);
+  private:
+  float _internal_steer_rl() const;
+  void _internal_set_steer_rl(float value);
+  public:
+
+  // float steer_fr = 11;
+  void clear_steer_fr();
+  float steer_fr() const;
+  void set_steer_fr(float value);
+  private:
+  float _internal_steer_fr() const;
+  void _internal_set_steer_fr(float value);
+  public:
+
+  // float steer_rr = 12;
+  void clear_steer_rr();
+  float steer_rr() const;
+  void set_steer_rr(float value);
+  private:
+  float _internal_steer_rr() const;
+  void _internal_set_steer_rr(float value);
+  public:
+
+  // bool headlights_on = 13;
   void clear_headlights_on();
   bool headlights_on() const;
   void set_headlights_on(bool value);
@@ -276,13 +318,31 @@ class RoverCommand final :
   void _internal_set_headlights_on(bool value);
   public:
 
-  // bool led_strip_on = 10;
+  // bool led_strip_on = 14;
   void clear_led_strip_on();
   bool led_strip_on() const;
   void set_led_strip_on(bool value);
   private:
   bool _internal_led_strip_on() const;
   void _internal_set_led_strip_on(bool value);
+  public:
+
+  // bool enable_motors = 15;
+  void clear_enable_motors();
+  bool enable_motors() const;
+  void set_enable_motors(bool value);
+  private:
+  bool _internal_enable_motors() const;
+  void _internal_set_enable_motors(bool value);
+  public:
+
+  // bool estop = 16;
+  void clear_estop();
+  bool estop() const;
+  void set_estop(bool value);
+  private:
+  bool _internal_estop() const;
+  void _internal_set_estop(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:RoverCommand)
@@ -294,15 +354,21 @@ class RoverCommand final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::Timestamp* stamp_;
-    uint32_t motion_mode_;
-    float linear_x_;
-    float linear_y_;
-    float linear_z_;
-    float angular_x_;
-    float angular_y_;
-    float angular_z_;
+    uint32_t sequence_;
+    float wheel_fl_;
+    float wheel_ml_;
+    float wheel_rl_;
+    float wheel_fr_;
+    float wheel_mr_;
+    float wheel_rr_;
+    float steer_fl_;
+    float steer_rl_;
+    float steer_fr_;
+    float steer_rr_;
     bool headlights_on_;
     bool led_strip_on_;
+    bool enable_motors_;
+    bool estop_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -404,147 +470,227 @@ inline void RoverCommand::set_allocated_stamp(::PROTOBUF_NAMESPACE_ID::Timestamp
   // @@protoc_insertion_point(field_set_allocated:RoverCommand.stamp)
 }
 
-// uint32 motion_mode = 2;
-inline void RoverCommand::clear_motion_mode() {
-  _impl_.motion_mode_ = 0u;
+// uint32 sequence = 2;
+inline void RoverCommand::clear_sequence() {
+  _impl_.sequence_ = 0u;
 }
-inline uint32_t RoverCommand::_internal_motion_mode() const {
-  return _impl_.motion_mode_;
+inline uint32_t RoverCommand::_internal_sequence() const {
+  return _impl_.sequence_;
 }
-inline uint32_t RoverCommand::motion_mode() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.motion_mode)
-  return _internal_motion_mode();
+inline uint32_t RoverCommand::sequence() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.sequence)
+  return _internal_sequence();
 }
-inline void RoverCommand::_internal_set_motion_mode(uint32_t value) {
+inline void RoverCommand::_internal_set_sequence(uint32_t value) {
   
-  _impl_.motion_mode_ = value;
+  _impl_.sequence_ = value;
 }
-inline void RoverCommand::set_motion_mode(uint32_t value) {
-  _internal_set_motion_mode(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.motion_mode)
+inline void RoverCommand::set_sequence(uint32_t value) {
+  _internal_set_sequence(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.sequence)
 }
 
-// float linear_x = 3;
-inline void RoverCommand::clear_linear_x() {
-  _impl_.linear_x_ = 0;
+// float wheel_fl = 3;
+inline void RoverCommand::clear_wheel_fl() {
+  _impl_.wheel_fl_ = 0;
 }
-inline float RoverCommand::_internal_linear_x() const {
-  return _impl_.linear_x_;
+inline float RoverCommand::_internal_wheel_fl() const {
+  return _impl_.wheel_fl_;
 }
-inline float RoverCommand::linear_x() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.linear_x)
-  return _internal_linear_x();
+inline float RoverCommand::wheel_fl() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.wheel_fl)
+  return _internal_wheel_fl();
 }
-inline void RoverCommand::_internal_set_linear_x(float value) {
+inline void RoverCommand::_internal_set_wheel_fl(float value) {
   
-  _impl_.linear_x_ = value;
+  _impl_.wheel_fl_ = value;
 }
-inline void RoverCommand::set_linear_x(float value) {
-  _internal_set_linear_x(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.linear_x)
+inline void RoverCommand::set_wheel_fl(float value) {
+  _internal_set_wheel_fl(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.wheel_fl)
 }
 
-// float linear_y = 4;
-inline void RoverCommand::clear_linear_y() {
-  _impl_.linear_y_ = 0;
+// float wheel_ml = 4;
+inline void RoverCommand::clear_wheel_ml() {
+  _impl_.wheel_ml_ = 0;
 }
-inline float RoverCommand::_internal_linear_y() const {
-  return _impl_.linear_y_;
+inline float RoverCommand::_internal_wheel_ml() const {
+  return _impl_.wheel_ml_;
 }
-inline float RoverCommand::linear_y() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.linear_y)
-  return _internal_linear_y();
+inline float RoverCommand::wheel_ml() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.wheel_ml)
+  return _internal_wheel_ml();
 }
-inline void RoverCommand::_internal_set_linear_y(float value) {
+inline void RoverCommand::_internal_set_wheel_ml(float value) {
   
-  _impl_.linear_y_ = value;
+  _impl_.wheel_ml_ = value;
 }
-inline void RoverCommand::set_linear_y(float value) {
-  _internal_set_linear_y(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.linear_y)
+inline void RoverCommand::set_wheel_ml(float value) {
+  _internal_set_wheel_ml(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.wheel_ml)
 }
 
-// float linear_z = 5;
-inline void RoverCommand::clear_linear_z() {
-  _impl_.linear_z_ = 0;
+// float wheel_rl = 5;
+inline void RoverCommand::clear_wheel_rl() {
+  _impl_.wheel_rl_ = 0;
 }
-inline float RoverCommand::_internal_linear_z() const {
-  return _impl_.linear_z_;
+inline float RoverCommand::_internal_wheel_rl() const {
+  return _impl_.wheel_rl_;
 }
-inline float RoverCommand::linear_z() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.linear_z)
-  return _internal_linear_z();
+inline float RoverCommand::wheel_rl() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.wheel_rl)
+  return _internal_wheel_rl();
 }
-inline void RoverCommand::_internal_set_linear_z(float value) {
+inline void RoverCommand::_internal_set_wheel_rl(float value) {
   
-  _impl_.linear_z_ = value;
+  _impl_.wheel_rl_ = value;
 }
-inline void RoverCommand::set_linear_z(float value) {
-  _internal_set_linear_z(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.linear_z)
+inline void RoverCommand::set_wheel_rl(float value) {
+  _internal_set_wheel_rl(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.wheel_rl)
 }
 
-// float angular_x = 6;
-inline void RoverCommand::clear_angular_x() {
-  _impl_.angular_x_ = 0;
+// float wheel_fr = 6;
+inline void RoverCommand::clear_wheel_fr() {
+  _impl_.wheel_fr_ = 0;
 }
-inline float RoverCommand::_internal_angular_x() const {
-  return _impl_.angular_x_;
+inline float RoverCommand::_internal_wheel_fr() const {
+  return _impl_.wheel_fr_;
 }
-inline float RoverCommand::angular_x() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.angular_x)
-  return _internal_angular_x();
+inline float RoverCommand::wheel_fr() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.wheel_fr)
+  return _internal_wheel_fr();
 }
-inline void RoverCommand::_internal_set_angular_x(float value) {
+inline void RoverCommand::_internal_set_wheel_fr(float value) {
   
-  _impl_.angular_x_ = value;
+  _impl_.wheel_fr_ = value;
 }
-inline void RoverCommand::set_angular_x(float value) {
-  _internal_set_angular_x(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.angular_x)
+inline void RoverCommand::set_wheel_fr(float value) {
+  _internal_set_wheel_fr(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.wheel_fr)
 }
 
-// float angular_y = 7;
-inline void RoverCommand::clear_angular_y() {
-  _impl_.angular_y_ = 0;
+// float wheel_mr = 7;
+inline void RoverCommand::clear_wheel_mr() {
+  _impl_.wheel_mr_ = 0;
 }
-inline float RoverCommand::_internal_angular_y() const {
-  return _impl_.angular_y_;
+inline float RoverCommand::_internal_wheel_mr() const {
+  return _impl_.wheel_mr_;
 }
-inline float RoverCommand::angular_y() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.angular_y)
-  return _internal_angular_y();
+inline float RoverCommand::wheel_mr() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.wheel_mr)
+  return _internal_wheel_mr();
 }
-inline void RoverCommand::_internal_set_angular_y(float value) {
+inline void RoverCommand::_internal_set_wheel_mr(float value) {
   
-  _impl_.angular_y_ = value;
+  _impl_.wheel_mr_ = value;
 }
-inline void RoverCommand::set_angular_y(float value) {
-  _internal_set_angular_y(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.angular_y)
+inline void RoverCommand::set_wheel_mr(float value) {
+  _internal_set_wheel_mr(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.wheel_mr)
 }
 
-// float angular_z = 8;
-inline void RoverCommand::clear_angular_z() {
-  _impl_.angular_z_ = 0;
+// float wheel_rr = 8;
+inline void RoverCommand::clear_wheel_rr() {
+  _impl_.wheel_rr_ = 0;
 }
-inline float RoverCommand::_internal_angular_z() const {
-  return _impl_.angular_z_;
+inline float RoverCommand::_internal_wheel_rr() const {
+  return _impl_.wheel_rr_;
 }
-inline float RoverCommand::angular_z() const {
-  // @@protoc_insertion_point(field_get:RoverCommand.angular_z)
-  return _internal_angular_z();
+inline float RoverCommand::wheel_rr() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.wheel_rr)
+  return _internal_wheel_rr();
 }
-inline void RoverCommand::_internal_set_angular_z(float value) {
+inline void RoverCommand::_internal_set_wheel_rr(float value) {
   
-  _impl_.angular_z_ = value;
+  _impl_.wheel_rr_ = value;
 }
-inline void RoverCommand::set_angular_z(float value) {
-  _internal_set_angular_z(value);
-  // @@protoc_insertion_point(field_set:RoverCommand.angular_z)
+inline void RoverCommand::set_wheel_rr(float value) {
+  _internal_set_wheel_rr(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.wheel_rr)
 }
 
-// bool headlights_on = 9;
+// float steer_fl = 9;
+inline void RoverCommand::clear_steer_fl() {
+  _impl_.steer_fl_ = 0;
+}
+inline float RoverCommand::_internal_steer_fl() const {
+  return _impl_.steer_fl_;
+}
+inline float RoverCommand::steer_fl() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.steer_fl)
+  return _internal_steer_fl();
+}
+inline void RoverCommand::_internal_set_steer_fl(float value) {
+  
+  _impl_.steer_fl_ = value;
+}
+inline void RoverCommand::set_steer_fl(float value) {
+  _internal_set_steer_fl(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.steer_fl)
+}
+
+// float steer_rl = 10;
+inline void RoverCommand::clear_steer_rl() {
+  _impl_.steer_rl_ = 0;
+}
+inline float RoverCommand::_internal_steer_rl() const {
+  return _impl_.steer_rl_;
+}
+inline float RoverCommand::steer_rl() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.steer_rl)
+  return _internal_steer_rl();
+}
+inline void RoverCommand::_internal_set_steer_rl(float value) {
+  
+  _impl_.steer_rl_ = value;
+}
+inline void RoverCommand::set_steer_rl(float value) {
+  _internal_set_steer_rl(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.steer_rl)
+}
+
+// float steer_fr = 11;
+inline void RoverCommand::clear_steer_fr() {
+  _impl_.steer_fr_ = 0;
+}
+inline float RoverCommand::_internal_steer_fr() const {
+  return _impl_.steer_fr_;
+}
+inline float RoverCommand::steer_fr() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.steer_fr)
+  return _internal_steer_fr();
+}
+inline void RoverCommand::_internal_set_steer_fr(float value) {
+  
+  _impl_.steer_fr_ = value;
+}
+inline void RoverCommand::set_steer_fr(float value) {
+  _internal_set_steer_fr(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.steer_fr)
+}
+
+// float steer_rr = 12;
+inline void RoverCommand::clear_steer_rr() {
+  _impl_.steer_rr_ = 0;
+}
+inline float RoverCommand::_internal_steer_rr() const {
+  return _impl_.steer_rr_;
+}
+inline float RoverCommand::steer_rr() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.steer_rr)
+  return _internal_steer_rr();
+}
+inline void RoverCommand::_internal_set_steer_rr(float value) {
+  
+  _impl_.steer_rr_ = value;
+}
+inline void RoverCommand::set_steer_rr(float value) {
+  _internal_set_steer_rr(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.steer_rr)
+}
+
+// bool headlights_on = 13;
 inline void RoverCommand::clear_headlights_on() {
   _impl_.headlights_on_ = false;
 }
@@ -564,7 +710,7 @@ inline void RoverCommand::set_headlights_on(bool value) {
   // @@protoc_insertion_point(field_set:RoverCommand.headlights_on)
 }
 
-// bool led_strip_on = 10;
+// bool led_strip_on = 14;
 inline void RoverCommand::clear_led_strip_on() {
   _impl_.led_strip_on_ = false;
 }
@@ -582,6 +728,46 @@ inline void RoverCommand::_internal_set_led_strip_on(bool value) {
 inline void RoverCommand::set_led_strip_on(bool value) {
   _internal_set_led_strip_on(value);
   // @@protoc_insertion_point(field_set:RoverCommand.led_strip_on)
+}
+
+// bool enable_motors = 15;
+inline void RoverCommand::clear_enable_motors() {
+  _impl_.enable_motors_ = false;
+}
+inline bool RoverCommand::_internal_enable_motors() const {
+  return _impl_.enable_motors_;
+}
+inline bool RoverCommand::enable_motors() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.enable_motors)
+  return _internal_enable_motors();
+}
+inline void RoverCommand::_internal_set_enable_motors(bool value) {
+  
+  _impl_.enable_motors_ = value;
+}
+inline void RoverCommand::set_enable_motors(bool value) {
+  _internal_set_enable_motors(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.enable_motors)
+}
+
+// bool estop = 16;
+inline void RoverCommand::clear_estop() {
+  _impl_.estop_ = false;
+}
+inline bool RoverCommand::_internal_estop() const {
+  return _impl_.estop_;
+}
+inline bool RoverCommand::estop() const {
+  // @@protoc_insertion_point(field_get:RoverCommand.estop)
+  return _internal_estop();
+}
+inline void RoverCommand::_internal_set_estop(bool value) {
+  
+  _impl_.estop_ = value;
+}
+inline void RoverCommand::set_estop(bool value) {
+  _internal_set_estop(value);
+  // @@protoc_insertion_point(field_set:RoverCommand.estop)
 }
 
 #ifdef __GNUC__

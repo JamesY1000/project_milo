@@ -12,7 +12,7 @@ PKG_PATH = get_package_share_directory(PKG_NAME)
 
 def generate_launch_description():
 
-    controller_teleop_config = Path(PKG_PATH) / "config" / "control_config.yml"
+    control_config = Path(PKG_PATH) / "config" / "control_config.yml"
 
     # Launch args
     launch_args = [
@@ -46,7 +46,7 @@ def generate_launch_description():
         namespace=MILO_NAMESPACE,
         output="screen",
         parameters=[
-            controller_teleop_config,
+            control_config,
             {"use_sim_time": LaunchConfiguration("use_sim_time")}
         ],
         arguments=[
@@ -54,6 +54,23 @@ def generate_launch_description():
             "--log-level", LaunchConfiguration("log_level")
         ]
     )
+
+    rover_controller_node = Node(
+        package="milo_control",
+        executable="rover_controller_node",
+        name="rover_controller_node",
+        namespace=MILO_NAMESPACE,
+        output="screen",
+        parameters=[
+            control_config,
+            {"use_sim_time": LaunchConfiguration("use_sim_time")}
+        ],
+        arguments=[
+            "--ros-args",
+            "--log-level", LaunchConfiguration("log_level")
+        ]
+    )
+
 
 
     # Maybe necessary for simulation?
@@ -79,4 +96,5 @@ def generate_launch_description():
     return LaunchDescription(launch_args + [
         joystick_node,
         controller_teleop_node,
+        rover_controller_node
     ])

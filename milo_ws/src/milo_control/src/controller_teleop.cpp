@@ -1,6 +1,6 @@
 #include "controller_teleop.hpp"
 
-MiloControl::ControllerTeleop::ControllerTeleop() : Node("controller_teleop_node")
+ControllerTeleop::ControllerTeleop() : Node("controller_teleop")
 {
     // Declare and get parameters
     getParams();
@@ -16,7 +16,7 @@ MiloControl::ControllerTeleop::ControllerTeleop() : Node("controller_teleop_node
     RCLCPP_INFO(this->get_logger(), "Controller teleop node initialised");
 }
 
-void MiloControl::ControllerTeleop::getParams()
+void ControllerTeleop::getParams()
 {
     // Axes
     this->declare_parameter("controller_mapping.l_joystick_l_r_axes_idx", 0);
@@ -83,7 +83,7 @@ void MiloControl::ControllerTeleop::getParams()
     trigger_threshold_ = this->get_parameter("input_threshold.trigger_threshold").as_double();
 }
 
-void MiloControl::ControllerTeleop::setupPubSubs()
+void ControllerTeleop::setupPubSubs()
 {
 
     // TODO (james): Setup custom milo_qos for different sensors, topics, etc.
@@ -104,7 +104,7 @@ void MiloControl::ControllerTeleop::setupPubSubs()
     auxiliary_pub_ = this->create_publisher<milo_interfaces::msg::Auxiliary>("/milo/auxiliary", state_qos);
 }
 
-void MiloControl::ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
+void ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
     if (!msg) return;
 
@@ -146,8 +146,7 @@ void MiloControl::ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr
         return;
     }
 
-
-    MiloControl::MotionMode current_mode;
+    MotionMode current_mode;
 
     // Log joystick values for debugging
     RCLCPP_DEBUG(this->get_logger(), 
@@ -211,7 +210,7 @@ void MiloControl::ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr
 
 }
 
-double MiloControl::ControllerTeleop::applyDeadzone(double value)
+double ControllerTeleop::applyDeadzone(double value)
 {
     if (std::abs(value) < deadzone_threshold_) {
         return 0.0;
@@ -220,7 +219,7 @@ double MiloControl::ControllerTeleop::applyDeadzone(double value)
 }
 
 
-MiloControl::MotionMode MiloControl::ControllerTeleop::determineMotionMode(
+MotionMode ControllerTeleop::determineMotionMode(
     const sensor_msgs::msg::Joy::SharedPtr msg)
 {
     // R2 - Normal mode
@@ -239,17 +238,17 @@ MiloControl::MotionMode MiloControl::ControllerTeleop::determineMotionMode(
     // L2 pressed - precision mode
     if (l2_throttle_value <= trigger_threshold_) l2_throttle_triggered = true;
 
-    if (r2_throttle_triggered && !l2_throttle_triggered) return MiloControl::MotionMode::NORMAL;
-    if (l2_throttle_triggered && !r2_throttle_triggered) return MiloControl::MotionMode::PRECISION;
-    if (!r2_throttle_triggered && !l2_throttle_triggered) return MiloControl::MotionMode::STOP;
+    if (r2_throttle_triggered && !l2_throttle_triggered) return MotionMode::NORMAL;
+    if (l2_throttle_triggered && !r2_throttle_triggered) return MotionMode::PRECISION;
+    if (!r2_throttle_triggered && !l2_throttle_triggered) return MotionMode::STOP;
 
     // If none of those, return STOP
-    return MiloControl::MotionMode::STOP;
+    return MotionMode::STOP;
 }
 
-void MiloControl::ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::SharedPtr msg, const MiloControl::MotionMode current_mode, geometry_msgs::msg::Twist &cmd_msg)
+void ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::SharedPtr msg, const MotionMode current_mode, geometry_msgs::msg::Twist &cmd_msg)
 {    
-    if (current_mode == MiloControl::MotionMode::STOP)
+    if (current_mode == MotionMode::STOP)
     {
         // Set all values to 0
         cmd_msg.linear.x = 0.0;
@@ -260,7 +259,7 @@ void MiloControl::ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::
         cmd_msg.angular.z = 0.0;
     }
 
-    else if (current_mode == MiloControl::MotionMode::NORMAL)
+    else if (current_mode == MotionMode::NORMAL)
     {
         cmd_msg.linear.x = linear_normal_ * applyDeadzone(msg->axes[l_joystick_u_d_axes_idx_]); // Left joystick 1.0/-1.0 u/d
         cmd_msg.linear.y = 0.0;
@@ -270,7 +269,7 @@ void MiloControl::ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::
         cmd_msg.angular.z = angular_normal_ * applyDeadzone(msg->axes[r_joystick_l_r_axes_idx_]); // Right joystick 1.0/-1.0 l/r
     }
 
-    else if (current_mode == MiloControl::MotionMode::PRECISION)
+    else if (current_mode == MotionMode::PRECISION)
     {
         cmd_msg.linear.x = linear_precision_ * applyDeadzone(msg->axes[l_joystick_u_d_axes_idx_]); // Left joystick 1.0/-1.0 u/d
         cmd_msg.linear.y = 0.0;
@@ -281,7 +280,7 @@ void MiloControl::ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::
     }
 }
 
-void MiloControl::ControllerTeleop::handleAuxiliaryFunctions(const sensor_msgs::msg::Joy::SharedPtr msg)
+void ControllerTeleop::handleAuxiliaryFunctions(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
 
     // Make size of prev_button_states the same as current button size
@@ -307,12 +306,12 @@ void MiloControl::ControllerTeleop::handleAuxiliaryFunctions(const sensor_msgs::
     return;
 }
 
-void MiloControl::ControllerTeleop::toggleHeadlights()
+void ControllerTeleop::toggleHeadlights()
 {
     headlights_on_ = !headlights_on_;
 }
 
-void MiloControl::ControllerTeleop::toggleLedStrip()
+void ControllerTeleop::toggleLedStrip()
 {
     led_strip_on_ = !led_strip_on_;
 }
@@ -320,7 +319,7 @@ void MiloControl::ControllerTeleop::toggleLedStrip()
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
-    auto node = std::make_shared<MiloControl::ControllerTeleop>();
+    auto node = std::make_shared<ControllerTeleop>();
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

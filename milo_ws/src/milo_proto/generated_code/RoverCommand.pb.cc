@@ -23,15 +23,21 @@ namespace _pbi = _pb::internal;
 PROTOBUF_CONSTEXPR RoverCommand::RoverCommand(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.stamp_)*/nullptr
-  , /*decltype(_impl_.motion_mode_)*/0u
-  , /*decltype(_impl_.linear_x_)*/0
-  , /*decltype(_impl_.linear_y_)*/0
-  , /*decltype(_impl_.linear_z_)*/0
-  , /*decltype(_impl_.angular_x_)*/0
-  , /*decltype(_impl_.angular_y_)*/0
-  , /*decltype(_impl_.angular_z_)*/0
+  , /*decltype(_impl_.sequence_)*/0u
+  , /*decltype(_impl_.wheel_fl_)*/0
+  , /*decltype(_impl_.wheel_ml_)*/0
+  , /*decltype(_impl_.wheel_rl_)*/0
+  , /*decltype(_impl_.wheel_fr_)*/0
+  , /*decltype(_impl_.wheel_mr_)*/0
+  , /*decltype(_impl_.wheel_rr_)*/0
+  , /*decltype(_impl_.steer_fl_)*/0
+  , /*decltype(_impl_.steer_rl_)*/0
+  , /*decltype(_impl_.steer_fr_)*/0
+  , /*decltype(_impl_.steer_rr_)*/0
   , /*decltype(_impl_.headlights_on_)*/false
   , /*decltype(_impl_.led_strip_on_)*/false
+  , /*decltype(_impl_.enable_motors_)*/false
+  , /*decltype(_impl_.estop_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RoverCommandDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RoverCommandDefaultTypeInternal()
@@ -54,15 +60,21 @@ const uint32_t TableStruct_RoverCommand_2eproto::offsets[] PROTOBUF_SECTION_VARI
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.stamp_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.motion_mode_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.linear_x_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.linear_y_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.linear_z_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.angular_x_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.angular_y_),
-  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.angular_z_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.sequence_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.wheel_fl_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.wheel_ml_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.wheel_rl_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.wheel_fr_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.wheel_mr_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.wheel_rr_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.steer_fl_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.steer_rl_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.steer_fr_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.steer_rr_),
   PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.headlights_on_),
   PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.led_strip_on_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.enable_motors_),
+  PROTOBUF_FIELD_OFFSET(::RoverCommand, _impl_.estop_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::RoverCommand)},
@@ -74,20 +86,23 @@ static const ::_pb::Message* const file_default_instances[] = {
 
 const char descriptor_table_protodef_RoverCommand_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\022RoverCommand.proto\032\037google/protobuf/ti"
-  "mestamp.proto\"\352\001\n\014RoverCommand\022)\n\005stamp\030"
-  "\001 \001(\0132\032.google.protobuf.Timestamp\022\023\n\013mot"
-  "ion_mode\030\002 \001(\r\022\020\n\010linear_x\030\003 \001(\002\022\020\n\010line"
-  "ar_y\030\004 \001(\002\022\020\n\010linear_z\030\005 \001(\002\022\021\n\tangular_"
-  "x\030\006 \001(\002\022\021\n\tangular_y\030\007 \001(\002\022\021\n\tangular_z\030"
-  "\010 \001(\002\022\025\n\rheadlights_on\030\t \001(\010\022\024\n\014led_stri"
-  "p_on\030\n \001(\010b\006proto3"
+  "mestamp.proto\"\322\002\n\014RoverCommand\022)\n\005stamp\030"
+  "\001 \001(\0132\032.google.protobuf.Timestamp\022\020\n\010seq"
+  "uence\030\002 \001(\r\022\020\n\010wheel_fl\030\003 \001(\002\022\020\n\010wheel_m"
+  "l\030\004 \001(\002\022\020\n\010wheel_rl\030\005 \001(\002\022\020\n\010wheel_fr\030\006 "
+  "\001(\002\022\020\n\010wheel_mr\030\007 \001(\002\022\020\n\010wheel_rr\030\010 \001(\002\022"
+  "\020\n\010steer_fl\030\t \001(\002\022\020\n\010steer_rl\030\n \001(\002\022\020\n\010s"
+  "teer_fr\030\013 \001(\002\022\020\n\010steer_rr\030\014 \001(\002\022\025\n\rheadl"
+  "ights_on\030\r \001(\010\022\024\n\014led_strip_on\030\016 \001(\010\022\025\n\r"
+  "enable_motors\030\017 \001(\010\022\r\n\005estop\030\020 \001(\010b\006prot"
+  "o3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_RoverCommand_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_RoverCommand_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_RoverCommand_2eproto = {
-    false, false, 298, descriptor_table_protodef_RoverCommand_2eproto,
+    false, false, 402, descriptor_table_protodef_RoverCommand_2eproto,
     "RoverCommand.proto",
     &descriptor_table_RoverCommand_2eproto_once, descriptor_table_RoverCommand_2eproto_deps, 1, 1,
     schemas, file_default_instances, TableStruct_RoverCommand_2eproto::offsets,
@@ -129,24 +144,30 @@ RoverCommand::RoverCommand(const RoverCommand& from)
   RoverCommand* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.stamp_){nullptr}
-    , decltype(_impl_.motion_mode_){}
-    , decltype(_impl_.linear_x_){}
-    , decltype(_impl_.linear_y_){}
-    , decltype(_impl_.linear_z_){}
-    , decltype(_impl_.angular_x_){}
-    , decltype(_impl_.angular_y_){}
-    , decltype(_impl_.angular_z_){}
+    , decltype(_impl_.sequence_){}
+    , decltype(_impl_.wheel_fl_){}
+    , decltype(_impl_.wheel_ml_){}
+    , decltype(_impl_.wheel_rl_){}
+    , decltype(_impl_.wheel_fr_){}
+    , decltype(_impl_.wheel_mr_){}
+    , decltype(_impl_.wheel_rr_){}
+    , decltype(_impl_.steer_fl_){}
+    , decltype(_impl_.steer_rl_){}
+    , decltype(_impl_.steer_fr_){}
+    , decltype(_impl_.steer_rr_){}
     , decltype(_impl_.headlights_on_){}
     , decltype(_impl_.led_strip_on_){}
+    , decltype(_impl_.enable_motors_){}
+    , decltype(_impl_.estop_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_stamp()) {
     _this->_impl_.stamp_ = new ::PROTOBUF_NAMESPACE_ID::Timestamp(*from._impl_.stamp_);
   }
-  ::memcpy(&_impl_.motion_mode_, &from._impl_.motion_mode_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.led_strip_on_) -
-    reinterpret_cast<char*>(&_impl_.motion_mode_)) + sizeof(_impl_.led_strip_on_));
+  ::memcpy(&_impl_.sequence_, &from._impl_.sequence_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.estop_) -
+    reinterpret_cast<char*>(&_impl_.sequence_)) + sizeof(_impl_.estop_));
   // @@protoc_insertion_point(copy_constructor:RoverCommand)
 }
 
@@ -156,15 +177,21 @@ inline void RoverCommand::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.stamp_){nullptr}
-    , decltype(_impl_.motion_mode_){0u}
-    , decltype(_impl_.linear_x_){0}
-    , decltype(_impl_.linear_y_){0}
-    , decltype(_impl_.linear_z_){0}
-    , decltype(_impl_.angular_x_){0}
-    , decltype(_impl_.angular_y_){0}
-    , decltype(_impl_.angular_z_){0}
+    , decltype(_impl_.sequence_){0u}
+    , decltype(_impl_.wheel_fl_){0}
+    , decltype(_impl_.wheel_ml_){0}
+    , decltype(_impl_.wheel_rl_){0}
+    , decltype(_impl_.wheel_fr_){0}
+    , decltype(_impl_.wheel_mr_){0}
+    , decltype(_impl_.wheel_rr_){0}
+    , decltype(_impl_.steer_fl_){0}
+    , decltype(_impl_.steer_rl_){0}
+    , decltype(_impl_.steer_fr_){0}
+    , decltype(_impl_.steer_rr_){0}
     , decltype(_impl_.headlights_on_){false}
     , decltype(_impl_.led_strip_on_){false}
+    , decltype(_impl_.enable_motors_){false}
+    , decltype(_impl_.estop_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -197,9 +224,9 @@ void RoverCommand::Clear() {
     delete _impl_.stamp_;
   }
   _impl_.stamp_ = nullptr;
-  ::memset(&_impl_.motion_mode_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.led_strip_on_) -
-      reinterpret_cast<char*>(&_impl_.motion_mode_)) + sizeof(_impl_.led_strip_on_));
+  ::memset(&_impl_.sequence_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.estop_) -
+      reinterpret_cast<char*>(&_impl_.sequence_)) + sizeof(_impl_.estop_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -217,74 +244,122 @@ const char* RoverCommand::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // uint32 motion_mode = 2;
+      // uint32 sequence = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.motion_mode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.sequence_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // float linear_x = 3;
+      // float wheel_fl = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
-          _impl_.linear_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.wheel_fl_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float linear_y = 4;
+      // float wheel_ml = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
-          _impl_.linear_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.wheel_ml_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float linear_z = 5;
+      // float wheel_rl = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 45)) {
-          _impl_.linear_z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.wheel_rl_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float angular_x = 6;
+      // float wheel_fr = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 53)) {
-          _impl_.angular_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.wheel_fr_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float angular_y = 7;
+      // float wheel_mr = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 61)) {
-          _impl_.angular_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.wheel_mr_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // float angular_z = 8;
+      // float wheel_rr = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 69)) {
-          _impl_.angular_z_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.wheel_rr_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
-      // bool headlights_on = 9;
+      // float steer_fl = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 77)) {
+          _impl_.steer_fl_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float steer_rl = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 85)) {
+          _impl_.steer_rl_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float steer_fr = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 93)) {
+          _impl_.steer_fr_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // float steer_rr = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 101)) {
+          _impl_.steer_rr_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool headlights_on = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           _impl_.headlights_on_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool led_strip_on = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+      // bool led_strip_on = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
           _impl_.led_strip_on_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enable_motors = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          _impl_.enable_motors_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool estop = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+          _impl_.estop_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -325,82 +400,134 @@ uint8_t* RoverCommand::_InternalSerialize(
         _Internal::stamp(this).GetCachedSize(), target, stream);
   }
 
-  // uint32 motion_mode = 2;
-  if (this->_internal_motion_mode() != 0) {
+  // uint32 sequence = 2;
+  if (this->_internal_sequence() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_motion_mode(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_sequence(), target);
   }
 
-  // float linear_x = 3;
+  // float wheel_fl = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_x = this->_internal_linear_x();
-  uint32_t raw_linear_x;
-  memcpy(&raw_linear_x, &tmp_linear_x, sizeof(tmp_linear_x));
-  if (raw_linear_x != 0) {
+  float tmp_wheel_fl = this->_internal_wheel_fl();
+  uint32_t raw_wheel_fl;
+  memcpy(&raw_wheel_fl, &tmp_wheel_fl, sizeof(tmp_wheel_fl));
+  if (raw_wheel_fl != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_linear_x(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_wheel_fl(), target);
   }
 
-  // float linear_y = 4;
+  // float wheel_ml = 4;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_y = this->_internal_linear_y();
-  uint32_t raw_linear_y;
-  memcpy(&raw_linear_y, &tmp_linear_y, sizeof(tmp_linear_y));
-  if (raw_linear_y != 0) {
+  float tmp_wheel_ml = this->_internal_wheel_ml();
+  uint32_t raw_wheel_ml;
+  memcpy(&raw_wheel_ml, &tmp_wheel_ml, sizeof(tmp_wheel_ml));
+  if (raw_wheel_ml != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_linear_y(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(4, this->_internal_wheel_ml(), target);
   }
 
-  // float linear_z = 5;
+  // float wheel_rl = 5;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_z = this->_internal_linear_z();
-  uint32_t raw_linear_z;
-  memcpy(&raw_linear_z, &tmp_linear_z, sizeof(tmp_linear_z));
-  if (raw_linear_z != 0) {
+  float tmp_wheel_rl = this->_internal_wheel_rl();
+  uint32_t raw_wheel_rl;
+  memcpy(&raw_wheel_rl, &tmp_wheel_rl, sizeof(tmp_wheel_rl));
+  if (raw_wheel_rl != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_linear_z(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(5, this->_internal_wheel_rl(), target);
   }
 
-  // float angular_x = 6;
+  // float wheel_fr = 6;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_x = this->_internal_angular_x();
-  uint32_t raw_angular_x;
-  memcpy(&raw_angular_x, &tmp_angular_x, sizeof(tmp_angular_x));
-  if (raw_angular_x != 0) {
+  float tmp_wheel_fr = this->_internal_wheel_fr();
+  uint32_t raw_wheel_fr;
+  memcpy(&raw_wheel_fr, &tmp_wheel_fr, sizeof(tmp_wheel_fr));
+  if (raw_wheel_fr != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_angular_x(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(6, this->_internal_wheel_fr(), target);
   }
 
-  // float angular_y = 7;
+  // float wheel_mr = 7;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_y = this->_internal_angular_y();
-  uint32_t raw_angular_y;
-  memcpy(&raw_angular_y, &tmp_angular_y, sizeof(tmp_angular_y));
-  if (raw_angular_y != 0) {
+  float tmp_wheel_mr = this->_internal_wheel_mr();
+  uint32_t raw_wheel_mr;
+  memcpy(&raw_wheel_mr, &tmp_wheel_mr, sizeof(tmp_wheel_mr));
+  if (raw_wheel_mr != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(7, this->_internal_angular_y(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(7, this->_internal_wheel_mr(), target);
   }
 
-  // float angular_z = 8;
+  // float wheel_rr = 8;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_z = this->_internal_angular_z();
-  uint32_t raw_angular_z;
-  memcpy(&raw_angular_z, &tmp_angular_z, sizeof(tmp_angular_z));
-  if (raw_angular_z != 0) {
+  float tmp_wheel_rr = this->_internal_wheel_rr();
+  uint32_t raw_wheel_rr;
+  memcpy(&raw_wheel_rr, &tmp_wheel_rr, sizeof(tmp_wheel_rr));
+  if (raw_wheel_rr != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteFloatToArray(8, this->_internal_angular_z(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(8, this->_internal_wheel_rr(), target);
   }
 
-  // bool headlights_on = 9;
+  // float steer_fl = 9;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_fl = this->_internal_steer_fl();
+  uint32_t raw_steer_fl;
+  memcpy(&raw_steer_fl, &tmp_steer_fl, sizeof(tmp_steer_fl));
+  if (raw_steer_fl != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(9, this->_internal_steer_fl(), target);
+  }
+
+  // float steer_rl = 10;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_rl = this->_internal_steer_rl();
+  uint32_t raw_steer_rl;
+  memcpy(&raw_steer_rl, &tmp_steer_rl, sizeof(tmp_steer_rl));
+  if (raw_steer_rl != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(10, this->_internal_steer_rl(), target);
+  }
+
+  // float steer_fr = 11;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_fr = this->_internal_steer_fr();
+  uint32_t raw_steer_fr;
+  memcpy(&raw_steer_fr, &tmp_steer_fr, sizeof(tmp_steer_fr));
+  if (raw_steer_fr != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(11, this->_internal_steer_fr(), target);
+  }
+
+  // float steer_rr = 12;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_rr = this->_internal_steer_rr();
+  uint32_t raw_steer_rr;
+  memcpy(&raw_steer_rr, &tmp_steer_rr, sizeof(tmp_steer_rr));
+  if (raw_steer_rr != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(12, this->_internal_steer_rr(), target);
+  }
+
+  // bool headlights_on = 13;
   if (this->_internal_headlights_on() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_headlights_on(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_headlights_on(), target);
   }
 
-  // bool led_strip_on = 10;
+  // bool led_strip_on = 14;
   if (this->_internal_led_strip_on() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_led_strip_on(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(14, this->_internal_led_strip_on(), target);
+  }
+
+  // bool enable_motors = 15;
+  if (this->_internal_enable_motors() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_enable_motors(), target);
+  }
+
+  // bool estop = 16;
+  if (this->_internal_estop() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_estop(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -426,73 +553,119 @@ size_t RoverCommand::ByteSizeLong() const {
         *_impl_.stamp_);
   }
 
-  // uint32 motion_mode = 2;
-  if (this->_internal_motion_mode() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_motion_mode());
+  // uint32 sequence = 2;
+  if (this->_internal_sequence() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sequence());
   }
 
-  // float linear_x = 3;
+  // float wheel_fl = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_x = this->_internal_linear_x();
-  uint32_t raw_linear_x;
-  memcpy(&raw_linear_x, &tmp_linear_x, sizeof(tmp_linear_x));
-  if (raw_linear_x != 0) {
+  float tmp_wheel_fl = this->_internal_wheel_fl();
+  uint32_t raw_wheel_fl;
+  memcpy(&raw_wheel_fl, &tmp_wheel_fl, sizeof(tmp_wheel_fl));
+  if (raw_wheel_fl != 0) {
     total_size += 1 + 4;
   }
 
-  // float linear_y = 4;
+  // float wheel_ml = 4;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_y = this->_internal_linear_y();
-  uint32_t raw_linear_y;
-  memcpy(&raw_linear_y, &tmp_linear_y, sizeof(tmp_linear_y));
-  if (raw_linear_y != 0) {
+  float tmp_wheel_ml = this->_internal_wheel_ml();
+  uint32_t raw_wheel_ml;
+  memcpy(&raw_wheel_ml, &tmp_wheel_ml, sizeof(tmp_wheel_ml));
+  if (raw_wheel_ml != 0) {
     total_size += 1 + 4;
   }
 
-  // float linear_z = 5;
+  // float wheel_rl = 5;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_z = this->_internal_linear_z();
-  uint32_t raw_linear_z;
-  memcpy(&raw_linear_z, &tmp_linear_z, sizeof(tmp_linear_z));
-  if (raw_linear_z != 0) {
+  float tmp_wheel_rl = this->_internal_wheel_rl();
+  uint32_t raw_wheel_rl;
+  memcpy(&raw_wheel_rl, &tmp_wheel_rl, sizeof(tmp_wheel_rl));
+  if (raw_wheel_rl != 0) {
     total_size += 1 + 4;
   }
 
-  // float angular_x = 6;
+  // float wheel_fr = 6;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_x = this->_internal_angular_x();
-  uint32_t raw_angular_x;
-  memcpy(&raw_angular_x, &tmp_angular_x, sizeof(tmp_angular_x));
-  if (raw_angular_x != 0) {
+  float tmp_wheel_fr = this->_internal_wheel_fr();
+  uint32_t raw_wheel_fr;
+  memcpy(&raw_wheel_fr, &tmp_wheel_fr, sizeof(tmp_wheel_fr));
+  if (raw_wheel_fr != 0) {
     total_size += 1 + 4;
   }
 
-  // float angular_y = 7;
+  // float wheel_mr = 7;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_y = this->_internal_angular_y();
-  uint32_t raw_angular_y;
-  memcpy(&raw_angular_y, &tmp_angular_y, sizeof(tmp_angular_y));
-  if (raw_angular_y != 0) {
+  float tmp_wheel_mr = this->_internal_wheel_mr();
+  uint32_t raw_wheel_mr;
+  memcpy(&raw_wheel_mr, &tmp_wheel_mr, sizeof(tmp_wheel_mr));
+  if (raw_wheel_mr != 0) {
     total_size += 1 + 4;
   }
 
-  // float angular_z = 8;
+  // float wheel_rr = 8;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_z = this->_internal_angular_z();
-  uint32_t raw_angular_z;
-  memcpy(&raw_angular_z, &tmp_angular_z, sizeof(tmp_angular_z));
-  if (raw_angular_z != 0) {
+  float tmp_wheel_rr = this->_internal_wheel_rr();
+  uint32_t raw_wheel_rr;
+  memcpy(&raw_wheel_rr, &tmp_wheel_rr, sizeof(tmp_wheel_rr));
+  if (raw_wheel_rr != 0) {
     total_size += 1 + 4;
   }
 
-  // bool headlights_on = 9;
+  // float steer_fl = 9;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_fl = this->_internal_steer_fl();
+  uint32_t raw_steer_fl;
+  memcpy(&raw_steer_fl, &tmp_steer_fl, sizeof(tmp_steer_fl));
+  if (raw_steer_fl != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float steer_rl = 10;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_rl = this->_internal_steer_rl();
+  uint32_t raw_steer_rl;
+  memcpy(&raw_steer_rl, &tmp_steer_rl, sizeof(tmp_steer_rl));
+  if (raw_steer_rl != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float steer_fr = 11;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_fr = this->_internal_steer_fr();
+  uint32_t raw_steer_fr;
+  memcpy(&raw_steer_fr, &tmp_steer_fr, sizeof(tmp_steer_fr));
+  if (raw_steer_fr != 0) {
+    total_size += 1 + 4;
+  }
+
+  // float steer_rr = 12;
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_rr = this->_internal_steer_rr();
+  uint32_t raw_steer_rr;
+  memcpy(&raw_steer_rr, &tmp_steer_rr, sizeof(tmp_steer_rr));
+  if (raw_steer_rr != 0) {
+    total_size += 1 + 4;
+  }
+
+  // bool headlights_on = 13;
   if (this->_internal_headlights_on() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool led_strip_on = 10;
+  // bool led_strip_on = 14;
   if (this->_internal_led_strip_on() != 0) {
     total_size += 1 + 1;
+  }
+
+  // bool enable_motors = 15;
+  if (this->_internal_enable_motors() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool estop = 16;
+  if (this->_internal_estop() != 0) {
+    total_size += 2 + 1;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -517,56 +690,90 @@ void RoverCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
     _this->_internal_mutable_stamp()->::PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(
         from._internal_stamp());
   }
-  if (from._internal_motion_mode() != 0) {
-    _this->_internal_set_motion_mode(from._internal_motion_mode());
+  if (from._internal_sequence() != 0) {
+    _this->_internal_set_sequence(from._internal_sequence());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_x = from._internal_linear_x();
-  uint32_t raw_linear_x;
-  memcpy(&raw_linear_x, &tmp_linear_x, sizeof(tmp_linear_x));
-  if (raw_linear_x != 0) {
-    _this->_internal_set_linear_x(from._internal_linear_x());
+  float tmp_wheel_fl = from._internal_wheel_fl();
+  uint32_t raw_wheel_fl;
+  memcpy(&raw_wheel_fl, &tmp_wheel_fl, sizeof(tmp_wheel_fl));
+  if (raw_wheel_fl != 0) {
+    _this->_internal_set_wheel_fl(from._internal_wheel_fl());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_y = from._internal_linear_y();
-  uint32_t raw_linear_y;
-  memcpy(&raw_linear_y, &tmp_linear_y, sizeof(tmp_linear_y));
-  if (raw_linear_y != 0) {
-    _this->_internal_set_linear_y(from._internal_linear_y());
+  float tmp_wheel_ml = from._internal_wheel_ml();
+  uint32_t raw_wheel_ml;
+  memcpy(&raw_wheel_ml, &tmp_wheel_ml, sizeof(tmp_wheel_ml));
+  if (raw_wheel_ml != 0) {
+    _this->_internal_set_wheel_ml(from._internal_wheel_ml());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_linear_z = from._internal_linear_z();
-  uint32_t raw_linear_z;
-  memcpy(&raw_linear_z, &tmp_linear_z, sizeof(tmp_linear_z));
-  if (raw_linear_z != 0) {
-    _this->_internal_set_linear_z(from._internal_linear_z());
+  float tmp_wheel_rl = from._internal_wheel_rl();
+  uint32_t raw_wheel_rl;
+  memcpy(&raw_wheel_rl, &tmp_wheel_rl, sizeof(tmp_wheel_rl));
+  if (raw_wheel_rl != 0) {
+    _this->_internal_set_wheel_rl(from._internal_wheel_rl());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_x = from._internal_angular_x();
-  uint32_t raw_angular_x;
-  memcpy(&raw_angular_x, &tmp_angular_x, sizeof(tmp_angular_x));
-  if (raw_angular_x != 0) {
-    _this->_internal_set_angular_x(from._internal_angular_x());
+  float tmp_wheel_fr = from._internal_wheel_fr();
+  uint32_t raw_wheel_fr;
+  memcpy(&raw_wheel_fr, &tmp_wheel_fr, sizeof(tmp_wheel_fr));
+  if (raw_wheel_fr != 0) {
+    _this->_internal_set_wheel_fr(from._internal_wheel_fr());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_y = from._internal_angular_y();
-  uint32_t raw_angular_y;
-  memcpy(&raw_angular_y, &tmp_angular_y, sizeof(tmp_angular_y));
-  if (raw_angular_y != 0) {
-    _this->_internal_set_angular_y(from._internal_angular_y());
+  float tmp_wheel_mr = from._internal_wheel_mr();
+  uint32_t raw_wheel_mr;
+  memcpy(&raw_wheel_mr, &tmp_wheel_mr, sizeof(tmp_wheel_mr));
+  if (raw_wheel_mr != 0) {
+    _this->_internal_set_wheel_mr(from._internal_wheel_mr());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
-  float tmp_angular_z = from._internal_angular_z();
-  uint32_t raw_angular_z;
-  memcpy(&raw_angular_z, &tmp_angular_z, sizeof(tmp_angular_z));
-  if (raw_angular_z != 0) {
-    _this->_internal_set_angular_z(from._internal_angular_z());
+  float tmp_wheel_rr = from._internal_wheel_rr();
+  uint32_t raw_wheel_rr;
+  memcpy(&raw_wheel_rr, &tmp_wheel_rr, sizeof(tmp_wheel_rr));
+  if (raw_wheel_rr != 0) {
+    _this->_internal_set_wheel_rr(from._internal_wheel_rr());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_fl = from._internal_steer_fl();
+  uint32_t raw_steer_fl;
+  memcpy(&raw_steer_fl, &tmp_steer_fl, sizeof(tmp_steer_fl));
+  if (raw_steer_fl != 0) {
+    _this->_internal_set_steer_fl(from._internal_steer_fl());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_rl = from._internal_steer_rl();
+  uint32_t raw_steer_rl;
+  memcpy(&raw_steer_rl, &tmp_steer_rl, sizeof(tmp_steer_rl));
+  if (raw_steer_rl != 0) {
+    _this->_internal_set_steer_rl(from._internal_steer_rl());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_fr = from._internal_steer_fr();
+  uint32_t raw_steer_fr;
+  memcpy(&raw_steer_fr, &tmp_steer_fr, sizeof(tmp_steer_fr));
+  if (raw_steer_fr != 0) {
+    _this->_internal_set_steer_fr(from._internal_steer_fr());
+  }
+  static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
+  float tmp_steer_rr = from._internal_steer_rr();
+  uint32_t raw_steer_rr;
+  memcpy(&raw_steer_rr, &tmp_steer_rr, sizeof(tmp_steer_rr));
+  if (raw_steer_rr != 0) {
+    _this->_internal_set_steer_rr(from._internal_steer_rr());
   }
   if (from._internal_headlights_on() != 0) {
     _this->_internal_set_headlights_on(from._internal_headlights_on());
   }
   if (from._internal_led_strip_on() != 0) {
     _this->_internal_set_led_strip_on(from._internal_led_strip_on());
+  }
+  if (from._internal_enable_motors() != 0) {
+    _this->_internal_set_enable_motors(from._internal_enable_motors());
+  }
+  if (from._internal_estop() != 0) {
+    _this->_internal_set_estop(from._internal_estop());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -586,8 +793,8 @@ void RoverCommand::InternalSwap(RoverCommand* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RoverCommand, _impl_.led_strip_on_)
-      + sizeof(RoverCommand::_impl_.led_strip_on_)
+      PROTOBUF_FIELD_OFFSET(RoverCommand, _impl_.estop_)
+      + sizeof(RoverCommand::_impl_.estop_)
       - PROTOBUF_FIELD_OFFSET(RoverCommand, _impl_.stamp_)>(
           reinterpret_cast<char*>(&_impl_.stamp_),
           reinterpret_cast<char*>(&other->_impl_.stamp_));

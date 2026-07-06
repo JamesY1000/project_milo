@@ -39,6 +39,20 @@ milo: # namespace
         deadzone_threshold: 0.05 # Ignore inputs within 0.1 range of 0
         trigger_threshold: -1.0 # R2 and L2 must be fully pressed to -1.0 to count as fully triggered
 
+  rover_controller_node:
+    ros__parameters:
+      control_timer_hz: 100
+      stale_msg_s: 5
+
+      # Rover geometry (m)
+      wheel_base_front: 0.250 # front axle to centre
+      wheel_base_rear: 0.250 # rear axle to centre
+      track_width: 0.300 # left to right wheels
+
+      # Limits
+      max_linear_speed: 1.0 # m/s corresponds to normalised [-1.0, 1.0]
+      max_steer_angle: 0.785 # rads (~45 deg)
+
 # Joy message
 # axes:
 # - 0.0 # left/right - left joystick

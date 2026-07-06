@@ -8,14 +8,14 @@ from launch_ros.actions import Node
 
 
 MILO_NAMESPACE = "milo"
-PKG_NAME = "ros_serial_bridge"
+PKG_NAME = "hardware_interface"
 PKG_PATH = get_package_share_directory(PKG_NAME)
 SERIAL_DRIVE_PKG = "serial_driver"
 SERIAL_DRIVE_PKG_PATH = Path(get_package_share_directory(SERIAL_DRIVE_PKG))
 
 def generate_launch_description():
 
-    ros_serial_config = Path(PKG_PATH) / "config" / "ros_serial_config.yml"
+    hardware_interface_config = Path(PKG_PATH) / "config" / "hardware_interface_config.yml"
 
     # Launch args
     launch_args = [
@@ -31,14 +31,14 @@ def generate_launch_description():
         )
     ]
 
-    ros_serial_bridge_node = Node(
-        package="ros_serial_bridge",
-        executable="ros_serial_bridge_node",
-        name="ros_serial_bridge_node",
+    hardware_interface_node = Node(
+        package="hardware_interface",
+        executable="hardware_interface_node",
+        name="hardware_interface_node",
         namespace=MILO_NAMESPACE,
         output="screen",
         parameters=[
-            ros_serial_config,
+            hardware_interface_config,
             {"use_sim_time": LaunchConfiguration("use_sim_time")}
         ],
         arguments=[
@@ -52,11 +52,11 @@ def generate_launch_description():
             str(SERIAL_DRIVE_PKG_PATH / "launch" / "serial_driver_bridge_node.launch.py")
         ]),
         launch_arguments={
-            "params_file": str(ros_serial_config)
+            "params_file": str(hardware_interface_config)
         }.items()
     )
 
     return LaunchDescription(launch_args + [
-        ros_serial_bridge_node,
+        hardware_interface_node,
         serial_driver_launch_,
     ])
