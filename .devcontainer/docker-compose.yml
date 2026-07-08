@@ -42,7 +42,8 @@ services:
       - ~/ccache:/ccache
       - ~/Downloads:/home/ubuntu/Downloads
       - ~/.config/Code:/home/ubuntu/Code
-      - ~/.gitconfig:/etc/gitconfig:ro
+      # - ~/.gitconfig:/etc/gitconfig:ro
+      - ${HOME}/.gitconfig:/home/ubuntu/.gitconfig:ro
       - ~/.zsh_history:/home/ubuntu/.zsh_history
       - ~/.bash_history:/home/ubuntu/.bash_history
       - ~/.ssh:/home/ubuntu/.ssh:ro
