@@ -1,0 +1,75 @@
+{
+  "name": "Material Flow",
+  "workspaceFolder": "/material-flow",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "material-flow-devcontainer-user",
+  "remoteUser": "ubuntu",
+  "initializeCommand": "bash .devcontainer/scripts/00_devcontainer_init.sh",
+  "overrideCommand": false,
+  "shutdownAction": "stopContainer",
+  "postCreateCommand": "bash .devcontainer/scripts/02_devcontainer_post_create.sh",
+  "forwardPorts": [80, 3000, 3100, 4200, 4300, 5432, 8088, 8888, 9000, 9001, 9003],
+  "portsAttributes": {
+    "80": { "label": "Fleet reverse proxy" },
+    "3000": { "label": "Fleet backend API" },
+    "3100": { "label": "Fleet analyzer backend" },
+    "4200": { "label": "Fleet frontend" },
+    "4300": { "label": "Fleet analyzer frontend" },
+    "5432": { "label": "Fleet Postgres" },
+    "8088": { "label": "Fleet simulation manager" },
+    "8888": { "label": "Fleet analyzer data service" },
+    "9000": { "label": "Fleet MinIO API" },
+    "9001": { "label": "Fleet MQTT websocket" },
+    "9003": { "label": "Fleet MinIO console" }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": { "path": "/usr/bin/zsh" }
+        },
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "rust-analyzer.linkedProjects": [
+          "/material-flow/fleet/Cargo.toml",
+          "/material-flow/fleet/apps-workspace/apps/authz-middleware/Cargo.toml"
+        ],
+        "editor.formatOnSave": true,
+        "files.trimTrailingWhitespace": true
+      },
+      "extensions": [
+        // AI / Copilot
+        "github.copilot",
+        "github.copilot-chat",
+        "openai.chatgpt",
+        "anthropic.claude-code",
+        // Rust
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "vadimcn.vscode-lldb",
+        "serayuzgur.crates",
+        "fill-labs.dependi",
+        // Python
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "ms-python.mypy-type-checker",
+        // Frontend / TypeScript
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        // Infrastructure / Config
+        "ms-azuretools.vscode-docker",
+        "redhat.vscode-yaml",
+        "editorconfig.editorconfig",
+        // Git
+        "eamodio.gitlens",
+        // Quality-of-life
+        "christian-kohler.path-intellisense",
+        "usernamehw.errorlens",
+        "shardulm94.trailing-spaces",
+        "davidanson.vscode-markdownlint"
+      ]
+    }
+  }
+}

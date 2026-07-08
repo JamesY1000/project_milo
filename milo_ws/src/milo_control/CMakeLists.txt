@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 project(milo_control)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -25,26 +25,28 @@ install(DIRECTORY
 
 # Create executables
 add_executable(controller_teleop_node src/controller_teleop.cpp)
-ament_target_dependencies(controller_teleop_node
-  rclcpp 
-  std_msgs
-  sensor_msgs
-  geometry_msgs
-  milo_interfaces
+target_link_libraries(controller_teleop_node
+  PRIVATE
+  rclcpp::rclcpp
+  ${std_msgs_TARGETS}
+  ${sensor_msgs_TARGETS}
+  ${geometry_msgs_TARGETS}
+  ${milo_interfaces_TARGETS}
 )
 
 add_executable(rover_controller_node src/rover_controller.cpp)
-ament_target_dependencies(rover_controller_node 
-  rclcpp 
-  std_msgs
-  geometry_msgs
-  milo_interfaces
+target_link_libraries(rover_controller_node
+  PRIVATE
+  rclcpp::rclcpp
+  ${std_msgs_TARGETS}
+  ${geometry_msgs_TARGETS}
+  ${milo_interfaces_TARGETS}
 )
 
 # Install cpp executables
-install(TARGETS 
+install(TARGETS
   controller_teleop_node
-  rover_controller_node 
+  rover_controller_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

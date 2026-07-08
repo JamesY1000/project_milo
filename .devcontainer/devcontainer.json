@@ -1,50 +1,59 @@
 {
-    "name": "milo-brain-devcontainer",          // Friendly name shown in VS Code
-
-    "build": {                                  // How to build the container image
-        "dockerfile": "../docker_images/devel/Dockerfile", // Existing Dockerfile
-        "context": "..",                        // Build context (uses root repository)
-        "args": {                               // Build-time arguments
-            "WORKSPACE": "milo_ws"              // Passed to ARG in Dockerfile
-        }
-    },
-
-    "workspaceFolder": "/root/milo_ws",         // Folder VS Code opens inside container
-    "workspaceMount": "source=${localWorkspaceFolder}, target=/root/milo_ws, type=bind, consistency=cached", // Binds your local repo into the container at /root/milo_ws
-
-    "remoteUser": "root",                       // User inside container (matches Dockerfile)
-
-    "containerEnv": {                           // Environment variables inside container
-        "DISPLAY": "${localEnv:DISPLAY}",       // Forward host X11 display (for GUI apps)
-        "PYTHONBUFFERED": "1"                   // Unbuffered Python output
-    },
-
-    "runArgs": [                                // Extra docker run flags
-        "--net=host",                           // Host networking (ROS 2 discovery)
-        "--ipc=host",                           // Share IPC namespace
-        "--pid=host",                           // Share PID namespace
-        "--privileged",                         // Full device access (use only if needed)
-        "--device=/dev/bus/usb:/dev/bus/usb"    // USB device access
-    ],
-
-    "mounts": [                                 // Extra bind mounts
-        "source=/etc/timezone,target=/etc/timezone,type=bind,readonly",
-        "source=/etc/localtime,target=/etc/localtime,type=bind,readonly",
-        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
-        "source=${localEnv:HOME}/.Xauthority,target=/root/.Xauthority,type=bind,readonly",
-        "source=${localWorkspaceFolder}/docker_images/devel/.session.yml,target=/root/.session.yml,type=bind",
-        "source=${localWorkspaceFolder}/docker_images/devel/.tmux.conf,target=/root/.tmux.conf,type=bind"
-    ],
-
-    "postCreateCommand": "apt-get update && rosdep update || true", // Runs once after container is created
-
-    "customizations": {                         // VS Code settings inside container
+    "name": "project_milo",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "milo-devcontainer-user",
+    "workspaceFolder": "/project_milo",
+    "remoteUser": "ubuntu",
+    "overrideCommand": false,
+    "shutdownAction": "stopContainer",
+    "postCreateCommand": "bash .devcontainer/scripts/post_create.sh",
+    // Handle port forwarding in the future for foxglove and webdev
+    // "forwardPorts": [80, 3000, 3100, 4200, 4300, 5432, 8088, 8888, 9000, 9001, 9003],
+    // "portsAttributes": {
+    //     "80": { "label": "Fleet reverse proxy" },
+    //     "3000": { "label": "Fleet backend API" },
+    //     "3100": { "label": "Fleet analyzer backend" },
+    //     "4200": { "label": "Fleet frontend" },
+    //     "4300": { "label": "Fleet analyzer frontend" },
+    //     "5432": { "label": "Fleet Postgres" },
+    //     "8088": { "label": "Fleet simulation manager" },
+    //     "8888": { "label": "Fleet analyzer data service" },
+    //     "9000": { "label": "Fleet MinIO API" },
+    //     "9001": { "label": "Fleet MQTT websocket" },
+    //     "9003": { "label": "Fleet MinIO console" }
+    // },
+    "customizations": {
         "vscode": {
-            "extensions": [
-                "ms-iot.vscode-ros",
-                "ms-vscode.cpptools",
-                "ms-python.python"
-            ]
-        }
+        "settings": {
+            "terminal.integrated.defaultProfile.linux": "zsh",
+            "terminal.integrated.profiles.linux": {
+            "zsh": { "path": "/usr/bin/zsh" }
+            },
+            "python.defaultInterpreterPath": "/usr/local/bin/python",
+            "editor.formatOnSave": true,
+            "files.trimTrailingWhitespace": true
+        },
+        "extensions": [
+            // AI / Copilot
+            // "github.copilot",
+            // "github.copilot-chat",
+            // "openai.chatgpt",
+            // "anthropic.claude-code",
+            
+            // Python
+            "ms-python.python",
+            "ms-python.vscode-pylance",
+            "ms-python.debugpy",
+            "charliermarsh.ruff",
+            "ms-python.mypy-type-checker",
+            // Git
+            "eamodio.gitlens",
+            // Quality-of-life
+            "christian-kohler.path-intellisense",
+            "usernamehw.errorlens",
+            "shardulm94.trailing-spaces",
+            "davidanson.vscode-markdownlint"
+      ]
     }
+  }
 }

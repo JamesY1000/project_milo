@@ -1,0 +1,72 @@
+services:
+  material-flow-devcontainer-base:
+    image: ${MATERIAL_FLOW_REGISTRY:-registry.arculus.it/material-flow/material-flow}/material-flow-devcontainer-base-${PLATFORM:?PLATFORM is required}:${IMAGE_TAG:-latest}
+    profiles:
+      - devcontainer-build
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.base
+      args:
+        ROS_DISTRO: "${ROS_DISTRO:-jazzy}"
+        ROS_BASE_IMAGE: "${ROS_BASE_IMAGE:-registry.arculus.it/devops/container-images/mirrors/ros:${ROS_DISTRO:-jazzy}-ros-base-noble}"
+        NODE_VERSION: "${NODE_VERSION:-20}"
+      cache_from:
+        - ${MATERIAL_FLOW_REGISTRY:-registry.arculus.it/material-flow/material-flow}/material-flow-devcontainer-base-${PLATFORM:?PLATFORM is required}:${CACHE_IMAGE_TAG:-latest}
+
+  material-flow-devcontainer-user:
+    image: ${MATERIAL_FLOW_REGISTRY:-registry.arculus.it/material-flow/material-flow}/material-flow-devcontainer-user-${PLATFORM:?PLATFORM is required}:${IMAGE_TAG:-latest}
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.user
+      args:
+        MATERIAL_FLOW_REGISTRY: "${MATERIAL_FLOW_REGISTRY:-registry.arculus.it/material-flow/material-flow}"
+        BASE_IMAGE_NAME: "material-flow-devcontainer-fleet-${PLATFORM:?PLATFORM is required}"
+        IMAGE_TAG: "${IMAGE_TAG:-latest}"
+      cache_from:
+        - ${MATERIAL_FLOW_REGISTRY:-registry.arculus.it/material-flow/material-flow}/material-flow-devcontainer-base-${PLATFORM:?PLATFORM is required}:${CACHE_IMAGE_TAG:-latest}
+        - ${MATERIAL_FLOW_REGISTRY:-registry.arculus.it/material-flow/material-flow}/material-flow-devcontainer-user-${PLATFORM:?PLATFORM is required}:${CACHE_IMAGE_TAG:-latest}
+    init: true
+    tty: true
+    entrypoint: /material-flow/.devcontainer/scripts/01_devcontainer_entrypoint.sh
+    privileged: true
+    network_mode: host
+    ipc: host
+    pid: host
+    working_dir: /material-flow
+    volumes:
+      - ..:/material-flow:cached
+      - ~/ccache:/ccache
+      - ~/Downloads:/home/ubuntu/Downloads
+      - ~/.config/Code:/home/ubuntu/Code
+      - ~/.gitconfig:/etc/gitconfig:ro
+      - ~/.zsh_history:/home/ubuntu/.zsh_history
+      - ~/.bash_history:/home/ubuntu/.bash_history
+      - ~/.ssh:/home/ubuntu/.ssh:ro
+      - ~/.Xauthority:/home/ubuntu/.Xauthority:ro
+      - ~/.cache/pre-commit:/home/ubuntu/.cache/pre-commit
+      - material-flow-cargo-registry:/usr/local/cargo/registry
+      - material-flow-cargo-git:/usr/local/cargo/git
+      - material-flow-fleet-target:/material-flow/fleet/target
+      - material-flow-fleet-apps-node-modules:/material-flow/fleet/apps-workspace/node_modules
+      - material-flow-fleet-nx-cache:/material-flow/fleet/apps-workspace/.nx/cache
+      - material-flow-kube:/home/ubuntu/.kube
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /lib/modules:/lib/modules:ro
+      - /dev:/dev
+    environment:
+      DISPLAY:
+      XAUTHORITY:
+      NVIDIA_DRIVER_CAPABILITIES: all
+      NVIDIA_VISIBLE_DEVICES: all
+      TERM: xterm-256color
+      PYTHONDONTWRITEBYTECODE: 1
+      PYTHONUNBUFFERED: 1
+      CCACHE_DIR: /ccache
+      KUBECONFIG: /home/ubuntu/.kube/config
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    runtime: ${CONTAINER_RUNTIME:-runc}
+    restart: ${RESTART_POLICY:-no}

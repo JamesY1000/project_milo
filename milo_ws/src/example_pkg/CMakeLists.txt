@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 project(example_pkg)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -17,11 +17,16 @@ include_directories(include)
 
 # Create executables
 add_executable(example_node_cpp src/example_node_cpp.cpp)
-ament_target_dependencies(example_node_cpp rclcpp std_msgs)
+# ament_target_dependencies(example_node_cpp rclcpp std_msgs)
+target_link_libraries(example_node_cpp
+  PRIVATE
+  rclcpp::rclcpp
+  ${std_msgs_TARGETS}
+)
 
 # Install cpp executables
-install(TARGETS 
-  example_node_cpp 
+install(TARGETS
+  example_node_cpp
   DESTINATION lib/${PROJECT_NAME}
 )
 

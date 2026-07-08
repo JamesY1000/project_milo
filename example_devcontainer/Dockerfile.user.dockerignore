@@ -1,0 +1,6 @@
+# Ignore everything by default
+*
+
+# Except required files and folders
+!.devcontainer/zsh/
+!.devcontainer/config/aliases.txt
