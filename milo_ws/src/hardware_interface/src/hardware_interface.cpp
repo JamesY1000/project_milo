@@ -23,6 +23,7 @@ void HardwareInterface::getParams()
     crc16_ccitt_polynomial_ = static_cast<uint16_t>(this->get_parameter("crc16_ccitt_polynomial").as_int());
 }
 
+// Subscribes to rover_command msgs, publishes serialised data to /serial_write (which gets transported via the serial_driver)
 void HardwareInterface::setupPubSubs()
 {
     rclcpp::QoS cmd_qos(10);
@@ -39,11 +40,13 @@ void HardwareInterface::setupPubSubs()
         "/serial_write", serial_qos);
 }
 
+// Takes in rover_command msgs, copies it into a pb msg, serialises pb payload, then publishes
+// the framed bites to /serial_write that is then transported via UART by the serial_bridge node
 void HardwareInterface::cbRoverCommand(const milo_interfaces::msg::RoverCommand::SharedPtr msg)
 {
     RoverCommand rover_command;
 
-    google::protobuf::Timestamp* stamp = rover_command.mutable_stamp();
+    google::protobuf::Timestamp *stamp = rover_command.mutable_stamp();
     stamp->set_seconds(msg->stamp.sec);
     stamp->set_nanos(msg->stamp.nanosec);
 
@@ -66,6 +69,7 @@ void HardwareInterface::cbRoverCommand(const milo_interfaces::msg::RoverCommand:
     rover_command.set_enable_motors(msg->enable_motors);
     rover_command.set_estop(msg->estop);
 
+    // Store serialised msg in a buffer
     std::vector<uint8_t> serial_buffer = serialiseMsg(rover_command);
     if (serial_buffer.empty())
     {
@@ -73,11 +77,13 @@ void HardwareInterface::cbRoverCommand(const milo_interfaces::msg::RoverCommand:
         return;
     }
 
+    // Creates a UInt8MultiArray msg for the serial buffer and publishes it
     std_msgs::msg::UInt8MultiArray serial_msg;
     serial_msg.data = serial_buffer;
     serial_write_pub_->publish(serial_msg);
 }
 
+// Takes in a pb rover_command msg, serialises the payload and returns serialised payload as a buffer
 std::vector<uint8_t> HardwareInterface::serialiseMsg(RoverCommand rover_command)
 {
     std::string payload_bits;
@@ -89,6 +95,9 @@ std::vector<uint8_t> HardwareInterface::serialiseMsg(RoverCommand rover_command)
 
     std::vector<uint8_t> serial_buffer;
 
+    // [sync][length][payload][crc16]
+    // [2bytes]2bytes][nbytes][2bytes]
+    // sync bit: 0xAA 0x55
     serial_buffer.push_back(sync_bits_ >> 8);
     serial_buffer.push_back(sync_bits_ & 0xFF);
 
@@ -105,7 +114,8 @@ std::vector<uint8_t> HardwareInterface::serialiseMsg(RoverCommand rover_command)
     return serial_buffer;
 }
 
-uint16_t HardwareInterface::crc16_ccitt(const uint8_t* data, size_t length)
+// Computes 16-bit checksum over [sync][length][payload] to append at the end as the [crc16]
+uint16_t HardwareInterface::crc16_ccitt(const uint8_t *data, size_t length)
 {
     uint16_t crc = crc16_ccitt_init_;
 

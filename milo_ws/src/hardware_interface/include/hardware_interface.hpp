@@ -10,15 +10,15 @@
 
 class HardwareInterface : public rclcpp::Node
 {
-public:    
+public:
     HardwareInterface();
-    
+
 private:
     void getParams();
     void setupPubSubs();
     void cbRoverCommand(const milo_interfaces::msg::RoverCommand::SharedPtr msg);
     std::vector<uint8_t> serialiseMsg(RoverCommand rover_command);
-    uint16_t crc16_ccitt(const uint8_t* data, size_t length);     
+    uint16_t crc16_ccitt(const uint8_t* data, size_t length);
 
     // Publisher/subscribers
     rclcpp::Subscription<milo_interfaces::msg::RoverCommand>::SharedPtr rover_command_sub_;
