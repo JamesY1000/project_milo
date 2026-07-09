@@ -13,3 +13,6 @@ pytest
 numpy
 # matplotlib
 # uvicorn[standard]
+
+# Protobuf
+nanopb
