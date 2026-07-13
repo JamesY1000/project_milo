@@ -2,6 +2,12 @@
 #include <algorithm>
 #include <cmath>
 
+
+// This node subscribes to cmd_vel (twist), motion_mode (uint8), auxiliary (milo_interfaces/Auxiliary),
+// handles rover driving kinematics via computerActuatorTargets
+// and creates and publishes a rover_command (milo_interfaces/RoverCommand) message.
+// Currently it computes actuator targets as normalised [-1, 1] and [rads], which would eventually need
+// to be updated
 RoverController::RoverController() : Node("rover_controller")
 {
     getParams();

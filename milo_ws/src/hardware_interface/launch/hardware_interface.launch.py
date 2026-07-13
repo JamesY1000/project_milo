@@ -13,22 +13,23 @@ PKG_PATH = get_package_share_directory(PKG_NAME)
 SERIAL_DRIVE_PKG = "serial_driver"
 SERIAL_DRIVE_PKG_PATH = Path(get_package_share_directory(SERIAL_DRIVE_PKG))
 
+
 def generate_launch_description():
 
-    hardware_interface_config = Path(PKG_PATH) / "config" / "hardware_interface_config.yml"
+    hardware_interface_config = (
+        Path(PKG_PATH) / "config" / "hardware_interface_config.yml"
+    )
 
     # Launch args
     launch_args = [
         DeclareLaunchArgument(
-            "use_sim_time", 
-            default_value="false", 
-            description="Use simulation time"),
-
+            "use_sim_time", default_value="false", description="Use simulation time"
+        ),
         DeclareLaunchArgument(
             "log_level",
             default_value="INFO",
-            description="Log level: DEBUG, INFO, WARN, ERROR, FATAL"
-        )
+            description="Log level: DEBUG, INFO, WARN, ERROR, FATAL",
+        ),
     ]
 
     hardware_interface_node = Node(
@@ -39,24 +40,28 @@ def generate_launch_description():
         output="screen",
         parameters=[
             hardware_interface_config,
-            {"use_sim_time": LaunchConfiguration("use_sim_time")}
+            {"use_sim_time": LaunchConfiguration("use_sim_time")},
         ],
-        arguments=[
-            "--ros-args",
-            "--log-level", LaunchConfiguration("log_level")
-        ]
+        arguments=["--ros-args", "--log-level", LaunchConfiguration("log_level")],
     )
 
     serial_driver_launch_ = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            str(SERIAL_DRIVE_PKG_PATH / "launch" / "serial_driver_bridge_node.launch.py")
-        ]),
-        launch_arguments={
-            "params_file": str(hardware_interface_config)
-        }.items()
+        PythonLaunchDescriptionSource(
+            [
+                str(
+                    SERIAL_DRIVE_PKG_PATH
+                    / "launch"
+                    / "serial_driver_bridge_node.launch.py"
+                )
+            ]
+        ),
+        launch_arguments={"params_file": str(hardware_interface_config)}.items(),
     )
 
-    return LaunchDescription(launch_args + [
-        hardware_interface_node,
-        serial_driver_launch_,
-    ])
+    return LaunchDescription(
+        launch_args
+        + [
+            hardware_interface_node,
+            serial_driver_launch_,
+        ]
+    )

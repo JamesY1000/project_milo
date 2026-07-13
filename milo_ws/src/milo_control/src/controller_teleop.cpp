@@ -1,10 +1,13 @@
 #include "controller_teleop.hpp"
 
+// This node takes in ps4 controller input and maps each input to an output. It then publishes
+// motion_mode_pub_ (UInt8), cmd_msg_pub_ (Twist), auxiliary_pub_ (milo_interfaces/Auxiliary).
+
 ControllerTeleop::ControllerTeleop() : Node("controller_teleop")
 {
     // Declare and get parameters
     getParams();
-    
+
     // Setup publishers/subscribers
     setupPubSubs();
 
@@ -109,7 +112,7 @@ void ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
     if (!msg) return;
 
     // Check bounds
-    const size_t max_axes_idx = std::max({ 
+    const size_t max_axes_idx = std::max({
         static_cast<size_t>(l_joystick_l_r_axes_idx_),
         static_cast<size_t>(l_joystick_u_d_axes_idx_),
         static_cast<size_t>(r_joystick_l_r_axes_idx_),
@@ -139,7 +142,7 @@ void ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
 
     if (msg->axes.size() <= max_axes_idx || msg->buttons.size() <= max_button_idx)
     {
-        RCLCPP_WARN(this->get_logger(), 
+        RCLCPP_WARN(this->get_logger(),
             "Joystick message too small (axes: %zu, buttons: %zu). Expected axes > %zu and buttons > %zu.",
             msg->axes.size(), msg->buttons.size(), max_axes_idx, max_button_idx);
 
@@ -149,8 +152,8 @@ void ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
     MotionMode current_mode;
 
     // Log joystick values for debugging
-    RCLCPP_DEBUG(this->get_logger(), 
-        "Axes - l_joystick_l_r: %.2f, l_joystick_u_d: %.2f, r_joystick_l_r: %.2f, r_joystick_u_d: %.2f, l2_throttle: %.2f, r2_throttle: %.2f", 
+    RCLCPP_DEBUG(this->get_logger(),
+        "Axes - l_joystick_l_r: %.2f, l_joystick_u_d: %.2f, r_joystick_l_r: %.2f, r_joystick_u_d: %.2f, l2_throttle: %.2f, r2_throttle: %.2f",
         msg->axes[l_joystick_l_r_axes_idx_],
         msg->axes[l_joystick_u_d_axes_idx_],
         msg->axes[r_joystick_l_r_axes_idx_],
@@ -159,7 +162,7 @@ void ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
         msg->axes[r2_throttle_axes_idx_]
     );
 
-    RCLCPP_DEBUG(this->get_logger(), 
+    RCLCPP_DEBUG(this->get_logger(),
         "Buttons - x: %d, o: %d, square: %d, triangle: %d, share: %d, playstation_button: %d, start: %d, "
         "l3: %d, r3: %d, l1: %d, r1: %d, arrow_up: %d, arrow_down: %d, arrow_left: %d, arrow_right: %d, touchpad_pressed: %d",
         msg->buttons[x_button_idx_],
@@ -206,7 +209,7 @@ void ControllerTeleop::cbJoy(const sensor_msgs::msg::Joy::SharedPtr msg)
     milo_interfaces::msg::Auxiliary auxiliary_msg;
     auxiliary_msg.headlights_on = headlights_on_;
     auxiliary_msg.led_strip_on = led_strip_on_;
-    auxiliary_pub_->publish(auxiliary_msg); 
+    auxiliary_pub_->publish(auxiliary_msg);
 
 }
 
@@ -247,7 +250,7 @@ MotionMode ControllerTeleop::determineMotionMode(
 }
 
 void ControllerTeleop::createTwistMsg(const sensor_msgs::msg::Joy::SharedPtr msg, const MotionMode current_mode, geometry_msgs::msg::Twist &cmd_msg)
-{    
+{
     if (current_mode == MotionMode::STOP)
     {
         // Set all values to 0
