@@ -6,6 +6,8 @@ milo:
       crc16_ccitt_msb: 0x8000
       crc16_ccitt_polynomial: 0x1021
 
+#TODO (james): ADD ARGPATH FOR USB PATH
+
 # Not under milo namespace
 serial_bridge_node:
   ros__parameters:
