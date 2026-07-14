@@ -185,6 +185,7 @@ bool RoverController::safetyCheckTimestamp(const int stale_msg_s,
     return all_messages_fresh;
 }
 
+// TODO (james): Compute physical wheel velocity targets (wheel_fl_velocity_rad_s or m_s)
 ActuatorTargets RoverController::computeActuatorTargets(
     const geometry_msgs::msg::Twist& cmd,
     const std_msgs::msg::UInt8& motion_mode)
@@ -251,6 +252,7 @@ ActuatorTargets RoverController::computeActuatorTargets(
     double steer_right = std::clamp(std::atan(leading_wheelbase / lateral_right),
                                     -max_steer_angle_, max_steer_angle_);
 
+    // Front two wheels steer
     if (driving_forward)
     {
         targets.steer_fl = steer_left;
@@ -259,6 +261,7 @@ ActuatorTargets RoverController::computeActuatorTargets(
         targets.steer_rr = 0.0;
     }
     else
+    // Back two wheels steer
     {
         targets.steer_fl = 0.0;
         targets.steer_fr = 0.0;

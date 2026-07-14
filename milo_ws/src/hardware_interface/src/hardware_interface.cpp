@@ -40,7 +40,7 @@ void HardwareInterface::setupPubSubs()
         "/serial_write", serial_qos);
 }
 
-// Takes in rover_command msgs, copies it into a pb msg, serialises pb payload, then publishes
+// Takes in rover_command msgs, copies it into a protobuf msg, serialises pb payload, then publishes
 // the framed bites to /serial_write that is then transported via UART by the serial_bridge node
 void HardwareInterface::cbRoverCommand(const milo_interfaces::msg::RoverCommand::SharedPtr msg)
 {
