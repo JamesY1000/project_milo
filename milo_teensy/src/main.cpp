@@ -23,9 +23,9 @@ void loop()
     // Process incoming serial stream and consume (return) new RoverCommand if available
     serial_manager.updateSerial();
 
-    if (serial_manager.consumeLatestCommand)
+    if (serial_manager.consumeLatestCommand(latest_cmd))
     {
-        // Store local_cmd in local targets - pass through latest_cmd to motor_manager
+        // Store local_cmd in local targets - make a call and pass through latest_cmd to motor_manager
     }
 
 }
