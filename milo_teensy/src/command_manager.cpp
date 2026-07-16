@@ -1,18 +1,7 @@
 #include "command_manager.hpp"
 
-
 // Create a class.called CommandManager
+// This class handles motor and auxiliary commands from the SBC
 
-// Deserialise RoverCommand.proto messages
-
-// Execute -> SerialManager - deserialise data and store into local data fields
-
-// Execute -> DriveManager - executes motor commands for wheel dc motors and steering servo motors
-
-// Execute -> AuxiliaryManager - turns lights on/off
-
-// Execute sensor manager (poll sensors) - returns current sensor data
-
-// Serialise sensor data
-
-// Write sensor data back to SBC
+// It should take in a RoverCommand message, store it into local states, then apply
+// the commands for the required motors or applications (eg. auxiliary, estop)
