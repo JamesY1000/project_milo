@@ -11,9 +11,10 @@
 class SerialManager
 {
 public:
+    // 1. Call updateSerial(), then consumeGetLatestCommand() immediately after
     void updateSerial(); // Called in every loop by main - read bytes and decodes message
 
-    bool newCmdReceived(); // Called in update to check if a new message has been received
+    bool consumeLatestCommand(RoverCommand& out_cmd); // Returns newest RoverCommand if available
 
 private:
     // TODO (james): Does this belong in private or outside of the class? Also make sure there are no dangling variables/all intiailised in constructor
@@ -28,35 +29,37 @@ private:
         ReadCrcLow
     };
 
-    // Processes one incoming byte from the serial stream.
-    // Bytes are fed through a state machine which reconstructs a complete
-    // [sync][length][payload][crc16] frame. Once a valid frame is received,
-    // the protobuf payload is deserialized into a RoverCommand message.
+
     void processByte(uint8_t byte);
 
-    void resetFrameParser();
+    void resetFrameParser(); // Resets state and state variables
 
     bool decodePayload(); // Decodes the serial payload via nanopb
 
     static uint16_t updateCRC(uint16_t current_crc, uint8_t byte);
 
-    uint16_t calculateCRC(const uint8_t *data, size_t length) const;
+    // TODO (james): Future methods for serialising payload and writing back to sbc
 
     // CRC constants
     static constexpr uint8_t sync1_ = 0xAA; // Sync bits 0XAA55
     static constexpr uint8_t sync2_ = 0x55;
-    static constexpr uint8_t crc16_ccitt_init_ = 0xFFFF;
-    static constexpr uint8_t crc16_ccitt_msb_ = 0x8000;
-    static constexpr uint8_t crc16_ccitt_polynomial_ = 0x1021;
+    static constexpr uint16_t crc16_ccitt_init_ = 0xFFFF;
+    static constexpr uint16_t crc16_ccitt_msb_ = 0x8000;
+    static constexpr uint16_t crc16_ccitt_polynomial_ = 0x1021;
 
-    // static constexpr std::size_t max_payload_size_ = 256;
+    static constexpr std::size_t max_payload_size_ = 256;
+    uint16_t expected_payload_length_ = 0;
+    uint16_t payload_idx_ = 0;
+    uint8_t payload_buffer_[max_payload_size_]{};
 
-    RxState rx_state_; // Should start in WaitSync1
+    uint16_t running_crc_ = crc16_ccitt_init_;
+    uint16_t received_crc_ = 0;
 
-    uint16_t running_crc_; // Should be crc initial value (crc16_ccitt_init)
-    uint16_t received_crc_;
+    RxState rx_state_ = RxState::WaitSync1; // Default state is waiting for sync1
+    RoverCommand latest_command_ = RoverCommand_init_zero;
 
-    RoverCommand latest_command_;
+    bool has_new_command_ = false;
+
 };
 
 #endif // SERIAL_MANAGER_H
