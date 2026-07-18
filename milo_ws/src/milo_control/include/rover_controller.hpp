@@ -48,7 +48,6 @@ private:
     bool safetyCheckTimestamp(const int stale_msg_s,
                                             const bool got_motion_mode,
                                             const bool got_cmd,
-                                            const bool got_auxiliary,
                                             const rclcpp::Time& latest_motion_mode_time,
                                             const rclcpp::Time& latest_cmd_time,
                                             const rclcpp::Time& latest_auxiliary_time);

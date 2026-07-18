@@ -128,7 +128,7 @@ void RoverController::timerCb()
         latest_auxiliary_time = latest_auxiliary_time_;
     }
 
-    bool messages_fresh = safetyCheckTimestamp(stale_msg_s_, got_motion_mode, got_cmd, got_auxiliary, latest_motion_mode_time, latest_cmd_time, latest_auxiliary_time);
+    bool messages_fresh = safetyCheckTimestamp(stale_msg_s_, got_motion_mode, got_cmd, latest_motion_mode_time, latest_cmd_time, latest_auxiliary_time);
 
     ActuatorTargets targets;
     if (messages_fresh)
@@ -164,7 +164,6 @@ void RoverController::timerCb()
 bool RoverController::safetyCheckTimestamp(const int stale_msg_s,
                                            const bool got_motion_mode,
                                            const bool got_cmd,
-                                           const bool got_auxiliary,
                                            const rclcpp::Time& latest_motion_mode_time,
                                            const rclcpp::Time& latest_cmd_time,
                                            const rclcpp::Time& latest_auxiliary_time)
@@ -174,11 +173,11 @@ bool RoverController::safetyCheckTimestamp(const int stale_msg_s,
     double throttle_rate_ms = 1000;
 
     // Fail check if first message has not yet been received
-    if (!(got_motion_mode && got_cmd && got_auxiliary))
+    if (!(got_motion_mode && got_cmd))
     {
         RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), throttle_rate_ms,
-            "Skipping: Waiting for first message: motion_mode=%d cmd=%d auxiliary=%d", 
-            got_motion_mode, got_cmd, got_auxiliary);
+            "Skipping: Waiting for first message: motion_mode=%d cmd=%d", 
+            got_motion_mode, got_cmd);
 
         enable_motors_ = false;
         estop_ = true;
@@ -204,7 +203,6 @@ bool RoverController::safetyCheckTimestamp(const int stale_msg_s,
     {
         RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), throttle_rate_ms,
             "Skipping: Stale auxiliary data detected: %.3fs", (now - latest_auxiliary_time).seconds());
-        all_messages_fresh = false;
     }
 
     enable_motors_ = all_messages_fresh;
