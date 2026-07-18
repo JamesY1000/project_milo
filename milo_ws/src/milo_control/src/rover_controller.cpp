@@ -15,7 +15,6 @@ RoverController::RoverController() : Node("rover_controller")
 
     got_motion_mode_ = false;
     got_cmd_ = false;
-    got_auxiliary_ = false;
 
     latest_motion_mode_time_ = this->now();
     latest_cmd_time_ = this->now();
@@ -100,9 +99,7 @@ void RoverController::cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedP
 {
     std::lock_guard<std::mutex> lock(data_mutex_);
     latest_auxiliary_ = *msg;
-    latest_auxiliary_time_ = this->now();
-    got_auxiliary_ = true;
-}
+    latest_auxiliary_time_ = this->now();}
 
 void RoverController::timerCb()
 {
@@ -114,12 +111,10 @@ void RoverController::timerCb()
     rclcpp::Time latest_auxiliary_time;
     bool got_motion_mode = false;
     bool got_cmd = false;
-    bool got_auxiliary = false;
     {
         std::lock_guard<std::mutex> lock(data_mutex_);
         got_motion_mode = got_motion_mode_;
         got_cmd = got_cmd_;
-        got_auxiliary = got_auxiliary_;
         latest_motion_mode = latest_motion_mode_;
         latest_cmd = latest_cmd_;
         latest_auxiliary = latest_auxiliary_;

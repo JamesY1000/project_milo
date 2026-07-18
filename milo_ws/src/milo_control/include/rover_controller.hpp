@@ -87,7 +87,6 @@ private:
     // Startup/initialisation flags to avoid false freshness
     bool got_motion_mode_;
     bool got_cmd_;
-    bool got_auxiliary_;
 };
 
 #endif // ROVER_CONTROLLER__ROVER_CONTROLLER_HPP_
