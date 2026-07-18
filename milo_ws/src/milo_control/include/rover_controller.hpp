@@ -45,10 +45,13 @@ private:
     void cbCmd(const geometry_msgs::msg::Twist::SharedPtr msg);
     void cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedPtr msg);
     void timerCb();
-    bool safetyCheckTimestamp(const int stale_msg_s, 
-                                const rclcpp::Time& latest_motion_mode_time, 
-                                const rclcpp::Time& latest_cmd_time, 
-                                const rclcpp::Time& latest_auxiliary_time);
+    bool safetyCheckTimestamp(const int stale_msg_s,
+                                            const bool got_motion_mode,
+                                            const bool got_cmd,
+                                            const bool got_auxiliary,
+                                            const rclcpp::Time& latest_motion_mode_time,
+                                            const rclcpp::Time& latest_cmd_time,
+                                            const rclcpp::Time& latest_auxiliary_time);
     ActuatorTargets computeActuatorTargets(const geometry_msgs::msg::Twist& cmd, 
                                             const std_msgs::msg::UInt8& motion_mode);
 
@@ -81,6 +84,11 @@ private:
     double track_width_;
     double max_linear_speed_;
     double max_steer_angle_;
+
+    // Startup/initialisation flags to avoid false freshness
+    bool got_motion_mode_;
+    bool got_cmd_;
+    bool got_auxiliary_;
 };
 
 #endif // ROVER_CONTROLLER__ROVER_CONTROLLER_HPP_

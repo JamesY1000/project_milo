@@ -13,6 +13,10 @@ RoverController::RoverController() : Node("rover_controller")
     getParams();
     setupPubSubs();
 
+    got_motion_mode_ = false;
+    got_cmd_ = false;
+    got_auxiliary_ = false;
+
     latest_motion_mode_time_ = this->now();
     latest_cmd_time_ = this->now();
     latest_auxiliary_time_ = this->now();
@@ -81,6 +85,7 @@ void RoverController::cbMotionMode(const std_msgs::msg::UInt8::SharedPtr msg)
     std::lock_guard<std::mutex> lock(data_mutex_);
     latest_motion_mode_ = *msg;
     latest_motion_mode_time_ = this->now();
+    got_motion_mode_ = true;
 }
 
 void RoverController::cbCmd(const geometry_msgs::msg::Twist::SharedPtr msg)
@@ -88,6 +93,7 @@ void RoverController::cbCmd(const geometry_msgs::msg::Twist::SharedPtr msg)
     std::lock_guard<std::mutex> lock(data_mutex_);
     latest_cmd_ = *msg;
     latest_cmd_time_ = this->now();
+    got_cmd_ = true;
 }
 
 void RoverController::cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedPtr msg)
@@ -95,6 +101,7 @@ void RoverController::cbAuxiliary(const milo_interfaces::msg::Auxiliary::SharedP
     std::lock_guard<std::mutex> lock(data_mutex_);
     latest_auxiliary_ = *msg;
     latest_auxiliary_time_ = this->now();
+    got_auxiliary_ = true;
 }
 
 void RoverController::timerCb()
@@ -105,9 +112,14 @@ void RoverController::timerCb()
     rclcpp::Time latest_motion_mode_time;
     rclcpp::Time latest_cmd_time;
     rclcpp::Time latest_auxiliary_time;
-
+    bool got_motion_mode = false;
+    bool got_cmd = false;
+    bool got_auxiliary = false;
     {
         std::lock_guard<std::mutex> lock(data_mutex_);
+        got_motion_mode = got_motion_mode_;
+        got_cmd = got_cmd_;
+        got_auxiliary = got_auxiliary_;
         latest_motion_mode = latest_motion_mode_;
         latest_cmd = latest_cmd_;
         latest_auxiliary = latest_auxiliary_;
@@ -116,7 +128,7 @@ void RoverController::timerCb()
         latest_auxiliary_time = latest_auxiliary_time_;
     }
 
-    bool messages_fresh = safetyCheckTimestamp(stale_msg_s_, latest_motion_mode_time, latest_cmd_time, latest_auxiliary_time);
+    bool messages_fresh = safetyCheckTimestamp(stale_msg_s_, got_motion_mode, got_cmd, got_auxiliary, latest_motion_mode_time, latest_cmd_time, latest_auxiliary_time);
 
     ActuatorTargets targets;
     if (messages_fresh)
@@ -150,6 +162,9 @@ void RoverController::timerCb()
 }
 
 bool RoverController::safetyCheckTimestamp(const int stale_msg_s,
+                                           const bool got_motion_mode,
+                                           const bool got_cmd,
+                                           const bool got_auxiliary,
                                            const rclcpp::Time& latest_motion_mode_time,
                                            const rclcpp::Time& latest_cmd_time,
                                            const rclcpp::Time& latest_auxiliary_time)
@@ -158,6 +173,19 @@ bool RoverController::safetyCheckTimestamp(const int stale_msg_s,
     bool all_messages_fresh = true;
     double throttle_rate_ms = 1000;
 
+    // Fail check if first message has not yet been received
+    if (!(got_motion_mode && got_cmd && got_auxiliary))
+    {
+        RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), throttle_rate_ms,
+            "Skipping: Waiting for first message: motion_mode=%d cmd=%d auxiliary=%d", 
+            got_motion_mode, got_cmd, got_auxiliary);
+
+        enable_motors_ = false;
+        estop_ = true;
+        return false;
+    }
+
+    // Fail checks for stale msgs
     if ((now - latest_motion_mode_time).seconds() > stale_msg_s)
     {
         RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), throttle_rate_ms,
