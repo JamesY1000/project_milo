@@ -40,6 +40,7 @@ private:
 
     // TODO (james): Future methods for serialising payload and writing back to sbc
 
+    // TODO (james): Move these to config.hpp
     // CRC constants
     static constexpr uint8_t sync1_ = 0xAA; // Sync bits 0XAA55
     static constexpr uint8_t sync2_ = 0x55;
