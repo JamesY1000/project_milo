@@ -1,4 +1,5 @@
 #include "serial_manager.hpp"
+#include "command_manager.hpp"
 #include "RoverCommand.pb.h"
 
 // Order of responsibilities:
@@ -13,8 +14,10 @@
 
 
 SerialManager serial_manager;
-RoverCommand latest_cmd = RoverCommand_init_zero;
+CommandManager command_manager;
+// Sensor manager>
 
+RoverCommand latest_cmd = RoverCommand_init_zero;
 
 
 void loop()
@@ -25,7 +28,8 @@ void loop()
 
     if (serial_manager.consumeLatestCommand(latest_cmd))
     {
-        // Store local_cmd in local targets - make a call and pass through latest_cmd to motor_manager
+        // Pass latest command to command manager
+        command_manager.applyRoverCommand(latest_cmd);
     }
 
 }
