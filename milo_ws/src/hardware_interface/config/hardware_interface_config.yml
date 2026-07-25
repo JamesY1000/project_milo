@@ -12,7 +12,7 @@ milo:
 serial_bridge_node:
   ros__parameters:
     device_name: /dev/ttyACM0
-    baud_rate: 1000000
+    baud_rate: 115200
     flow_control: none # none/hardware/software
     parity: none # none/odd/even
     stop_bits: "1" # 1/1.5/2
