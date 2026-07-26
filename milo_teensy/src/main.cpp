@@ -2,12 +2,19 @@
 #include "control_manager.hpp"
 #include "RoverCommand.pb.h"
 
+// Create instances of manager classes
 SerialManager serial_manager;
 ControlManager control_manager;
 // Sensor manager>
 
 RoverCommand latest_cmd = RoverCommand_init_zero;
 
+void setup()
+{
+    Serial.begin(115200);
+    control_manager.begin();
+
+}
 
 void loop()
 {
