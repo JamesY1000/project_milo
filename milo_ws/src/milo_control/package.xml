@@ -3,7 +3,7 @@
 <package format="3">
   <name>milo_control</name>
   <version>0.0.0</version>
-  <description>Examples of ros2 cpp and py package</description>
+  <description>Handle control of milo using playstation 4 controller</description>
   <maintainer email="jamesyuan1000@gmail.com">root</maintainer>
   <license>TODO: License declaration</license>
 
@@ -11,10 +11,10 @@
   <buildtool_depend>ament_cmake_python</buildtool_depend>
 
   <depend>rclcpp</depend>
-  <depend>rclpy</depend>
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>milo_interfaces</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

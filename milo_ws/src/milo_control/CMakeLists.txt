@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 project(milo_control)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -9,10 +9,10 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(milo_interfaces REQUIRED)
 
 # Include the 'include' directory
 include_directories(include)
@@ -25,25 +25,28 @@ install(DIRECTORY
 
 # Create executables
 add_executable(controller_teleop_node src/controller_teleop.cpp)
-ament_target_dependencies(controller_teleop_node 
-  rclcpp 
-  std_msgs
-  sensor_msgs
-  geometry_msgs
-  )
-
-# Install cpp executables
-install(TARGETS 
-  controller_teleop_node 
-  DESTINATION lib/${PROJECT_NAME}
+target_link_libraries(controller_teleop_node
+  PRIVATE
+  rclcpp::rclcpp
+  ${std_msgs_TARGETS}
+  ${sensor_msgs_TARGETS}
+  ${geometry_msgs_TARGETS}
+  ${milo_interfaces_TARGETS}
 )
 
-# Install python modules
-ament_python_install_package(${PROJECT_NAME})
+add_executable(rover_controller_node src/rover_controller.cpp)
+target_link_libraries(rover_controller_node
+  PRIVATE
+  rclcpp::rclcpp
+  ${std_msgs_TARGETS}
+  ${geometry_msgs_TARGETS}
+  ${milo_interfaces_TARGETS}
+)
 
-# Install python executables
-install(PROGRAMS
-  scripts/ps4_teleop_node.py
+# Install cpp executables
+install(TARGETS
+  controller_teleop_node
+  rover_controller_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

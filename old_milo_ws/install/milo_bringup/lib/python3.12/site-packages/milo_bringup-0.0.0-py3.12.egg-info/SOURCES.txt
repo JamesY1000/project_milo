@@ -1,6 +1,0 @@
-setup.py
-milo_bringup/__init__.py
-milo_bringup.egg-info/PKG-INFO
-milo_bringup.egg-info/SOURCES.txt
-milo_bringup.egg-info/dependency_links.txt
-milo_bringup.egg-info/top_level.txt

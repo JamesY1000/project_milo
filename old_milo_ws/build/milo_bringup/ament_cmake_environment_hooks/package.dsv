@@ -1,4 +1,0 @@
-source;share/milo_bringup/local_setup.bash
-source;share/milo_bringup/local_setup.dsv
-source;share/milo_bringup/local_setup.sh
-source;share/milo_bringup/local_setup.zsh

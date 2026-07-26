@@ -10,6 +10,8 @@ ENV NVIDIA_DRIVER_CAPABILITIES=graphics
 ENV QT_X11_NO_MITSHM=1
 ENV EDITOR=nano
 ENV XDG_RUNTIME_DIR=/tmp
+# ROS doesn't recognize the docker shells as terminals so force colored output
+ENV RCUTILS_COLORIZED_OUTPUT=1
 
 # install ros2 packages
 RUN apt-get update && apt-get install -y --no-install-recommends \

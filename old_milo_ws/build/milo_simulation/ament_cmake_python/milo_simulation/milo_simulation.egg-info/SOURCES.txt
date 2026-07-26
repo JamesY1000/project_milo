@@ -1,6 +1,0 @@
-setup.py
-milo_simulation/__init__.py
-milo_simulation.egg-info/PKG-INFO
-milo_simulation.egg-info/SOURCES.txt
-milo_simulation.egg-info/dependency_links.txt
-milo_simulation.egg-info/top_level.txt

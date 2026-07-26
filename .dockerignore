@@ -1,0 +1,10 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+milo_ws/build/
+milo_ws/install/
+milo_ws/log/
+
+.vscode/

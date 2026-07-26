@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message RoverCommand
+{
+    // Timestamp
+    google.protobuf.Timestamp stamp = 1;
+    uint32 sequence = 2;
+
+    // Drive commands [-1, 1]
+    float wheel_fl = 3;
+    float wheel_ml = 4;
+    float wheel_rl = 5;
+    float wheel_fr = 6;
+    float wheel_mr = 7;
+    float wheel_rr = 8;
+
+    // Steer commands [rads]
+    float steer_fl = 9;
+    float steer_rl = 10;
+    float steer_fr = 11;
+    float steer_rr = 12;
+
+    // Auxiliary
+    bool headlights_on = 13;
+    bool led_strip_on = 14;
+
+    // Safety
+    bool enable_motors = 15;
+    bool estop = 16;
+}

@@ -1,0 +1,12 @@
+{
+    "cmake.sourceDirectory": "/home/james/git/project_milo/old_milo_ws/src/simulation/milo_simulation",
+    "ROS2.distro": "lyrical",
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/lyrical/opt/gz_math_vendor/lib/python",
+        "/opt/ros/lyrical/lib/python3.14/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/lyrical/opt/gz_math_vendor/lib/python",
+        "/opt/ros/lyrical/lib/python3.14/site-packages"
+    ]
+}
